@@ -9,6 +9,7 @@
 </template>
 
 <script setup lang="ts">
+  let editor: any;
   const URL: string = '/api/test-new-post';
   const findURL: string = '/api/test_find_post_data';
 
