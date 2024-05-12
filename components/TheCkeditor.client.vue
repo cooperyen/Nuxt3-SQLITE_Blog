@@ -6,9 +6,10 @@
       :config="editorConfig">
     </ckeditor>
   </div>
+  <div v-html="editorData"></div>
 </template>
 
-<script setup>
+<script setup lang="ts">
   import CKEditor from '@ckeditor/ckeditor5-vue';
   import { ClassicEditor } from '@ckeditor/ckeditor5-editor-classic';
   import {
@@ -27,8 +28,8 @@
   import { Paragraph } from '@ckeditor/ckeditor5-paragraph';
   import { Essentials } from '@ckeditor/ckeditor5-essentials';
 
-  const ckeditor = defineComponent(CKEditor.component);
-  const editorData = ref('content of the editor');
+  const ckeditor: any = defineComponent(CKEditor.component);
+  const editorData: Ref<string> = ref('content of the editor');
   const editorConfig = {
     placeholder: 'type the content here',
     plugins: [
@@ -74,4 +75,11 @@
       addTargetToExternalLinks: true,
     },
   };
+
+  const emit = defineEmits(['editorData']);
+
+  watch(editorData, () => {
+    console.log('object');
+    emit('editorData', editorData);
+  });
 </script>

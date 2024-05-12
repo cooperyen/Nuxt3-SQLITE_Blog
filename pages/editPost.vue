@@ -1,26 +1,28 @@
 <template>
   <main>
     <!-- <NewPost></NewPost> -->
-    <TheCkeditor></TheCkeditor>
+    <TheCkeditor @editorData="editorData"></TheCkeditor>
 
-    <div>data :{{ data }}</div>
-    <div>error : {{ error }}</div>
+    {{ nums }}
   </main>
 </template>
 
 <script setup lang="ts">
-  let editor: any;
   const URL: string = '/api/test-new-post';
   const findURL: string = '/api/test_find_post_data';
 
-  const nums = ref(1);
+  const nums: Ref<string> = ref('');
 
-  const { data, pending, error } = await useFetch(findURL, {
-    params: { blog: nums },
-  });
+  // const { data, pending, error } = await useFetch(findURL, {
+  //   params: { blog: nums },
+  // });
 
   onBeforeMount(() => {});
   onMounted(() => {});
+
+  function editorData(el: any) {
+    nums.value = el;
+  }
 </script>
 
 <style lang="scss">

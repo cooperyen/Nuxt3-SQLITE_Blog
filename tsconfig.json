@@ -22,6 +22,8 @@
     "**/*" // 讀得到 ref
   ],
   "exclude": [ // 指定排除的文件
-    "node_modules"
+    "node_modules",
+    "server/tsconfig.json" // This is what fixed it
   ]
+  
 }
