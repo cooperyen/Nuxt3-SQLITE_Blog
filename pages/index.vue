@@ -13,7 +13,4 @@
   const { data, pending, error, refresh } = await useFetch(postsUrl, {
     query: { postNum: nums },
   });
-
-  onBeforeMount(() => {});
-  onMounted(async () => {});
 </script>

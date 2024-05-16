@@ -1,12 +1,9 @@
 <template>
-  <div>
-    <ckeditor
-      :editor="ClassicEditor"
-      v-model="editorData"
-      :config="editorConfig">
-    </ckeditor>
-  </div>
-  <div v-html="editorData"></div>
+  <ckeditor
+    :editor="ClassicEditor"
+    v-model="editorData"
+    :config="editorConfig">
+  </ckeditor>
 </template>
 
 <script setup lang="ts">
@@ -27,11 +24,23 @@
   import { Link } from '@ckeditor/ckeditor5-link';
   import { Paragraph } from '@ckeditor/ckeditor5-paragraph';
   import { Essentials } from '@ckeditor/ckeditor5-essentials';
+  import { Image, ImageUpload } from '@ckeditor/ckeditor5-image';
+  import { SimpleUploadAdapter } from '@ckeditor/ckeditor5-upload';
 
   const ckeditor: any = defineComponent(CKEditor.component);
-  const editorData: Ref<string> = ref('content of the editor');
+  const props = defineProps(['data']);
+  const route = useRoute();
+  const editorData: Ref<string> = props.data
+    ? ref(props.data)
+    : ref('<p>scontent of the editor</p>');
+
+  const emit = defineEmits(['update:editorData']);
+
   const editorConfig = {
     placeholder: 'type the content here',
+    simpleUpload: {
+      uploadUrl: `/api/testUploadImg?id=${route.params.id}`,
+    },
     plugins: [
       FontSize,
       FontFamily,
@@ -44,6 +53,9 @@
       Link,
       Paragraph,
       Essentials,
+      Image,
+      ImageUpload,
+      SimpleUploadAdapter,
     ],
     toolbar: {
       items: [
@@ -62,6 +74,7 @@
         'undo',
         'redo',
         '|',
+        'Imageupload',
       ],
       // RWD 自動換行
       shouldNotGroupWhenFull: true,
@@ -74,12 +87,22 @@
       // 點擊連結另起新分頁
       addTargetToExternalLinks: true,
     },
+    image: {
+      toolbar: [
+        'imageTextAlternative',
+        'toggleImageCaption',
+        'imageStyle:inline',
+        'imageStyle:block',
+        'imageStyle:side',
+      ],
+    },
   };
 
-  const emit = defineEmits(['editorData']);
+  onBeforeMount(() => {
+    emit('update:editorData', editorData.value);
+  });
 
   watch(editorData, () => {
-    console.log('object');
-    emit('editorData', editorData);
+    emit('update:editorData', editorData.value);
   });
 </script>
