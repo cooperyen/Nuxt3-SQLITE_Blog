@@ -1,13 +1,15 @@
 <template>
-  <h1>123</h1>
   <article v-if="data">
-    {{ data }}
-    <div id="title">
-      <h1 class="text-4xl font-bold">{{ data.title }}</h1>
-      <h2 class="text-xl mt-4">{{ data.subtitle }}</h2>
-    </div>
-    <div v-html="data.content"></div>
-    <SeparatorLine />
+    <UILayoutAlignCenter class="max-w-3xl justify-center mt-10 px-5">
+      <div
+        id="title"
+        class="text-center">
+        <h1 class="text-4xl font-bold">{{ data.title }}</h1>
+        <h2 class="text-xl mt-4">{{ data.subtitle }}</h2>
+      </div>
+      <SeparatorLine class="mt-5" />
+      <div v-html="data.content"></div>
+    </UILayoutAlignCenter>
   </article>
 </template>
 

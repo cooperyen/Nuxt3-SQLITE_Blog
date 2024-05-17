@@ -17,14 +17,23 @@
   } from '@ckeditor/ckeditor5-font';
   import {
     Bold,
+    Code,
     Italic,
-    Underline,
     Strikethrough,
+    Subscript,
+    Superscript,
+    Underline,
   } from '@ckeditor/ckeditor5-basic-styles';
+
   import { Link } from '@ckeditor/ckeditor5-link';
   import { Paragraph } from '@ckeditor/ckeditor5-paragraph';
   import { Essentials } from '@ckeditor/ckeditor5-essentials';
-  import { Image, ImageUpload } from '@ckeditor/ckeditor5-image';
+  import {
+    Image,
+    ImageUpload,
+    ImageStyleEditing,
+    ImageUploadEditing,
+  } from '@ckeditor/ckeditor5-image';
   import { SimpleUploadAdapter } from '@ckeditor/ckeditor5-upload';
 
   const ckeditor: any = defineComponent(CKEditor.component);

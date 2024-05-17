@@ -76,9 +76,6 @@
   onBeforeMount(() => {
     if (!datas.value) router.push('/');
   });
-  onMounted(() => {
-    // console.log(data);
-  });
 
   function check(el: object) {
     items.value = el;
