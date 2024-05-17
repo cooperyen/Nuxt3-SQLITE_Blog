@@ -1,5 +1,5 @@
 <template>
-  <main class="pr-3 pl-3 mr-auto ml-auto max-w-5xl">
+  <main class="pr-3 pl-3 mr-auto ml-auto max-w-3xl">
     <template v-if="datas">
       <!-- option content -->
       <div class="flex mt-4 border-b pb-3 w-full max-sm:flex-wrap">
@@ -109,5 +109,8 @@
 <style lang="scss">
   h1 {
     color: $primary;
+  }
+  a {
+    color: #779ac7;
   }
 </style>

@@ -14,3 +14,21 @@
     query: { postNum: nums },
   });
 </script>
+
+<style lang="scss">
+  ol {
+    list-style-type: circle;
+  }
+  ul {
+    list-style-type: disc;
+  }
+  ul,
+  ol {
+    display: block;
+    margin-top: 1em;
+    margin-bottom: 1 em;
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 40px;
+  }
+</style>

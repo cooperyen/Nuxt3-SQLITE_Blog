@@ -6,12 +6,13 @@ const prismaClient = new PrismaClient();
 export default defineEventHandler(async (event) => {
   try {
     const body = await readBody(event);
+    const content = body.content.replace(/<img /g, '<img class="m-auto" ');
     const data = await prismaClient.post.update({
       where: { id: body.id },
       data: {
         title: body.title,
         subtitle: body.subtitle,
-        content: body.content,
+        content: content,
         sort: body.sort,
         publish: body.publish,
       },

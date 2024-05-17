@@ -1,5 +1,5 @@
 <template>
-  <main class="pr-3 pl-3 mr-auto ml-auto max-w-5xl">
+  <main class="pr-3 pl-3 mr-auto ml-auto max-w-3xl">
     <div class="flex mt-4 border-b pb-3 w-full max-sm:flex-wrap">
       <div class="w-full content-center">
         <p>

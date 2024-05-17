@@ -9,6 +9,7 @@
 <script setup lang="ts">
   import CKEditor from '@ckeditor/ckeditor5-vue';
   import { ClassicEditor } from '@ckeditor/ckeditor5-editor-classic';
+  import { Alignment } from '@ckeditor/ckeditor5-alignment';
   import {
     FontSize,
     FontFamily,
@@ -17,24 +18,17 @@
   } from '@ckeditor/ckeditor5-font';
   import {
     Bold,
-    Code,
     Italic,
     Strikethrough,
-    Subscript,
-    Superscript,
     Underline,
   } from '@ckeditor/ckeditor5-basic-styles';
 
   import { Link } from '@ckeditor/ckeditor5-link';
   import { Paragraph } from '@ckeditor/ckeditor5-paragraph';
   import { Essentials } from '@ckeditor/ckeditor5-essentials';
-  import {
-    Image,
-    ImageUpload,
-    ImageStyleEditing,
-    ImageUploadEditing,
-  } from '@ckeditor/ckeditor5-image';
+  import { Image, ImageUpload } from '@ckeditor/ckeditor5-image';
   import { SimpleUploadAdapter } from '@ckeditor/ckeditor5-upload';
+  import { ListProperties } from '@ckeditor/ckeditor5-list';
 
   const ckeditor: any = defineComponent(CKEditor.component);
   const props = defineProps(['data']);
@@ -65,6 +59,8 @@
       Image,
       ImageUpload,
       SimpleUploadAdapter,
+      Alignment,
+      ListProperties,
     ],
     toolbar: {
       items: [
@@ -84,6 +80,9 @@
         'redo',
         '|',
         'Imageupload',
+        'Alignment',
+        'bulletedList',
+        'numberedList',
       ],
       // RWD 自動換行
       shouldNotGroupWhenFull: true,
@@ -115,3 +114,9 @@
     emit('update:editorData', editorData.value);
   });
 </script>
+
+<style lang="scss" scoped>
+  :deep(a) {
+    color: #779ac7;
+  }
+</style>

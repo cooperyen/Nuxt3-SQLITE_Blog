@@ -14,11 +14,29 @@
 </template>
 
 <script setup lang="ts">
+  import { type DirectiveBinding } from 'vue';
   const postsUrl: string = '/api/test_find_post_data';
   const route = useRoute();
   const { data, pending, error } = await useFetch<any>(postsUrl, {
     query: { id: route.params.id },
   });
+
+  const vShadowHtml = {
+    mounted: (el: HTMLElement, binding: DirectiveBinding) => {
+      let shadow: ShadowRoot | null = el.shadowRoot;
+      if (shadow == null) {
+        shadow = el.attachShadow({ mode: 'open' });
+      }
+      shadow.innerHTML = binding.value;
+    },
+    updated: (el: HTMLElement, binding: DirectiveBinding) => {
+      let shadow: ShadowRoot | null = el.shadowRoot;
+      if (shadow == null) {
+        shadow = el.attachShadow({ mode: 'open' });
+      }
+      shadow.innerHTML = binding.value;
+    },
+  };
 
   onBeforeMount(() => {
     if (!data.value) back();
@@ -28,3 +46,12 @@
     await navigateTo('/');
   }
 </script>
+
+<style lang="scss" scoped>
+  img {
+    margin: auto;
+  }
+  :deep(a) {
+    color: #779ac7;
+  }
+</style>
