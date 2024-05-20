@@ -54,6 +54,7 @@
       uploadUrl: `/api/testUploadImg?id=${route.params.id}`,
     },
     plugins: [
+      ImageCaption,
       FontSize,
       FontFamily,
       FontColor,
@@ -111,6 +112,9 @@
     link: {
       // 點擊連結另起新分頁
       addTargetToExternalLinks: true,
+    },
+    styles: {
+      options: ['inline', 'alignLeft', 'alignRight'],
     },
     image: {
       toolbar: [

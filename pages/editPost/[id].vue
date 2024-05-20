@@ -83,7 +83,7 @@
 
   async function update() {
     // let posts : Array<Provider>;
-    const url: string = '/api/postUpdate';
+    const url: string = '/api/testUploadImg';
     const posts: object | any = await $fetch(url, {
       method: 'POST',
       body: {

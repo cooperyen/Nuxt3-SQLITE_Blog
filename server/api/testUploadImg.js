@@ -40,6 +40,7 @@ export default defineEventHandler(async (event) => {
  * @param {import('http').IncomingMessage} req
  */
 function doSomethingWithNodeRequest(req) {
+  console.log(req);
   return new Promise((resolve, reject) => {
     /** @see https://github.com/node-formidable/formidable/ */
     const form = formidable({ multiples: true });
