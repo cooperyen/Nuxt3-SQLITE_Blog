@@ -26,7 +26,16 @@
   import { Link } from '@ckeditor/ckeditor5-link';
   import { Paragraph } from '@ckeditor/ckeditor5-paragraph';
   import { Essentials } from '@ckeditor/ckeditor5-essentials';
-  import { Image, ImageUpload } from '@ckeditor/ckeditor5-image';
+  import {
+    Image,
+    ImageUpload,
+    ImageTextAlternativeEditing,
+    ImageTextAlternativeUI,
+    ImageTextAlternative,
+    ImageStyle,
+    ImageCaption,
+    ImageToolbar,
+  } from '@ckeditor/ckeditor5-image';
   import { SimpleUploadAdapter } from '@ckeditor/ckeditor5-upload';
   import { ListProperties } from '@ckeditor/ckeditor5-list';
 
@@ -45,6 +54,7 @@
       uploadUrl: `/api/testUploadImg?id=${route.params.id}`,
     },
     plugins: [
+      ImageCaption,
       FontSize,
       FontFamily,
       FontColor,
@@ -61,6 +71,11 @@
       SimpleUploadAdapter,
       Alignment,
       ListProperties,
+      ImageTextAlternativeEditing,
+      ImageTextAlternativeUI,
+      ImageStyle,
+      ImageTextAlternative,
+      ImageToolbar,
     ],
     toolbar: {
       items: [
@@ -95,14 +110,11 @@
       // 點擊連結另起新分頁
       addTargetToExternalLinks: true,
     },
+    styles: {
+      options: ['inline', 'alignLeft', 'alignRight'],
+    },
     image: {
-      toolbar: [
-        'imageTextAlternative',
-        'toggleImageCaption',
-        'imageStyle:inline',
-        'imageStyle:block',
-        'imageStyle:side',
-      ],
+      toolbar: ['imageTextAlternative'],
     },
   };
 
