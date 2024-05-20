@@ -13,6 +13,7 @@
   const { data, pending, error, refresh } = await useFetch(postsUrl, {
     query: { postNum: nums },
   });
+  console.log(data.value);
 </script>
 
 <style lang="scss">
@@ -26,7 +27,7 @@
   ol {
     display: block;
     margin-top: 1em;
-    margin-bottom: 1 em;
+    margin-bottom: 1em;
     margin-left: 0;
     margin-right: 0;
     padding-left: 40px;

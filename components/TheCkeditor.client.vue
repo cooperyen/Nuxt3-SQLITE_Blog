@@ -16,6 +16,7 @@
     FontColor,
     FontBackgroundColor,
   } from '@ckeditor/ckeditor5-font';
+  import { Heading } from '@ckeditor/ckeditor5-heading';
   import {
     Bold,
     Italic,
@@ -26,7 +27,15 @@
   import { Link } from '@ckeditor/ckeditor5-link';
   import { Paragraph } from '@ckeditor/ckeditor5-paragraph';
   import { Essentials } from '@ckeditor/ckeditor5-essentials';
-  import { Image, ImageUpload } from '@ckeditor/ckeditor5-image';
+  import {
+    Image,
+    ImageUpload,
+    ImageTextAlternative,
+    ImageToolbar,
+    ImageCaption,
+    ImageStyle,
+    ImageResize,
+  } from '@ckeditor/ckeditor5-image';
   import { SimpleUploadAdapter } from '@ckeditor/ckeditor5-upload';
   import { ListProperties } from '@ckeditor/ckeditor5-list';
 
@@ -61,9 +70,16 @@
       SimpleUploadAdapter,
       Alignment,
       ListProperties,
+      ImageTextAlternative,
+      ImageToolbar,
+      ImageCaption,
+      ImageStyle,
+      ImageResize,
+      Heading,
     ],
     toolbar: {
       items: [
+        'heading',
         'fontSize',
         'fontFamily',
         'fontColor',
@@ -87,6 +103,7 @@
       // RWD 自動換行
       shouldNotGroupWhenFull: true,
     },
+
     fontSize: {
       // 自訂義字級選項
       options: [12, 14, 16, 18, 20, 24, 28, 30, 32],
@@ -97,7 +114,7 @@
     },
     image: {
       toolbar: [
-        'imageTextAlternative',
+        'ImageTextAlternative',
         'toggleImageCaption',
         'imageStyle:inline',
         'imageStyle:block',
@@ -114,9 +131,3 @@
     emit('update:editorData', editorData.value);
   });
 </script>
-
-<style lang="scss" scoped>
-  :deep(a) {
-    color: #779ac7;
-  }
-</style>

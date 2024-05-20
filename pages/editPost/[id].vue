@@ -105,12 +105,3 @@
   //   await navigateTo('/');
   // }
 </script>
-
-<style lang="scss">
-  h1 {
-    color: $primary;
-  }
-  a {
-    color: #779ac7;
-  }
-</style>

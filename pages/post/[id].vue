@@ -8,7 +8,9 @@
         <h2 class="text-xl mt-4">{{ data.subtitle }}</h2>
       </div>
       <SeparatorLine class="mt-5" />
-      <div v-html="data.content"></div>
+      <div
+        v-html="data.content"
+        class="ck-content"></div>
     </UILayoutAlignCenter>
   </article>
 </template>
@@ -48,10 +50,5 @@
 </script>
 
 <style lang="scss" scoped>
-  img {
-    margin: auto;
-  }
-  :deep(a) {
-    color: #779ac7;
-  }
+  @import './../../assets/scss/ckeditor.scss';
 </style>
