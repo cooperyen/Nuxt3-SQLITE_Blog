@@ -20,53 +20,58 @@
           @input="emit('items', items)" />
       </div>
     </div>
-    <div>
-      <input
-        type="file"
-        id="banner"
-        name="img"
-        ref="file"
-        @change="banner"
-        accept="image/*" />
+    <div class="mt-10 mb-10 pb-10 border-b">
+      <div class="mb-5">
+        <input
+          class="w-0"
+          type="file"
+          id="banner"
+          name="img"
+          ref="file"
+          style="visibility: hidden"
+          @change="banner"
+          accept="image/*" />
+
+        <label
+          class="rounded-md border-2 p-1 cursor-pointer"
+          for="banner"
+          >Select file</label
+        >
+      </div>
+      <div>
+        <img
+          class="max-w-xs"
+          :src="props.defaultBannerImg" />
+      </div>
     </div>
   </div>
-  {{ imageFile }}
-  {{ imageUrl }}
 </template>
 
 <script setup lang="ts">
-  const props = defineProps(['title', 'subtitle', 'sort']);
+  const props = defineProps(['title', 'subtitle', 'sort', 'defaultBannerImg']);
   // const banner: Ref<string> = ref('');
   const items: Ref<Object> = ref({
     title: props.title ? props.title : '',
     subtitle: props.subtitle ? props.subtitle : '',
     sort: props.sort ? props.sort : '',
   });
-  const emit = defineEmits(['items']);
-  const imageFile: Ref<any> = ref('');
-  const imageUrl: Ref<any> = ref('');
+  const emit = defineEmits([
+    'items',
+    'update:image',
+    'update:defaultBannerImg',
+  ]);
+
+  const imageUrl: Ref<string> = ref('');
 
   async function banner(e: any) {
     if (!e.target.files.length) return;
-    const url: string = '/api/uploadBannerImg';
-    imageFile.value = e.target.files[0];
-    console.log(e.target.files[0]);
     let reader = new FileReader();
-    reader.readAsDataURL(imageFile.value);
+    reader.readAsDataURL(e.target.files[0]);
     reader.onload = async (es: any) => {
-      imageUrl.value = es.target.result;
-
-      const posts: object = await $fetch(url, {
-        method: 'POST',
-        body: {
-          i: imageUrl.value,
-        },
-      });
+      // imageUrl.value = es.target.result;
+      emit('update:defaultBannerImg', es.target.result);
+      emit('update:image', e.target.files[0]);
     };
-    // console.log(el.target.files[0]);
-    // const x = window.URL.createObjectURL(el.target.files[0]);
-    // const formDate = new FormData();
-    // formDate.append('file-to-upload', el.target.files[0]);
   }
 
   onBeforeMount(() => {

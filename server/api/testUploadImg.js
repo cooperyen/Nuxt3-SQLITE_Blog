@@ -10,7 +10,7 @@ export default defineEventHandler(async (event) => {
 
   const query = getQuery(event);
 
-  const body = await doSomethingWithNodeRequest(event.node.req);
+  const body = await doSomethingWithNodeRequest(nodeRequestObject);
   const file = body.upload[0];
   const fix = file.originalFilename.split('.').at(-1);
 
@@ -40,7 +40,6 @@ export default defineEventHandler(async (event) => {
  * @param {import('http').IncomingMessage} req
  */
 function doSomethingWithNodeRequest(req) {
-  console.log(req);
   return new Promise((resolve, reject) => {
     /** @see https://github.com/node-formidable/formidable/ */
     const form = formidable({ multiples: true });

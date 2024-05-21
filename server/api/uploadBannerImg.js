@@ -7,32 +7,79 @@ const prismaClient = new PrismaClient();
 
 export default defineEventHandler(async (event) => {
   const body = await readBody(event);
-  const img = body.i;
+  const img = body.base64;
+
+  const imgType = img.replace(/^data:image\//, '');
+  const imgType_ = imgType.replace(/.base64.*$/, '');
+
   const base64Data = img.replace(/^data:image\/\w+;base64,/, '');
   const dateBuffer = Buffer.from(base64Data, 'base64');
-  console.log(dateBuffer);
-  // const fix = file.originalFilename.split('.').at(-1);
 
-  // fs.readFile(file.filepath, (err, data) => {
-  //   if (
-  //     !fs.existsSync(
-  //       path.resolve('public/postImg/0330f7a6-b44b-4d1e-b943-3b1bd314263/a')
-  //     )
-  //   ) {
-  //     fs.mkdirSync(
-  //       path.resolve('public/postImg/0330f7a6-b44b-4d1e-b943-3b1bd314263/a'),
-  //       {
-  //         recursive: true, // 创建目录，如果父级目录不存在则创建
+  function emptyDir(filePath) {
+    fs.readdir(filePath, (err, files) => {
+      files.forEach((file) => {
+        const fileSpath = `${filePath}/${file}`;
+        const stats = fs.statSync(fileSpath);
+        if (stats.isDirectory()) emptyDir(fileSpath);
+        else {
+          fs.unlinkSync(fileSpath);
+          console.log(`delete ${file}`);
+        }
+      });
+
+      writeFile(filePath);
+    });
+  }
+
+  function writeFile(filePath) {
+    fs.writeFile(
+      path.resolve(`${filePath}/banner.${imgType_}`),
+      dateBuffer,
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+
+  fs.readFile(
+    'public/postImg/0330f7a6-b44b-4d1e-b943-3b1bd314263a/banner',
+    async (err, data) => {
+      if (
+        !fs.existsSync(
+          path.resolve(
+            `public/postImg/0330f7a6-b44b-4d1e-b943-3b1bd314263a/banner`
+          )
+        )
+      ) {
+        fs.mkdirSync(
+          path.resolve(
+            `public/postImg/0330f7a6-b44b-4d1e-b943-3b1bd314263a/banner`
+          ),
+          {
+            recursive: true, // 创建目录，如果父级目录不存在则创建
+          }
+        );
+      }
+
+      emptyDir('public/postImg/0330f7a6-b44b-4d1e-b943-3b1bd314263a/banner');
+    }
+  );
+
+  // fs.unlink(
+  //   `public/postImg/0330f7a6-b44b-4d1e-b943-3b1bd314263a/banner`,
+  //   (err) => {
+  //     if (err) console.log(err);
+  //     fs.writeFile(
+  //       path.resolve(
+  //         `public/postImg/0330f7a6-b44b-4d1e-b943-3b1bd314263a/banner/banner.${imgType_}`
+  //       ),
+  //       dateBuffer,
+  //       (err) => {
+  //         console.log(err);
   //       }
   //     );
   //   }
-  fs.writeFile(
-    path.resolve(`public/postImg/0330f7a6-b44b-4d1e-b943-3b1bd314263a/a`),
-    dateBuffer,
-    (err) => {
-      console.log(err);
-    }
-  );
+  // );
 });
 
 // return {
