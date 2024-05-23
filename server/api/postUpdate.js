@@ -24,6 +24,7 @@ export default defineEventHandler(async (event) => {
       activeFiles: findImgName(body.content),
       id: body.id,
     });
+
     return {
       state: 'ok',
       id: data.id,

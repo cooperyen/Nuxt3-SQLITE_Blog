@@ -12,8 +12,10 @@
   const nums: Ref<number> = ref(10);
   const { data, pending, error, refresh } = await useFetch(postsUrl, {
     query: { postNum: nums },
+    lazy: true,
+    immediate: true,
   });
-  console.log(data.value);
+  console.log('index/' + data.value);
 </script>
 
 <style lang="scss">

@@ -1,4 +1,5 @@
 <template>
+  {{ props.data }}
   <template
     v-for="blog in props.data"
     :key="blog">
@@ -42,17 +43,17 @@
   const bannerImg: Ref<any> = ref({});
   const defaultBannerImg: string = '/postImg/default_banner.jpg';
 
-  watch(
-    props.data,
-    (el) => {
-      el.forEach(async (element: any) => {
-        const id = element.id;
-        const path = await findBanner(element.id);
-        bannerImg.value[id] = path;
-      });
-    },
-    { immediate: true }
-  );
+  // watch(
+  //   props.data,
+  //   (el) => {
+  //     el.forEach(async (element: any) => {
+  //       const id = element.id;
+  //       const path = await findBanner(element.id);
+  //       bannerImg.value[id] = path;
+  //     });
+  //   },
+  //   { immediate: true }
+  // );
 
   async function findBanner(id: string) {
     const res: string = await $fetch('/api/findBannerImg', {
