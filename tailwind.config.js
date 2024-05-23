@@ -17,6 +17,7 @@ module.exports = {
       },
       colors: {
         'main-gray': '#ededed',
+        mian_color: '#0891b2',
       },
     },
   },

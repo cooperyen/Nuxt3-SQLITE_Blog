@@ -12,16 +12,19 @@
       </div>
       <!-- time -->
       <div class="text-sm mb-5 mt-3 italic text-gray-500">
-        發表於 {{ getTiem(blog.createdAt) }}
+        發表於 {{ getTime(blog.createdAt) }}
       </div>
       <!-- img -->
       <div id="banner">
-        <img
+        <nuxt-img
+          class="w-full"
+          fit="inside"
           :src="
-            bannerImg[blog.id] != 'fail'
-              ? bannerImg[blog.id]
-              : '/postImg/default_banner.jpg'
-          " />
+            bannerImg[blog.id] === 'fail'
+              ? defaultBannerImg
+              : bannerImg[blog.id]
+          "
+          loading="lazy" />
       </div>
       <!-- direct to -->
       <div class="mb-5 mt-5">
@@ -37,13 +40,7 @@
   const props = defineProps(['data']);
 
   const bannerImg: Ref<any> = ref({});
-  const defaultBannerImg: Ref<string> = ref('');
-
-  // function getBanner(data: any) {
-  //   data.forEach((element: any) => {
-  //     bannerImg.value.push({ id: element.id, path: findBanner(element.id) });
-  //   });
-  // }
+  const defaultBannerImg: string = '/postImg/default_banner.jpg';
 
   watch(
     props.data,
@@ -65,7 +62,7 @@
     return res;
   }
 
-  function getTiem(el: string) {
+  function getTime(el: string) {
     let res: any = '';
     const time = new Date(el);
     res = `${time.getDate()}/${time.getMonth() + 1}/${time.getFullYear()}`;
