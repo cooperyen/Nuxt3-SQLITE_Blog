@@ -1,5 +1,4 @@
 <template>
-  {{ props.data }}
   <template
     v-for="blog in props.data"
     :key="blog">
@@ -20,11 +19,7 @@
         <nuxt-img
           class="w-full"
           fit="inside"
-          :src="
-            bannerImg[blog.id] === 'fail'
-              ? defaultBannerImg
-              : bannerImg[blog.id]
-          "
+          :src="imgs([blog.id])"
           loading="lazy" />
       </div>
       <!-- direct to -->
@@ -33,7 +28,6 @@
       </div>
     </div>
   </template>
-  {{ bannerImg }}
 </template>
 
 <script setup lang="ts">
@@ -43,20 +37,26 @@
   const bannerImg: Ref<any> = ref({});
   const defaultBannerImg: string = '/postImg/default_banner.jpg';
 
-  // watch(
-  //   props.data,
-  //   (el) => {
-  //     el.forEach(async (element: any) => {
-  //       const id = element.id;
-  //       const path = await findBanner(element.id);
-  //       bannerImg.value[id] = path;
-  //     });
-  //   },
-  //   { immediate: true }
-  // );
+  function imgs(el: any) {
+    const res = bannerImg.value[el];
+    if (res === 'fail' || res === undefined) return defaultBannerImg;
+    else return res;
+  }
+
+  watch(
+    props.data,
+    (el) => {
+      el.forEach(async (element: any) => {
+        const id = element.id;
+        const path = await findBanner(element.id);
+        bannerImg.value[id] = path;
+      });
+    },
+    { immediate: true }
+  );
 
   async function findBanner(id: string) {
-    const res: string = await $fetch('/api/findBannerImg', {
+    const res = await $fetch('/api/findBannerImg', {
       method: 'POST',
       body: { id },
     });

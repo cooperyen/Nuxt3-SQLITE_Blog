@@ -33,8 +33,8 @@
           :subtitle="datas.subtitle"
           :sort="datas.sort"
           :defaultBannerImg="defaultBannerImg"
-          @update:image="(el) => (bannerImg = el)"
-          @update:defaultBannerImg="(el) => (defaultBannerImg = el)"
+          @update:image="(el:string) => (bannerImg = el)"
+          @update:defaultBannerImg="(el:string) => (defaultBannerImg = el)"
           @items="check"></EditPostForm>
 
         <!-- styling content -->
@@ -49,6 +49,8 @@
 </template>
 
 <script setup lang="ts">
+  import EditPostForm from '~/components/admin/editPostForm.vue';
+
   const router = useRouter();
   const route = useRoute();
   const postsUrl: string = '/api/findPostData';
@@ -132,7 +134,7 @@
   }
 
   onBeforeMount(() => {
-    dsaads();
+    // dsaads();
     if (!datas.value) router.push('/');
   });
 

@@ -2,6 +2,7 @@ import ckeditor5 from '@ckeditor/vite-plugin-ckeditor5';
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  ssr: true,
   devtools: { enabled: false },
   typescript: {
     typeCheck: true,
@@ -47,5 +48,11 @@ export default defineNuxtConfig({
   },
   build: {
     transpile: ['@fortawesome/vue-fontawesome'],
+  },
+  image: {
+    provider: 'twicpics',
+    twicpics: {
+      baseURL: '/',
+    },
   },
 });
