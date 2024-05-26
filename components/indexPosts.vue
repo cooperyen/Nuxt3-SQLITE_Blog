@@ -16,17 +16,17 @@
       </div>
       <!-- img -->
       <div id="banner">
-        <nuxt-img
-          class="w-full"
-          fit="inside"
-          :src="imgs([blog.id])"
-          loading="lazy" />
+        <BannerHander
+          :data="data"
+          :postId="blog.id"></BannerHander>
       </div>
       <!-- direct to -->
       <div class="mb-5 mt-5">
         <NuxtLink :to="`/post/${blog.id}`">閱讀全文</NuxtLink>
       </div>
     </div>
+
+    <!-- {{ bannerImg }} -->
   </template>
 </template>
 
@@ -35,33 +35,40 @@
   const props = defineProps(['data']);
 
   const bannerImg: Ref<any> = ref({});
-  const defaultBannerImg: string = '/postImg/default_banner.jpg';
 
-  function imgs(el: any) {
-    const res = bannerImg.value[el];
-    if (res === 'fail' || res === undefined) return defaultBannerImg;
-    else return res;
+  function ims(el: any) {
+    console.log(el);
+    // bannerImg.value = el;
   }
+  // const defaultBannerImg: string = '/postImg/default_banner.jpg';
 
-  watch(
-    props.data,
-    (el) => {
-      el.forEach(async (element: any) => {
-        const id = element.id;
-        const path = await findBanner(element.id);
-        bannerImg.value[id] = path;
-      });
-    },
-    { immediate: true }
-  );
+  // function imgs(el: any) {
+  //   const res = bannerImg.value[el];
+  //   if (res === 'fail' || res === undefined) return defaultBannerImg;
+  //   else return res;
+  // }
 
-  async function findBanner(id: string) {
-    const res = await $fetch('/api/findBannerImg', {
-      method: 'POST',
-      body: { id },
-    });
-    return res;
-  }
+  // watch(
+  //   () => props.data,
+  //   (el: Array<any>) => {
+  //     if (el != null) {
+  //       el.forEach(async (element: any) => {
+  //         const id = element.id;
+  //         const path = await findBanner(element.id);
+  //         bannerImg.value[id] = path;
+  //       });
+  //     }
+  //   },
+  //   { immediate: true, deep: true }
+  // );
+
+  // async function findBanner(id: string) {
+  //   const res = await $fetch('/api/findBannerImg', {
+  //     method: 'POST',
+  //     body: { id },
+  //   });
+  //   return res;
+  // }
 
   function getTime(el: string) {
     let res: any = '';

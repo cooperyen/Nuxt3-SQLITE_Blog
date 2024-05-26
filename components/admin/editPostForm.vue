@@ -59,16 +59,23 @@
         >
       </div>
       <div>
-        <img
+        <BannerHander
           class="max-w-xs"
-          :src="props.defaultBannerImg" />
+          :postId="props.postId"></BannerHander>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-  const props = defineProps(['title', 'subtitle', 'sort', 'defaultBannerImg']);
+  const props = defineProps([
+    'title',
+    'subtitle',
+    'sort',
+    'defaultBannerImg',
+    'postId',
+    'data',
+  ]);
   // const banner: Ref<string> = ref('');
 
   interface Provider {

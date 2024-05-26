@@ -2,12 +2,8 @@
   <section class="mt-20">
     <div class="flex">
       <div
-        class="px-2 border-b border-gray-300 py-2"
-        :class="{
-          'w-1/4': title.en === 'create' || title.en === 'title',
-          'w-2/4': title.en === 'publish',
-          'w-1/2': title.en === 'id',
-        }"
+        class="px-5 border-b border-gray-300 py-2"
+        :class="trSize(title)"
         v-for="(title, indxe) in titles"
         :key="indxe">
         <p>{{ title.en }}</p>
@@ -17,20 +13,34 @@
       class="flex border-b border-gray-300 py-2"
       v-for="(post, index) in postList"
       :key="index">
-      <div class="w-1/2 px-2">
-        <p>{{ post.id }}</p>
+      <!-- banner -->
+      <div class="w-1/5 px-5 py-3">
+        <BannerHander
+          class=""
+          :postId="post.id"></BannerHander>
       </div>
-      <div class="w-1/4 px-2">
-        <p>{{ post.title }}</p>
+      <!-- title -->
+      <div class="xl:w-1/2 w-1/3 px-5 flex items-center">
+        <NuxtLink
+          class="text-mian_color"
+          :to="'/admin/editpost/' + post.id"
+          >{{ post.title }}</NuxtLink
+        >
       </div>
-      <div class="w-1/4 px-2">
+      <!-- time -->
+      <div class="xl:w-1/4 w-1/5 px-5 flex items-center">
         <p>{{ getTime(post.createdAt) }}</p>
       </div>
-      <div class="w-2/4 px-2">
+      <!-- publish -->
+      <div class="xl:w-1/4 w-1/5 px-5 flex items-center">
         <UISwitchBTN
           :status="post.publish"
           :disabled="true">
         </UISwitchBTN>
+      </div>
+      <!-- time -->
+      <div class="w-1/5 px-5 flex items-center">
+        <p>刪除</p>
       </div>
     </div>
   </section>
@@ -41,7 +51,12 @@
   const nums: Ref<number> = ref(10);
 
   interface postType {
-    post: { title: string; createdAt: string; publish: boolean; id: string };
+    post: {
+      title: string;
+      createdAt: string;
+      publish: boolean;
+      id: string;
+    };
   }
   const {
     data: postList,
@@ -55,11 +70,38 @@
   });
 
   const titles = [
-    { ch: 'id', en: 'id' },
-    { ch: '文章抬頭', en: 'title' },
-    { ch: '建立日期', en: 'create' },
-    { ch: '發布', en: 'publish' },
+    { ch: '首圖', en: 'Banner' },
+    { ch: '文章抬頭', en: 'Title' },
+    { ch: '建立日期', en: 'Create' },
+    { ch: '發布', en: 'Publish' },
+    { ch: '', en: '' },
   ];
+
+  interface trSize {
+    ch: string;
+    en: string;
+  }
+  function trSize(el: trSize) {
+    let res;
+    switch (el.en.toLowerCase()) {
+      case 'banner':
+        res = 'w-1/5';
+        break;
+      case 'id':
+        res = 'xl:w-1/3 w-1/4';
+        break;
+      case 'title':
+        res = 'xl:w-1/2 w-1/3';
+        break;
+      case '':
+        res = 'w-1/5';
+        break;
+      default:
+        res = 'xl:w-1/4 w-1/5';
+    }
+
+    return res;
+  }
 
   function getTime(el: string) {
     let res: any = '';

@@ -10,6 +10,7 @@
 <script setup lang="ts">
   const postsUrl: string = '/api/post/shortPostFullList';
   const nums: Ref<number> = ref(10);
+
   const { data, pending, error, refresh } = await useFetch(postsUrl, {
     query: { postNum: nums },
     lazy: true,

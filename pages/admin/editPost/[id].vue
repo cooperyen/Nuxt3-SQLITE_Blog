@@ -1,13 +1,12 @@
 <template>
-  <main class="pr-3 pl-3 mr-auto ml-auto max-w-4xl">
+  <main class="mt-10 pr-3 pl-3 mr-auto ml-auto max-w-4xl">
     <UILayoutAlignCenter>
       <template v-if="datas">
         <!-- option content -->
         <div class="flex mt-4 border-b pb-3 w-full max-sm:flex-wrap">
           <div class="w-full content-center">
             <p>
-              To avoid data loss, make sure to save your data before leaving the
-              page.
+              {{ description }}
             </p>
           </div>
           <div class="justify-end w-full flex max-sm:mt-4">
@@ -33,6 +32,7 @@
           :subtitle="datas.subtitle"
           :sort="datas.sort"
           :defaultBannerImg="defaultBannerImg"
+          :postId="postId"
           @update:image="(el:string) => (bannerImg = el)"
           @update:defaultBannerImg="(el:string) => (defaultBannerImg = el)"
           @items="check"></EditPostForm>
@@ -51,11 +51,19 @@
 <script setup lang="ts">
   import EditPostForm from '~/components/admin/editPostForm.vue';
 
+  definePageMeta({
+    layout: 'admin',
+  });
+
+  const description =
+    'To avoid data loss, make sure to save your data before leaving the page.';
+
   const router = useRouter();
   const route = useRoute();
   const postsUrl: string = '/api/findPostData';
+  const postId: string | string[] = route.params.id;
   const { data, pending, error } = await useFetch<any>(postsUrl, {
-    query: { id: route.params.id },
+    query: { id: postId },
   });
 
   const datas = computed(() => {
