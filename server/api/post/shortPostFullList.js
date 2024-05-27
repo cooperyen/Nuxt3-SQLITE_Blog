@@ -7,6 +7,9 @@ export default defineEventHandler(async (event) => {
 
   const posts = await prismaClient.post.findMany({
     take: Number(query.postNum),
+    where: {
+      publish: true,
+    },
   });
 
   return posts;

@@ -10,9 +10,11 @@
         <h2 class="font-bold text-3xl mb-1">{{ blog.title }}</h2>
         <h3 class="text-xl mt-2 text-gray-600">{{ blog.subtitle }}</h3>
       </div>
-      <!-- time -->
-      <div class="text-sm mb-5 mt-3 italic text-gray-500">
-        發表於 {{ getTime(blog.createdAt) }}
+      <!-- Sort and time -->
+      <div class="text-sm mb-5 mt-3 text-gray-500">
+        <PostSortTimeHandler
+          :sort="blog.sort"
+          :time="blog.createdAt"></PostSortTimeHandler>
       </div>
       <!-- img -->
       <div id="banner">
@@ -31,53 +33,5 @@
 </template>
 
 <script setup lang="ts">
-  const route = useRoute();
   const props = defineProps(['data']);
-
-  const bannerImg: Ref<any> = ref({});
-
-  function ims(el: any) {
-    console.log(el);
-    // bannerImg.value = el;
-  }
-  // const defaultBannerImg: string = '/postImg/default_banner.jpg';
-
-  // function imgs(el: any) {
-  //   const res = bannerImg.value[el];
-  //   if (res === 'fail' || res === undefined) return defaultBannerImg;
-  //   else return res;
-  // }
-
-  // watch(
-  //   () => props.data,
-  //   (el: Array<any>) => {
-  //     if (el != null) {
-  //       el.forEach(async (element: any) => {
-  //         const id = element.id;
-  //         const path = await findBanner(element.id);
-  //         bannerImg.value[id] = path;
-  //       });
-  //     }
-  //   },
-  //   { immediate: true, deep: true }
-  // );
-
-  // async function findBanner(id: string) {
-  //   const res = await $fetch('/api/findBannerImg', {
-  //     method: 'POST',
-  //     body: { id },
-  //   });
-  //   return res;
-  // }
-
-  function getTime(el: string) {
-    let res: any = '';
-    const time = new Date(el);
-    res = `${time.getDate()}/${time.getMonth() + 1}/${time.getFullYear()}`;
-    return res;
-  }
-
-  onBeforeMount(() => {
-    // getBanner(props.data);
-  });
 </script>

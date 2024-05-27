@@ -1,4 +1,4 @@
-@tailwind base;
+/* @tailwind base;
 @layer base { 
   h1 { 
     @apply text-[#313131]; 
@@ -9,4 +9,15 @@
 }
 @tailwind components;
 @tailwind utilities;
+ */
 
+ 
+#search_result::-webkit-scrollbar-thumb {
+  background: hsl(26, 45%, 63%);
+
+  /* border-rargb(161, 27, 27): 5px; */
+}
+
+#search_result::-webkit-scrollbar {
+  width: 10px;
+}
