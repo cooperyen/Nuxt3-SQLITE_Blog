@@ -29,7 +29,7 @@
       </div>
       <!-- time -->
       <div class="xl:w-1/4 w-1/5 px-5 flex items-center">
-        <p>{{ getTime(post.createdAt) }}</p>
+        <p>{{ $sortDate(post.createdAt) }}</p>
       </div>
       <!-- publish -->
       <div class="xl:w-1/4 w-1/5 px-5 flex items-center">
@@ -100,15 +100,6 @@
         res = 'xl:w-1/4 w-1/5';
     }
 
-    return res;
-  }
-
-  function getTime(el: string) {
-    let res: any = '';
-    const time = new Date(el);
-    res = `${time.getDate()}/${
-      time.getMonth() + 1
-    }/${time.getFullYear()} ${time.getHours()}:${time.getMinutes()}`;
     return res;
   }
 </script>

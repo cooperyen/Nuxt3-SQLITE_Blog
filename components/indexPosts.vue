@@ -4,7 +4,7 @@
     :key="blog">
     <div
       v-if="blog.publish"
-      class="ml-5 mr-5 mb-5 mt-5 border-b border-b-gray-500 border-opacity-30">
+      class="ml-5 mr-5 mb-5 mt-5 pb-7 border-b border-b-gray-500 border-opacity-30">
       <!-- title -->
       <div class="mb-2">
         <h2 class="font-bold text-3xl mb-1">{{ blog.title }}</h2>
@@ -24,7 +24,13 @@
       </div>
       <!-- direct to -->
       <div class="mb-5 mt-5">
-        <NuxtLink :to="`/post/${blog.id}`">閱讀全文</NuxtLink>
+        <div class="w-40 text-lg mx-auto text-center rounded-md">
+          <NuxtLink
+            :to="`/post/${blog.id}`"
+            class="border lg:hover:border-blue-900 lg:hover:bg-blue-900 lg:hover:text-white ease-in duration-200 px-3 py-1 rounded-md"
+            >閱讀全文</NuxtLink
+          >
+        </div>
       </div>
     </div>
 

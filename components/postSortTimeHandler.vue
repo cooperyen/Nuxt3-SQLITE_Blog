@@ -2,7 +2,7 @@
   <!-- time -->
   <div class="text-base mt-3 flex items-center text-gray-500">
     <div><font-awesome-icon :icon="['fas', 'calendar-days']" /></div>
-    <p class="pl-2.5">{{ getTime(props.time) }}</p>
+    <p class="pl-2.5">{{ $sortDate(props.time) }}</p>
   </div>
   <!-- sort -->
   <div class="mt-1 text-base items-center flex text-gray-500">
@@ -22,11 +22,4 @@
 
 <script setup lang="ts">
   const props = defineProps(['sort', 'time']);
-
-  function getTime(el: string) {
-    let res: any = '';
-    const time = new Date(el);
-    res = `${time.getDate()}/${time.getMonth() + 1}/${time.getFullYear()}`;
-    return res;
-  }
 </script>

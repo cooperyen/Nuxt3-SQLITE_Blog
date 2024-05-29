@@ -17,6 +17,8 @@ module.exports = {
       },
       colors: {
         'main-gray': '#ededed',
+        'light-gray': 'rgb(235,235,235)',
+        tag: 'rgb(228 238 243)',
         mian_color: '#0891b2',
       },
     },

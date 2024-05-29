@@ -49,10 +49,7 @@
 
   async function create() {
     const url: string = '/api/test-new-post';
-    console.log({
-      ...items.value,
-      content: content.value,
-    });
+
     const posts: object | any = await $fetch(url, {
       method: 'POST',
       body: {
@@ -64,9 +61,3 @@
     if (posts.state === 'fail') alert('save fail');
   }
 </script>
-
-<style lang="scss">
-  h1 {
-    color: $primary;
-  }
-</style>

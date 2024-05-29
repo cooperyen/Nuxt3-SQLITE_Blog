@@ -26,32 +26,50 @@
 
   <!-- search content -->
   <div
-    v-if="showSearch"
+    v-show="showSearch"
     id="search_result"
-    class="z-30 backdrop-blur-sm bg-gray-200/70 fixed w-full h-full lef-0 top-0">
+    class="z-30 backdrop-blur-sm bg-gray-400/70 fixed w-full h-full lef-0 top-0">
     <!-- content -->
     <div
-      class="max-w-xl bg-white fixed left-1/2 -translate-x-1/2 top-32 w-full min-h-48">
+      class="bg-white w-[calc(100%_-_40px)] md:max-w-3xl fixed left-1/2 -translate-x-1/2 md:top-32 top-5 min-h-48 rounded-lg">
       <!-- search area -->
-      <div>
-        <input
-          id="post_search"
-          class="w-full text-sm placeholder:text-slate-600 bg-main-gray focus:outline-none"
-          type="text"
-          v-model="ss"
-          autocomplete="off"
-          placeholder="Search" />
+      <div class="flex">
+        <!-- content -->
+        <div
+          class="flex my-5 ml-5 w-full rounded-lg py-1.5 mr-10 bg-light-gray">
+          <div class="pl-3 pr-1.5">
+            <font-awesome-icon :icon="['fas', 'magnifying-glass']" />
+          </div>
+          <div class="w-full">
+            <input
+              id="post_search"
+              class="text-sm w-full placeholder:text-slate-600 bg-light-gray focus:outline-none"
+              type="text"
+              v-model="ss"
+              autocomplete="off"
+              placeholder="Search" />
+          </div>
+        </div>
+        <!-- close -->
+        <div class="w-14 flex items-center">
+          <font-awesome-icon
+            @click="switchSearch"
+            class="text-2xl w-full cursor-pointer"
+            :icon="['fas', 'circle-xmark']" />
+        </div>
       </div>
       <!-- search resault -->
-      <div class="px-10">
+      <div class="px-2 md:px-5 max-md:px-4">
         <div
-          class="content py-3 last:pb-8"
+          class="last:border-b-0 border-b py-3 last:pb-5"
           v-for="i in searchRes"
           :key="i">
           <NuxtLink :to="'post/' + i.id">
-            <div class="items">
-              <p>{{ i.title }}</p>
-              <span>{{ i.createdAt }}</span>
+            <div>
+              <span class="bg-tag rounded-lg px-1 mb-2 text-xs">
+                {{ $sortDate(i.createdAt) }}
+              </span>
+              <p class="px-1 font-bold mt-1">{{ i.title }}</p>
             </div>
           </NuxtLink>
         </div>
