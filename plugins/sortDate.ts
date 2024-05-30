@@ -1,5 +1,5 @@
 function getTime(el: string) {
-  let res: any = '';
+  let res: string = '';
   const time = new Date(el);
   res = `${time.getFullYear()}/${
     time.getMonth() + 1

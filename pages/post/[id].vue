@@ -1,7 +1,6 @@
 <template>
-  <AppHeader />
   <article v-if="data">
-    <UILayoutAlignCenter class="justify-center mt-10 px-5">
+    <UILayoutAlignCenter class="justify-center">
       <div
         id="title"
         class="">

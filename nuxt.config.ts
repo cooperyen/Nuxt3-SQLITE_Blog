@@ -8,7 +8,13 @@ export default defineNuxtConfig({
     typeCheck: true,
   },
 
-  modules: ['@nuxtjs/tailwindcss', '@nuxtjs/google-fonts', '@nuxt/image'],
+  modules: [
+    '@nuxtjs/tailwindcss',
+    '@nuxtjs/google-fonts',
+    '@nuxt/image',
+    '@pinia/nuxt',
+  ],
+
   googleFonts: {
     families: {
       'Noto+Sans+TC': {

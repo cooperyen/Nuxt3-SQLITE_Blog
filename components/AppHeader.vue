@@ -45,7 +45,7 @@
               id="post_search"
               class="text-sm w-full placeholder:text-slate-600 bg-light-gray focus:outline-none"
               type="text"
-              v-model="ss"
+              v-model="searchInput"
               autocomplete="off"
               placeholder="Search" />
           </div>
@@ -62,14 +62,14 @@
       <div class="px-2 md:px-5 max-md:px-4">
         <div
           class="last:border-b-0 border-b py-3 last:pb-5"
-          v-for="i in searchRes"
-          :key="i">
-          <NuxtLink :to="'post/' + i.id">
+          v-for="(target, index) in searchRes"
+          :key="index">
+          <NuxtLink :to="'/post/' + target.id">
             <div>
               <span class="bg-tag rounded-lg px-1 mb-2 text-xs">
-                {{ $sortDate(i.createdAt) }}
+                {{ $sortDate(target.createdAt) }}
               </span>
-              <p class="px-1 font-bold mt-1">{{ i.title }}</p>
+              <p class="px-1 font-bold mt-1">{{ target.title }}</p>
             </div>
           </NuxtLink>
         </div>
@@ -79,12 +79,21 @@
 </template>
 
 <script setup lang="ts">
-  const ss: Ref<string> = ref('');
-
+  const router = useRoute();
   const postsUrl: string = '/api/post/shortPostFullList';
   const nums: Ref<number> = ref(10);
+  const searchInput: Ref<string> = ref('');
   const showSearch: Ref<boolean> = ref(false);
   const emit = defineEmits(['update:showSearch']);
+
+  watch(
+    () => router.path,
+    () => {
+      showSearch.value = false;
+      searchInput.value = '';
+      emit('update:showSearch', showSearch.value);
+    }
+  );
 
   const {
     data: post,
@@ -100,17 +109,17 @@
   interface list {
     title: string;
     createdAt: string;
-    content: string;
+    content?: string | any;
     id: string;
   }
 
   const searchRes = computed(() => {
-    let res: any[] = [];
-    const target = ss.value;
+    let res: Array<list> = [];
+    const target = searchInput.value;
 
-    if (target.length >= 2)
+    if (target.length > 2)
       post.value.forEach((element: list) => {
-        const data = {
+        const data: list = {
           title: element.title,
           createdAt: element.createdAt,
           id: element.id,

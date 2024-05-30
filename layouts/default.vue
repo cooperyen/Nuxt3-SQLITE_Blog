@@ -1,6 +1,15 @@
 <template>
-  <slot></slot>
+  <AppHeader @update:showSearch="(el:boolean) => (showSearch = el)" />
+  <div
+    class="mt-14 px-5"
+    :class="{ 'overflow-y-auto h-[calc(100vh_-_5rem)]': showSearch }">
+    <slot></slot>
+  </div>
 </template>
+
+<script setup lang="ts">
+  const showSearch: Ref<boolean> = ref(false);
+</script>
 
 <style lang="scss">
   @import '@/assets/scss/_default.scss';
