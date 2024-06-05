@@ -40,15 +40,65 @@
       </div>
       <!-- time -->
       <div class="w-1/5 px-5 flex items-center">
-        <p>刪除</p>
+        <p
+          class="cursor-pointer"
+          @click="checkDeleteFun(post)">
+          刪除
+        </p>
       </div>
     </div>
+
+    <!-- delete confirm -->
+    <UILayoutTopLevelContent v-if="deletePostStatus">
+      <div class="">
+        <strong class="text-2xl">確定要刪除 {{ deletePostTitle }} ?</strong>
+        <p class="mt-2">一旦刪除將無法恢復，如確定請勾選同意</p>
+      </div>
+      <div>
+        <input
+          type="checkbox"
+          v-model="checked" />
+        <label>同意</label>
+      </div>
+      <div class="flex w-full justify-center mt-5">
+        <UILayoutAnswerBTN>
+          <template
+            v-if="checked"
+            #submit
+            ><span
+              class="text-white"
+              @click="deletePostFun"
+              >確定</span
+            >
+          </template>
+
+          <template
+            v-else
+            #disable
+            >確定
+          </template>
+
+          <template #cancel>
+            <span
+              @click="resetDeleteValue"
+              class="text-white"
+              >取消</span
+            >
+          </template>
+        </UILayoutAnswerBTN>
+      </div>
+    </UILayoutTopLevelContent>
   </section>
 </template>
 
 <script setup lang="ts">
   const postsUrl: string = '/api/post/browserPostList';
   const nums: Ref<number> = ref(10);
+  const deletePostStatus: Ref<boolean> = ref(false);
+  const deletePostTitle: Ref<string> = ref('');
+  const deletePostId: Ref<string> = ref('');
+  const checked: Ref<boolean> = ref(false);
+  const emit = defineEmits(['refresh']);
 
   interface postType {
     post: {
@@ -68,6 +118,32 @@
     lazy: true,
     immediate: true,
   });
+
+  function checkDeleteFun(post: postType['post']) {
+    deletePostStatus.value = true;
+    deletePostTitle.value = post.title;
+    deletePostId.value = post.id;
+  }
+
+  function resetDeleteValue() {
+    deletePostStatus.value = false;
+    deletePostTitle.value = '';
+    deletePostId.value = '';
+    checked.value = false;
+  }
+
+  async function deletePostFun() {
+    const posts: object | any = await $fetch('/api/post/deletePostData', {
+      method: 'POST',
+      query: {
+        id: deletePostId.value,
+      },
+    });
+
+    refresh();
+    if (posts) emit('refresh', posts);
+    resetDeleteValue();
+  }
 
   const titles = [
     { ch: '首圖', en: 'Banner' },
