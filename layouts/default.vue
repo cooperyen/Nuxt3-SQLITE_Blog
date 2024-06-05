@@ -11,6 +11,6 @@
   const showSearch: Ref<boolean> = ref(false);
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   @import '@/assets/scss/_default.scss';
 </style>

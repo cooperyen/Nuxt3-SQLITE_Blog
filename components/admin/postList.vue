@@ -1,5 +1,5 @@
 <template>
-  <section class="mt-20">
+  <section class="mt-10">
     <div class="flex">
       <div
         class="px-5 border-b border-gray-300 py-2"

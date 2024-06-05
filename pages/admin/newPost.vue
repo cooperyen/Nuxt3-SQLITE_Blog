@@ -2,10 +2,7 @@
   <main class="pr-3 pl-3 mr-auto ml-auto max-w-3xl">
     <div class="flex mt-4 border-b pb-3 w-full max-sm:flex-wrap">
       <div class="w-full content-center">
-        <p>
-          To avoid data loss, make sure to save your data before leaving the
-          page.
-        </p>
+        <p>Setting post information.</p>
       </div>
       <div class="justify-end w-full flex max-sm:mt-4">
         <UISubmitBTN
@@ -15,19 +12,21 @@
         >
       </div>
     </div>
-    <EditPostForm @items="check"></EditPostForm>
-    <UILayoutAlignCenter>
-      <TheCkeditor @update:editorData="editorData"></TheCkeditor>
-    </UILayoutAlignCenter>
-    {{ items }}
-    {{ content }}
+    <AdminEditPostForm
+      :warning="warning"
+      @update:warning="(e) => (warning = e)"
+      @update:postData="postData"></AdminEditPostForm>
   </main>
 </template>
 
 <script setup lang="ts">
+  definePageMeta({
+    layout: 'admin',
+  });
   const router = useRouter();
 
-  const content: Ref<string> = ref('<div></div>');
+  const warning: Ref<boolean> = ref(false);
+
   interface itemss {
     title?: string;
     subtitle?: string;
@@ -39,25 +38,24 @@
     sort: '',
   });
 
-  function editorData(el: string) {
-    content.value = el;
-  }
-
-  function check(event: object) {
+  function postData(event: object) {
     items.value = event;
   }
 
   async function create() {
-    const url: string = '/api/test-new-post';
+    if (!items.value.title || !items.value.subtitle) warning.value = true;
 
-    const posts: object | any = await $fetch(url, {
-      method: 'POST',
-      body: {
-        ...items.value,
-        content: content.value,
-      },
-    });
-    if (posts.state === 'ok') router.push(`/editpost/${posts.id}`);
-    if (posts.state === 'fail') alert('save fail');
+    // const url: string = '/api/test-new-post';
+    // const posts: object | any = await $fetch(url, {
+    //   method: 'POST',
+    //   body: {
+    //     ...items.value,
+    //   },
+    // });
+    // if (posts.state === 'ok')
+    //   setTimeout(() => {
+    //     router.replace(`/admin/editpost/${posts.id}`);
+    //   }, 1000);
+    // if (posts.state === 'fail') alert('save fail');
   }
 </script>

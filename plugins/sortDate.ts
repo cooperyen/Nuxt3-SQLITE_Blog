@@ -3,7 +3,9 @@ function getTime(el: string) {
   const time = new Date(el);
   res = `${time.getFullYear()}/${
     time.getMonth() + 1
-  }/${time.getDate()} ${time.getHours()}:${time.getMinutes()}`;
+  }/${time.getDate()} ${time.getHours()}:${
+    time.getMinutes() < 10 ? '0' + time.getMinutes() : time.getMinutes()
+  }`;
   return res;
 }
 

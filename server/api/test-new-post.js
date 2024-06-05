@@ -9,7 +9,6 @@ export default defineEventHandler(async (event) => {
       data: {
         title: body.title,
         subtitle: body.subtitle,
-        content: body.content,
         sort: body.sort,
       },
     });

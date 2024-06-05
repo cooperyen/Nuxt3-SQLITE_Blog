@@ -27,7 +27,7 @@
         </div>
 
         <!-- post option content -->
-        <EditPostForm
+        <AdminEditPostForm
           :title="datas.title"
           :subtitle="datas.subtitle"
           :sort="datas.sort"
@@ -35,7 +35,7 @@
           :postId="postId"
           @update:image="(el:string) => (bannerImg = el)"
           @update:defaultBannerImg="(el:string) => (defaultBannerImg = el)"
-          @items="check"></EditPostForm>
+          @update:postData="postData"></AdminEditPostForm>
 
         <!-- styling content -->
         <div class="mb-5 pb-5">
@@ -49,8 +49,6 @@
 </template>
 
 <script setup lang="ts">
-  import EditPostForm from '~/components/admin/editPostForm.vue';
-
   definePageMeta({
     layout: 'admin',
   });
@@ -101,7 +99,7 @@
     content.value = el;
   }
 
-  function check(el: object) {
+  function postData(el: object) {
     items.value = el;
   }
 

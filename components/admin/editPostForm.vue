@@ -4,31 +4,36 @@
     <!-- input items -->
     <div
       class="w-full mb-3"
-      v-for="(content, title) in items"
+      v-for="(content, title, index) in items"
       :key="title">
       <!-- item -->
-      <div class="mb-1">
-        <p>
-          {{ title }}
-        </p>
+      <div
+        class="mb-1"
+        v-if="title != 'sort' && props.postId != ''">
+        <p>{{ title }}</p>
       </div>
       <!-- input -->
       <div class="rounded-md">
         <template v-if="title != 'sort'">
           <input
+            :class="{ 'border-red-400': warning && items[title] === '' }"
             class="border-2 w-full rounded-md py-2 px-3"
             v-model="items[title]"
-            @input="emit('items', items)" />
+            @click="warning ? emit('update:warning', false) : ''"
+            @input="emit('update:postData', items)" />
         </template>
-        <template v-else>
+        <template v-else-if="props.postId">
           <div class="border-2 w-full rounded-md py-1 px-1 flex items-center">
             <ul class="flex px-1 m-0 text-center">
-              <li
-                class="list-none text-center rounded-md py-2 px-3 mr-3 bg-mian_color text-white"
+              <template
                 v-for="list in items[title].split(',')"
                 :key="list">
-                <p>{{ list }}</p>
-              </li>
+                <li
+                  class="list-none text-center rounded-md py-2 px-3 mr-3 bg-mian_color text-white"
+                  v-if="list">
+                  {{ list }}
+                </li>
+              </template>
             </ul>
             <input
               class="min-w-3 border-2 rounded-md py-2 px-2"
@@ -40,7 +45,9 @@
       </div>
     </div>
     <!--  -->
-    <div class="mt-10 mb-10 pb-10 border-b">
+    <div
+      v-if="props.postId"
+      class="mt-10 mb-10 pb-10 border-b">
       <div class="mb-5">
         <input
           class="w-0"
@@ -60,6 +67,7 @@
       </div>
       <div>
         <BannerHander
+          v-if="props.postId"
           class="max-w-xs"
           :postId="props.postId"></BannerHander>
       </div>
@@ -75,8 +83,8 @@
     'defaultBannerImg',
     'postId',
     'data',
+    'warning',
   ]);
-  // const banner: Ref<string> = ref('');
 
   interface Provider {
     title: string;
@@ -92,9 +100,10 @@
   const sorts: Ref<any> = ref('1');
 
   const emit = defineEmits([
-    'items',
+    'update:postData',
     'update:image',
     'update:defaultBannerImg',
+    'update:warning',
   ]);
 
   function addSort() {
@@ -105,7 +114,7 @@
       items.value.sort += `,${sorts.value[0].value}`;
       sorts.value[0].value = '';
 
-      emit('items', items.value);
+      emit('update:postData', items.value);
     }
   }
 
@@ -121,6 +130,6 @@
   }
 
   onBeforeMount(() => {
-    emit('items', items);
+    emit('update:postData', items);
   });
 </script>
