@@ -1,20 +1,26 @@
 <template>
   <nuxt-img
-    v-if="bannerImg"
     class="w-full"
     fit="inside"
-    :src="bannerImg"
+    :src="imss"
     loading="lazy" />
 </template>
 
 <script setup lang="ts">
   const props = defineProps<{
     postId: string;
+    tempImg?: string;
   }>();
 
   const emit = defineEmits(['update:banner']);
   const bannerImg: Ref<string> = ref('');
   const defaultBannerImg: string = '/postImg/default_banner.jpg';
+  const imss = computed(() => {
+    let res: string = '';
+    res = bannerImg.value || defaultBannerImg;
+    if (props.tempImg) res = props.tempImg;
+    return res;
+  });
 
   watch(
     () => props.postId,
@@ -28,6 +34,7 @@
 
   async function imgPath(el: any) {
     const path = await findBanner(el);
+    console.log(path);
     if (path != 'fail') bannerImg.value = path;
     if (path === 'fail') bannerImg.value = defaultBannerImg;
   }

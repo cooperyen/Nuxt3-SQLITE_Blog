@@ -8,6 +8,7 @@ const prismaClient = new PrismaClient();
 export default defineEventHandler(async (event) => {
   const body = await readBody(event);
   const img = body.base64;
+  const postId = body.postId;
 
   const imgType = img.replace(/^data:image\//, '');
   const imgType_ = imgType.replace(/.base64.*$/, '');
@@ -41,29 +42,15 @@ export default defineEventHandler(async (event) => {
     );
   }
 
-  fs.readFile(
-    'public/postImg/0330f7a6-b44b-4d1e-b943-3b1bd314263a/banner',
-    async (err, data) => {
-      if (
-        !fs.existsSync(
-          path.resolve(
-            `public/postImg/0330f7a6-b44b-4d1e-b943-3b1bd314263a/banner`
-          )
-        )
-      ) {
-        fs.mkdirSync(
-          path.resolve(
-            `public/postImg/0330f7a6-b44b-4d1e-b943-3b1bd314263a/banner`
-          ),
-          {
-            recursive: true, // 创建目录，如果父级目录不存在则创建
-          }
-        );
-      }
-
-      emptyDir('public/postImg/0330f7a6-b44b-4d1e-b943-3b1bd314263a/banner');
+  fs.readFile(`public/postImg/${postId}/banner`, async (err, data) => {
+    if (!fs.existsSync(path.resolve(`public/postImg/${postId}/banner`))) {
+      fs.mkdirSync(path.resolve(`public/postImg/${postId}/banner`), {
+        recursive: true, // 创建目录，如果父级目录不存在则创建
+      });
     }
-  );
+
+    emptyDir(`public/postImg/${postId}/banner`);
+  });
 
   // fs.unlink(
   //   `public/postImg/0330f7a6-b44b-4d1e-b943-3b1bd314263a/banner`,

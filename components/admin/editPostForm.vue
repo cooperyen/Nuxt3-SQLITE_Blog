@@ -66,10 +66,11 @@
         >
       </div>
       <div>
+        <!-- v-if="props.postId" -->
         <BannerHander
-          v-if="props.postId"
           class="max-w-xs"
-          :postId="props.postId"></BannerHander>
+          :postId="props.postId"
+          :tempImg="imageUrl"></BannerHander>
       </div>
     </div>
   </div>
@@ -85,6 +86,8 @@
     'data',
     'warning',
   ]);
+
+  const imageUrl: Ref<string> = ref('');
 
   interface Provider {
     title: string;
@@ -123,7 +126,7 @@
     let reader = new FileReader();
     reader.readAsDataURL(e.target.files[0]);
     reader.onload = async (es: any) => {
-      // imageUrl.value = es.target.result;
+      imageUrl.value = es.target.result;
       emit('update:defaultBannerImg', es.target.result);
       emit('update:image', e.target.files[0]);
     };

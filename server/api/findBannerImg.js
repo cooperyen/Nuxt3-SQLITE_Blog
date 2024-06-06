@@ -8,7 +8,8 @@ export default defineEventHandler(async (event) => {
   async function emptyDir(filePath) {
     if (fs.existsSync(path.resolve(filePath))) {
       const res = await fs.promises.readdir(filePath);
-      return `/postImg/${body.id}/banner/${res[0]}`;
+      if (!res[0]) return 'fail';
+      else return `/postImg/${body.id}/banner/${res[0]}`;
     } else {
       return 'fail';
     }

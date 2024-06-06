@@ -6,13 +6,21 @@
         <h1 class="text-3xl text-center p-5">華生</h1>
       </div>
       <div>
-        <ul class="px-5">
-          <li
-            class="text-xl px-2 my-3"
-            v-for="(cotent, index) in menu"
-            :key="index">
-            <NuxtLink to="/admin">{{ cotent.title }}</NuxtLink>
-          </li>
+        <ul>
+          <NuxtLink
+            class="text-md"
+            v-for="(content, index) in menu"
+            :key="index"
+            :to="`/${content.path}`">
+            <li
+              :class="{ 'bg-gray-200': route.name === content.path }"
+              class="px-5 py-5">
+              <font-awesome-icon
+                class="mr-2"
+                :icon="['fas', content.icon]" />
+              {{ content.title }}
+            </li>
+          </NuxtLink>
         </ul>
       </div>
     </div>
@@ -20,12 +28,17 @@
 </template>
 
 <script setup lang="ts">
+  const route = useRoute();
   const menu = [
     {
       title: '文章管理',
+      path: 'admin',
+      icon: 'clipboard',
     },
     {
-      title: '文章',
+      title: '設定',
+      path: 'option',
+      icon: 'gear',
     },
   ];
 </script>

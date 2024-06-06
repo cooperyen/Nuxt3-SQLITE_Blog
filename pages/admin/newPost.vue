@@ -7,8 +7,8 @@
       <div class="justify-end w-full flex max-sm:mt-4">
         <UISubmitBTN
           @click="create"
-          class="content-center"
-          >create</UISubmitBTN
+          class="content-center px-3"
+          ><span class="px-3">新增</span></UISubmitBTN
         >
       </div>
     </div>
@@ -24,8 +24,8 @@
     layout: 'admin',
   });
   const router = useRouter();
-
   const warning: Ref<boolean> = ref(false);
+  const toCreate: Ref<boolean> = ref(true);
 
   interface itemss {
     title?: string;
@@ -43,19 +43,25 @@
   }
 
   async function create() {
+    // empty input values ​​are prohibited.
     if (!items.value.title || !items.value.subtitle) warning.value = true;
+    else {
+      // repeat execution is prohibited.
+      if (!toCreate.value) return;
+      toCreate.value = false;
 
-    // const url: string = '/api/test-new-post';
-    // const posts: object | any = await $fetch(url, {
-    //   method: 'POST',
-    //   body: {
-    //     ...items.value,
-    //   },
-    // });
-    // if (posts.state === 'ok')
-    //   setTimeout(() => {
-    //     router.replace(`/admin/editpost/${posts.id}`);
-    //   }, 1000);
-    // if (posts.state === 'fail') alert('save fail');
+      const url: string = '/api/test-new-post';
+      const posts: object | any = await $fetch(url, {
+        method: 'POST',
+        body: {
+          ...items.value,
+        },
+      });
+      if (posts.state === 'ok')
+        setTimeout(() => {
+          router.replace(`/admin/editpost/${posts.id}`);
+        }, 1000);
+      if (posts.state === 'fail') alert('save fail');
+    }
   }
 </script>

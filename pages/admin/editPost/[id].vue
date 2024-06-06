@@ -1,5 +1,5 @@
 <template>
-  <main class="mt-10 pr-3 pl-3 mr-auto ml-auto max-w-4xl">
+  <main class="py-3 px-8 rounded-md mr-auto ml-auto max-w-4xl bg-white">
     <UILayoutAlignCenter>
       <template v-if="datas">
         <!-- option content -->
@@ -20,9 +20,9 @@
               @update:status="publish = $event"></UISwitchBTN>
             <UISubmitBTN
               class="content-center"
-              @click="update"
-              >Update</UISubmitBTN
-            >
+              @click="update">
+              <span class="px-3">Update</span>
+            </UISubmitBTN>
           </div>
         </div>
 
@@ -36,7 +36,6 @@
           @update:image="(el:string) => (bannerImg = el)"
           @update:defaultBannerImg="(el:string) => (defaultBannerImg = el)"
           @update:postData="postData"></AdminEditPostForm>
-
         <!-- styling content -->
         <div class="mb-5 pb-5">
           <TheCkeditor
@@ -114,6 +113,7 @@
       $fetch(url, {
         method: 'POST',
         body: {
+          postId: postId,
           base64: img,
         },
       });
@@ -127,11 +127,15 @@
       body: {
         ...items.value,
         content: content.value,
-        id: route.params.id,
+        id: postId,
         publish: publish.value,
       },
     });
-    alert(posts.state);
+    if (posts.state === 'ok') {
+      setTimeout(() => {
+        router.replace('/admin');
+      }, 600);
+    }
   }
 
   function update() {
@@ -140,7 +144,7 @@
   }
 
   onBeforeMount(() => {
-    // dsaads();
+    dsaads();
     if (!datas.value) router.push('/');
   });
 
