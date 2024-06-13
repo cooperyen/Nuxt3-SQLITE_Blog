@@ -1,26 +1,38 @@
 <template>
-  <header class="flex h-14 bg-white border-b items-center relative z-10">
-    <!-- logo img -->
-    <div class="ml-5 mr-3">
-      <NuxtLink to="/">logo</NuxtLink>
-    </div>
-    <!-- search function -->
-    <div class="border rounded-full w-48 flex pt-1.5 pb-1.5 bg-main-gray">
-      <!-- icon -->
-      <div class="pl-3 pr-1.5">
-        <font-awesome-icon :icon="['fas', 'magnifying-glass']" />
+  <header class="h-14 bg-[#263d56] border-b relative z-10">
+    <div
+      class="flex max-w-[1920px] mx-auto justify-between items-center h-full">
+      <div class="flex ml-5">
+        <!-- logo img -->
+        <div class="mr-3">
+          <NuxtLink to="/">
+            <img
+              class="w-12"
+              src="./../public/logo.svg" />
+          </NuxtLink>
+        </div>
+        <!-- search function -->
+        <div class="border rounded-full w-48 flex pt-1.5 pb-1.5 bg-white">
+          <!-- icon -->
+          <div class="pl-3 pr-1.5">
+            <font-awesome-icon :icon="['fas', 'magnifying-glass']" />
+          </div>
+          <!-- search click -->
+          <div class="pr-3">
+            <input
+              id="post_search"
+              class="w-full cursor-pointer text-sm placeholder:text-slate-600 bg-white focus:outline-none"
+              type="text"
+              @click="switchSearch"
+              autocomplete="off"
+              readonly
+              placeholder="Search" />
+          </div>
+        </div>
       </div>
-      <!-- search click -->
-      <div class="pr-3">
-        <input
-          id="post_search"
-          class="w-full cursor-pointer text-sm placeholder:text-slate-600 bg-main-gray focus:outline-none"
-          type="text"
-          @click="switchSearch"
-          autocomplete="off"
-          readonly
-          placeholder="Search" />
-      </div>
+
+      <!-- info content -->
+      <InfoFull class="mr-5"></InfoFull>
     </div>
   </header>
 
@@ -133,6 +145,7 @@
 
   function switchSearch() {
     showSearch.value = !showSearch.value;
+    searchInput.value = '';
     emit('update:showSearch', showSearch.value);
   }
 </script>

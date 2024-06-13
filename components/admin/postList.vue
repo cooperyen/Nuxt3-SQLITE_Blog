@@ -1,5 +1,5 @@
 <template>
-  <section class="mt-10 bg-white rounded-md">
+  <AdminUIMainContainer>
     <div class="flex">
       <div
         class="px-5 border-b border-gray-300 py-5 text-gray-500"
@@ -10,7 +10,7 @@
       </div>
     </div>
     <div
-      class="flex border-b last:border-none border-gray-300 py-2"
+      class="flex border-b last:border-none border-gray-300 my-2"
       v-for="(post, index) in postList"
       :key="index">
       <!-- banner -->
@@ -88,7 +88,7 @@
         </UILayoutAnswerBTN>
       </div>
     </UILayoutTopLevelContent>
-  </section>
+  </AdminUIMainContainer>
 </template>
 
 <script setup lang="ts">

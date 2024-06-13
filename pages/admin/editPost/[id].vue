@@ -98,8 +98,13 @@
     content.value = el;
   }
 
-  function postData(el: object) {
+  interface postData {
+    value: object;
+  }
+  function postData(el: any) {
+    console.log(el);
     items.value = el;
+    console.log(items.value);
   }
 
   function bannerUpdate(e: any) {

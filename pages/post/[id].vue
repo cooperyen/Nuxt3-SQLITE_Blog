@@ -12,7 +12,7 @@
           :sort="data.sort"
           :time="data.createdAt"></PostSortTimeHandler>
       </div>
-      <SeparatorLine class="mt-5" />
+      <UISeparatorLine class="mt-5" />
       <div
         v-html="data.content"
         class="ck-content"></div>

@@ -1,6 +1,6 @@
 <template>
   <main>
-    <div class="w-full max-w-4xl mr-auto ml-auto">
+    <div class="w-full max-w-4xl mr-auto ml-auto bg-white">
       <IndexPosts :data="data"></IndexPosts>
     </div>
   </main>

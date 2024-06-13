@@ -34,7 +34,6 @@
 
   async function imgPath(el: any) {
     const path = await findBanner(el);
-    console.log(path);
     if (path != 'fail') bannerImg.value = path;
     if (path === 'fail') bannerImg.value = defaultBannerImg;
   }
