@@ -9,7 +9,8 @@ export default defineEventHandler(async (event) => {
       data: {
         title: body.title,
         subtitle: body.subtitle,
-        sort: body.sort,
+        sort: '',
+        customUrl: '',
       },
     });
     return { state: 'ok', id: data.id };

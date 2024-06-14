@@ -10,6 +10,11 @@ export default defineEventHandler(async (event) => {
     where: {
       publish: true,
     },
+    orderBy: [
+      {
+        createdAt: 'desc',
+      },
+    ],
   });
 
   return posts;

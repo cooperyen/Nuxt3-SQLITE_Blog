@@ -34,9 +34,14 @@
                 v-for="list in items[titles].split(',')"
                 :key="list">
                 <li
-                  class="list-none text-center rounded-md py-2 px-3 mr-3 bg-mian_color text-white"
+                  class="list-none text-center rounded-md py-2 px-3 mr-3 bg-mian_color text-white flex"
                   v-if="list">
                   {{ list }}
+                  <div
+                    class="ml-2 px-1 text-gray-700 cursor-pointer"
+                    @click="deleteSort(list)">
+                    <font-awesome-icon :icon="['fas', 'xmark']" />
+                  </div>
                 </li>
               </template>
             </ul>
@@ -116,17 +121,30 @@
     'update:warning',
   ]);
 
+  function deleteSort(val: string) {
+    items.value.sort = items.value.sort
+      .split(',')
+      .filter((el) => el != val)
+      .join(',');
+  }
+
   function addSort() {
-    const xxx = sorts.value[0].value;
+    const sortValue = sorts.value[0].value;
     const e = new RegExp('[@$!%*?&#=\'"]');
-    if (xxx.match(e)) alert('禁止特殊符號 @$!%*?&#=\'"');
+
+    if (sortValue.match(e)) alert('禁止特殊符號 @$!%*?&#=\'"');
+    if (sortValue.length < 3) alert('至少3字元');
     else {
-      items.value.sort += `,${sorts.value[0].value}`;
-      sorts.value[0].value = '';
-
-      console.log(items.value);
-
-      emit('update:postData', items.value);
+      const duplicate = items.value.sort
+        .split(',')
+        .filter((el) => el === sortValue);
+      if (duplicate.length > 0) alert('重複內容');
+      else {
+        const sort = items.value.sort === '' ? `${sortValue}` : `,${sortValue}`;
+        items.value.sort += sort;
+        sorts.value[0].value = '';
+        emit('update:postData', items.value);
+      }
     }
   }
 
@@ -143,7 +161,6 @@
 
   function reduceData(target: string, data: string) {
     items.value[target] = data;
-    console.log(items.value[target]);
     emit('update:postData', items.value);
   }
 

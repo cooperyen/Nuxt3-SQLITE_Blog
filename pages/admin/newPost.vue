@@ -25,17 +25,15 @@
   });
   const router = useRouter();
   const warning: Ref<boolean> = ref(false);
-  const toCreate: Ref<boolean> = ref(true);
+  const postProcess: Ref<boolean> = ref(true);
 
   interface itemss {
     title?: string;
     subtitle?: string;
-    sort?: string;
   }
   const items: Ref<itemss> = ref({
     title: '',
     subtitle: '',
-    sort: '',
   });
 
   function postData(event: object) {
@@ -47,9 +45,8 @@
     if (!items.value.title || !items.value.subtitle) warning.value = true;
     else {
       // repeat execution is prohibited.
-      if (!toCreate.value) return;
-      toCreate.value = false;
-
+      if (!postProcess.value) return;
+      postProcess.value = false;
       const url: string = '/api/test-new-post';
       const posts: object | any = await $fetch(url, {
         method: 'POST',

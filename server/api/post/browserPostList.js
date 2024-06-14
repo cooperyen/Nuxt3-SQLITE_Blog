@@ -13,6 +13,11 @@ export default defineEventHandler(async (event) => {
       createdAt: true,
       publish: true,
     },
+    orderBy: [
+      {
+        createdAt: 'desc',
+      },
+    ],
   });
 
   return posts;

@@ -10,6 +10,7 @@ import {
   faBars,
   faTag,
   faBookOpen,
+  faXmark,
 } from '@fortawesome/free-solid-svg-icons';
 
 // This is important, we are going to let Nuxt worry about the CSS
@@ -25,7 +26,8 @@ library.add(
   faGear,
   faBars,
   faTag,
-  faBookOpen
+  faBookOpen,
+  faXmark
 );
 
 export default defineNuxtPlugin((nuxtApp) => {

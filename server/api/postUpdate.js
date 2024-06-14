@@ -15,6 +15,7 @@ export default defineEventHandler(async (event) => {
         content: content,
         sort: body.sort,
         publish: body.publish,
+        customUrl: body.customUrl,
       },
     });
 

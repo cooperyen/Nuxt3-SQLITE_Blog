@@ -11,7 +11,7 @@
           </div>
           <div class="justify-end w-full flex max-sm:mt-4">
             <div
-              class="mr-1 ms-3 text-sm font-medium text-gray-900 dark:text-gray-300 content-center">
+              class="mr-1 ms-3 text-sm font-medium text-gray-900 content-center">
               <p>Publish</p>
             </div>
             <UISwitchBTN
@@ -24,6 +24,16 @@
               <span class="px-3">Update</span>
             </UISubmitBTN>
           </div>
+        </div>
+
+        <div class="mt-3 border-b pb-3">
+          文章ID <span class="bg-slate-200 px-2">{{ postId }}</span>
+
+          <input
+            class="min-w-3 border-2 rounded-md py-2 px-2"
+            placeholder="新增"
+            ref="customUrl"
+            @keyup.enter="addCustomUrl" />
         </div>
 
         <!-- post option content -->
@@ -70,14 +80,12 @@
   });
 
   const content: Ref<string> = ref('<div></div>');
-  interface items {
-    title?: string;
-    subtitle?: string;
-    sort?: string;
-  }
 
   const bannerImg: Ref<string> = ref('');
   const defaultBannerImg: Ref<string> = ref('');
+
+  const customUrl: Ref<any> = ref('');
+
   async function dsaads() {
     const res = await $fetch('/api/findBannerImg', {
       method: 'POST',
@@ -85,6 +93,13 @@
     });
     if (res === 'fail') defaultBannerImg.value = '/postImg/default_banner.jpg';
     else defaultBannerImg.value = res;
+  }
+
+  interface items {
+    title?: string;
+    subtitle?: string;
+    sort?: string;
+    customUrl?: string;
   }
 
   const items: Ref<items> = ref({
@@ -98,6 +113,7 @@
     content.value = el;
   }
 
+  // post data
   interface postData {
     value: object;
   }
@@ -148,10 +164,17 @@
     bannerUpdate(bannerImg.value);
   }
 
+  function addCustomUrl() {
+    const url = customUrl.value.value;
+    const e = new RegExp('[@$!%*?&#=\'"]');
+    if (url.match(e)) alert('禁止特殊符號 @$!%*?&#=\'"');
+    else {
+      items.value.customUrl = url;
+    }
+  }
+
   onBeforeMount(() => {
     dsaads();
     if (!datas.value) router.push('/');
   });
-
-  onMounted(() => {});
 </script>

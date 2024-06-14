@@ -5,7 +5,9 @@
     <p class="pl-2.5">{{ $sortDate(props.time) }}</p>
   </div>
   <!-- sort -->
-  <div class="mt-1 text-base items-center flex text-gray-500">
+  <div
+    v-show="props.sort.length > 0"
+    class="mt-1 text-base items-center flex text-gray-500">
     <div>
       <font-awesome-icon :icon="['fas', 'box']" />
     </div>
