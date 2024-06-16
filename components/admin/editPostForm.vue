@@ -16,9 +16,9 @@
       <div class="rounded-md">
         <template v-if="titles != 'sort'">
           <AdminUIInputStyle
-            :class="{ 'border-red-400': warning && items[titles] === '' }"
+            :class="{ 'border-red-400': warningCheck(items[titles]) }"
             :value="items[titles]"
-            @click="warning ? emit('update:warning', false) : ''"
+            @click="props.warning ? emit('update:warning', false) : ''"
             @update:value="(e) => reduceData(<string>titles, e)">
           </AdminUIInputStyle>
         </template>
@@ -130,7 +130,7 @@
 
   function addSort() {
     const sortValue = sorts.value[0].value;
-    const e = new RegExp('[@$!%*?&#=\'"]');
+    const e = new RegExp('[ @$!%*?&#=\'"]');
 
     if (sortValue.match(e)) alert('禁止特殊符號 @$!%*?&#=\'"');
     if (sortValue.length < 3) alert('至少3字元');
@@ -160,8 +160,14 @@
   }
 
   function reduceData(target: string, data: string) {
-    items.value[target] = data;
+    items.value[target] = data.trim();
     emit('update:postData', items.value);
+  }
+
+  function warningCheck(val: string) {
+    const e = new RegExp('^[ ]+$');
+    if (e.test(val) || val === '') return true;
+    else return false;
   }
 
   onBeforeMount(() => {

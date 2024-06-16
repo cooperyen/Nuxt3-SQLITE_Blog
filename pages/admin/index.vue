@@ -18,4 +18,7 @@
   definePageMeta({
     layout: 'admin',
   });
+
+  const counter = useCounter();
+  console.log(counter.value);
 </script>

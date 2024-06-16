@@ -5,11 +5,12 @@ const prismaClient = new PrismaClient();
 export default defineEventHandler(async (event) => {
   // console.log(event.context);
   const query = getQuery(event);
-  const user = await prismaClient.post.findUnique({
+  console.log(query.id);
+  const user = await prismaClient.post.findMany({
     where: {
-      id: query.id,
+      OR: [{ id: query.id }, { customUrl: query.id }],
     },
   });
 
-  return user;
+  return user[0];
 });

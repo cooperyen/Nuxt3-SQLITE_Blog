@@ -27,22 +27,27 @@
         </div>
 
         <div class="mt-3 border-b pb-3">
-          文章ID <span class="bg-slate-200 px-2">{{ postId }}</span>
-
-          <input
-            class="min-w-3 border-2 rounded-md py-2 px-2"
-            placeholder="新增"
-            ref="customUrl"
-            @keyup.enter="addCustomUrl" />
+          <div>
+            文章ID <span class="bg-slate-200 ml-2 px-2">{{ postId }}</span>
+          </div>
+          <div class="flex items-center mt-3">
+            文章ID
+            <AdminCustomUrlCheck
+              class="px-2"
+              @update:customUrl="customUrlUpdate"
+              :customUrl="data.customUrl"></AdminCustomUrlCheck>
+          </div>
         </div>
 
         <!-- post option content -->
         <AdminEditPostForm
+          :warning="warning"
           :title="datas.title"
           :subtitle="datas.subtitle"
           :sort="datas.sort"
           :defaultBannerImg="defaultBannerImg"
           :postId="postId"
+          @update:warning="(e) => (warning = e)"
           @update:image="(el:string) => (bannerImg = el)"
           @update:defaultBannerImg="(el:string) => (defaultBannerImg = el)"
           @update:postData="postData"></AdminEditPostForm>
@@ -62,6 +67,8 @@
     layout: 'admin',
   });
 
+  const warning: Ref<boolean> = ref(false);
+
   const description =
     'To avoid data loss, make sure to save your data before leaving the page.';
 
@@ -80,11 +87,15 @@
   });
 
   const content: Ref<string> = ref('<div></div>');
-
   const bannerImg: Ref<string> = ref('');
   const defaultBannerImg: Ref<string> = ref('');
 
-  const customUrl: Ref<any> = ref('');
+  // custom url
+  const customUrl: Ref<string> = ref(data.value.customUrl);
+  function customUrlUpdate(el: string) {
+    console.log(el);
+    customUrl.value = el;
+  }
 
   async function dsaads() {
     const res = await $fetch('/api/findBannerImg', {
@@ -96,8 +107,8 @@
   }
 
   interface items {
-    title?: string;
-    subtitle?: string;
+    title: string;
+    subtitle: string;
     sort?: string;
     customUrl?: string;
   }
@@ -120,7 +131,6 @@
   function postData(el: any) {
     console.log(el);
     items.value = el;
-    console.log(items.value);
   }
 
   function bannerUpdate(e: any) {
@@ -142,20 +152,31 @@
   }
 
   async function updateContent() {
-    const url: string = '/api/postUpdate';
-    const posts: object | any = await $fetch(url, {
-      method: 'POST',
-      body: {
-        ...items.value,
-        content: content.value,
-        id: postId,
-        publish: publish.value,
-      },
-    });
-    if (posts.state === 'ok') {
-      setTimeout(() => {
-        router.replace('/admin');
-      }, 600);
+    const e = new RegExp('^[ ]+$');
+    if (
+      e.test(items.value.subtitle) ||
+      items.value.subtitle === '' ||
+      e.test(items.value.title) ||
+      items.value.title === ''
+    )
+      warning.value = true;
+    else {
+      const url: string = '/api/postUpdate';
+      const posts: object | any = await $fetch(url, {
+        method: 'POST',
+        body: {
+          ...items.value,
+          customUrl: customUrl.value,
+          content: content.value,
+          id: postId,
+          publish: publish.value,
+        },
+      });
+      if (posts.state === 'ok') {
+        setTimeout(() => {
+          router.replace('/admin');
+        }, 1000);
+      }
     }
   }
 
@@ -164,17 +185,8 @@
     bannerUpdate(bannerImg.value);
   }
 
-  function addCustomUrl() {
-    const url = customUrl.value.value;
-    const e = new RegExp('[@$!%*?&#=\'"]');
-    if (url.match(e)) alert('禁止特殊符號 @$!%*?&#=\'"');
-    else {
-      items.value.customUrl = url;
-    }
-  }
-
   onBeforeMount(() => {
     dsaads();
-    if (!datas.value) router.push('/');
+    if (!datas.value) router.replace('/admin');
   });
 </script>

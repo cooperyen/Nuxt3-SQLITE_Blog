@@ -25,16 +25,17 @@
   watch(
     () => props.postId,
     async (el: string) => {
-      if (el != null) {
-        await imgPath(el);
-      }
+      if (el != null) await imgPath(el);
     },
     { immediate: true }
   );
 
   async function imgPath(el: any) {
     const path = await findBanner(el);
-    if (path != 'fail') bannerImg.value = path;
+    if (path != 'fail')
+      bannerImg.value = `${path}?${Math.random()
+        .toString(36)
+        .replace('0.', '')}`;
     if (path === 'fail') bannerImg.value = defaultBannerImg;
   }
 

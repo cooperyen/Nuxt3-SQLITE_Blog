@@ -33,7 +33,7 @@
       <div class="mb-5 mt-5">
         <div class="w-40 text-lg mx-auto text-center rounded-md">
           <NuxtLink
-            :to="`/post/${blog.id}`"
+            :to="`/post/${blog.customUrl === '' ? blog.id : blog.customUrl}`"
             class="border lg:hover:border-[#263d56] lg:hover:bg-[#263d56] lg:hover:text-white ease-in duration-200 px-3 py-1 rounded-md">
             閱讀全文
           </NuxtLink>

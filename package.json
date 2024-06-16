@@ -41,6 +41,7 @@
     "formidable": "^3.5.1",
     "npm-check-updates": "^16.14.20",
     "nuxt": "^3.11.2",
+    "nuxt-storage": "^1.2.2",
     "pinia": "^2.1.7",
     "prisma": "^5.14.0",
     "rimraf": "^5.0.7",

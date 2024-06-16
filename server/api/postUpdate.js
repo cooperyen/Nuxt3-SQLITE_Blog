@@ -19,12 +19,10 @@ export default defineEventHandler(async (event) => {
       },
     });
 
-    // console.log(findImgName(body.content));
-
-    deleteUnuseImg({
-      activeFiles: findImgName(body.content),
-      id: body.id,
-    });
+    // deleteUnuseImg({
+    //   activeFiles: findImgName(body.content),
+    //   id: body.id,
+    // });
 
     return {
       state: 'ok',
@@ -50,15 +48,14 @@ function deleteUnuseImg({ activeFiles, id }) {
     if (err) console.log(err);
     else {
       const unUseImg = files.filter(function (item, i) {
-        console.log(activeFiles.indexOf(item), item);
         return activeFiles.indexOf(item) === -1;
       });
 
       unUseImg.forEach((file) => {
-        console.log(`public/postImg/${id}/${file}`);
-        fs.unlink(`public/postImg/${id}/${file}`, (err) => {
-          if (err) console.log(err);
-        });
+        console.log(file);
+        // fs.unlink(`public/postImg/${id}/${file}`, (err) => {
+        //   if (err) console.log(err);
+        // });
       });
     }
   });

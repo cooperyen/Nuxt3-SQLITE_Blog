@@ -10,7 +10,7 @@
       </div>
     </div>
     <div
-      class="flex border-b last:border-none border-gray-300 my-2"
+      class="flex border-b last:border-none border-gray-300 py-2"
       v-for="(post, index) in postList"
       :key="index">
       <!-- banner -->
@@ -18,6 +18,9 @@
         <BannerHander
           class=""
           :postId="post.id"></BannerHander>
+      </div>
+      <div class="flex items-center px-5 xl:w-1/4 w-1/5">
+        <p class="text-sm">{{ post.id }}</p>
       </div>
       <!-- title -->
       <div class="xl:w-1/2 w-1/3 px-5 flex items-center">
@@ -147,6 +150,7 @@
 
   const titles = [
     { ch: '首圖', en: 'Banner' },
+    { ch: '文章ID', en: 'ID' },
     { ch: '文章抬頭', en: 'Title' },
     { ch: '建立日期', en: 'Create' },
     { ch: '發布', en: 'Publish' },
@@ -162,9 +166,6 @@
     switch (el.en.toLowerCase()) {
       case 'banner':
         res = 'w-1/5';
-        break;
-      case 'id':
-        res = 'xl:w-1/3 w-1/4';
         break;
       case 'title':
         res = 'xl:w-1/2 w-1/3';

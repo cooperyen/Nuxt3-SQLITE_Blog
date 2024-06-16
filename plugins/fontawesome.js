@@ -11,6 +11,7 @@ import {
   faTag,
   faBookOpen,
   faXmark,
+  faCircleCheck,
 } from '@fortawesome/free-solid-svg-icons';
 
 // This is important, we are going to let Nuxt worry about the CSS
@@ -27,7 +28,8 @@ library.add(
   faBars,
   faTag,
   faBookOpen,
-  faXmark
+  faXmark,
+  faCircleCheck
 );
 
 export default defineNuxtPlugin((nuxtApp) => {

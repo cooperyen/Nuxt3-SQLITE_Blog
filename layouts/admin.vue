@@ -1,4 +1,5 @@
 <template>
+  {{ counter }}
   <div class="lg:flex">
     <AdminMenu class="bg-white"></AdminMenu>
     <div
@@ -11,3 +12,13 @@
     </div>
   </div>
 </template>
+
+<script setup lang="ts">
+  // import { useSearchStore } from '@/store/index';
+
+  // const store = useSearchStore();
+  // console.log(store.state);
+
+  const counter = useCounter();
+  console.log(counter.value);
+</script>
