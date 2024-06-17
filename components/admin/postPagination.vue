@@ -9,7 +9,7 @@
   const props = defineProps(['refresh']);
 
   const dos = computed(() => {
-    console.log(props.refresh);
+    // console.log(props.refresh);
     refresh();
     return true;
   });

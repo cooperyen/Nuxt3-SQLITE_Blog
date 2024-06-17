@@ -24,7 +24,7 @@ export default defineEventHandler(async (event) => {
       path.resolve(`public/postImg/${query.id}/${file.newFilename}.${fix}`),
       new Uint8Array(data),
       (err) => {
-        console.log(err);
+        // console.log(err);
       }
     );
   });

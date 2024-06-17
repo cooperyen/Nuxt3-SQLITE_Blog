@@ -6,7 +6,7 @@
           class="before:content-[''] before:w-[4px] before:bg-sky-100 before:absolute before:block before:h-full before:top-20">
           <!-- title -->
           <UILayoutTimeLineChild
-            class="ml-[32px] before:-ml-10 before:h-5 before:w-5 before:bg-sky-600 pb-8">
+            class="ml-[32px] before:-ml-10 before:h-5 before:w-5 before:sky-600 pb-8">
             <h2 class="text-4xl font-bold">{{ sortName }}</h2>
           </UILayoutTimeLineChild>
           <!-- list -->

@@ -8,6 +8,10 @@ export default defineNuxtConfig({
     typeCheck: true,
   },
 
+  routeRules: {
+    '/admin/**': { ssr: false },
+  },
+
   modules: [
     '@nuxtjs/tailwindcss',
     '@nuxtjs/google-fonts',
@@ -34,12 +38,14 @@ export default defineNuxtConfig({
     '~/assets/css/main.css',
     '@fortawesome/fontawesome-svg-core/styles.css',
   ],
+
   postcss: {
     plugins: {
       tailwindcss: {},
       autoprefixer: {},
     },
   },
+
   vite: {
     plugins: [
       ckeditor5({ theme: require.resolve('@ckeditor/ckeditor5-theme-lark') }),
@@ -52,9 +58,11 @@ export default defineNuxtConfig({
       },
     },
   },
+
   build: {
     transpile: ['@fortawesome/vue-fontawesome'],
   },
+
   image: {
     provider: 'twicpics',
     twicpics: {

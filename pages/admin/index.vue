@@ -17,8 +17,6 @@
   const refresh: Ref<any> = ref('[]');
   definePageMeta({
     layout: 'admin',
+    middleware: 'auth',
   });
-
-  const counter = useCounter();
-  console.log(counter.value);
 </script>

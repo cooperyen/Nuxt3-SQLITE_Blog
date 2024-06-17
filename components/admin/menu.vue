@@ -1,24 +1,25 @@
 <template>
   <div
     class="lg:relative fixed z-50 max-lg:h-16 lg:max-w-48 w-full lg:h-screen shadow-[4px_0px_20px_0px_rgba(0,0,0,0.1)]">
-    <div class="h-full">
-      <div
-        class="lg:mb-10 max-lg:flex max-lg:items-center justify-between max-lg:p-3 max-lg:h-full relative z-10 bg-white">
-        <div class="max-lg:ml-3">
-          <h1 class="text-3xl lg:text-center lg:p-5 max-lg:text-xl">華生</h1>
-        </div>
+    <div class="h-full flex flex-col">
+      <div class="w-full h-full">
         <div
-          @click="clickShow = !clickShow"
-          class="text-xl max-lg:mr-3 lg:hidden">
-          <font-awesome-icon
-            v-show="!clickShow"
-            :icon="['fas', 'bars']" />
-          <font-awesome-icon
-            v-show="clickShow"
-            :icon="['fas', 'xmark']" />
+          class="lg:mb-10 max-lg:flex max-lg:items-center justify-between max-lg:p-3 max-lg:h-full relative z-10 bg-white">
+          <div class="max-lg:ml-3">
+            <h1 class="text-3xl lg:text-center lg:p-5 max-lg:text-xl">華生</h1>
+          </div>
+          <div
+            @click="clickShow = !clickShow"
+            class="text-xl max-lg:mr-3 lg:hidden">
+            <font-awesome-icon
+              v-show="!clickShow"
+              :icon="['fas', 'bars']" />
+            <font-awesome-icon
+              v-show="clickShow"
+              :icon="['fas', 'xmark']" />
+          </div>
         </div>
-      </div>
-      <ClientOnly>
+
         <transition
           enter-from-class="translate-y-[-150%] opacity-0"
           leave-to-class="translate-y-[-150%] opacity-0"
@@ -46,7 +47,12 @@
             </ul>
           </div>
         </transition>
-      </ClientOnly>
+      </div>
+      <div class="text-center mb-5 w-full flex-end">
+        <button class="text-gray-900 lg:text-gray-400 hover:text-gray-900">
+          登出
+        </button>
+      </div>
     </div>
   </div>
 </template>

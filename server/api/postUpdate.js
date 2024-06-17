@@ -29,7 +29,7 @@ export default defineEventHandler(async (event) => {
       id: data.id,
     };
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     return { state: 'fail' };
   }
 });
@@ -52,7 +52,7 @@ function deleteUnuseImg({ activeFiles, id }) {
       });
 
       unUseImg.forEach((file) => {
-        console.log(file);
+        // console.log(file);
         // fs.unlink(`public/postImg/${id}/${file}`, (err) => {
         //   if (err) console.log(err);
         // });

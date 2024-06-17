@@ -65,6 +65,7 @@
 <script setup lang="ts">
   definePageMeta({
     layout: 'admin',
+    middleware: 'auth',
   });
 
   const warning: Ref<boolean> = ref(false);
@@ -93,7 +94,7 @@
   // custom url
   const customUrl: Ref<string> = ref(data.value.customUrl);
   function customUrlUpdate(el: string) {
-    console.log(el);
+    // console.log(el);
     customUrl.value = el;
   }
 
@@ -129,7 +130,7 @@
     value: object;
   }
   function postData(el: any) {
-    console.log(el);
+    // console.log(el);
     items.value = el;
   }
 

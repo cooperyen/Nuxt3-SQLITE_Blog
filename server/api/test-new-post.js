@@ -15,7 +15,7 @@ export default defineEventHandler(async (event) => {
     });
     return { state: 'ok', id: data.id };
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     return { state: 'fail' };
   }
 });

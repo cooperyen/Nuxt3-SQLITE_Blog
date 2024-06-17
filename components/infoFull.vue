@@ -5,13 +5,13 @@
         <font-awesome-icon
           class="mr-1"
           :icon="['fas', 'book-open']" />
-        {{ post.postLength }}
+        {{ post?.postLength }}
       </div>
       <div>
         <font-awesome-icon
           class="mr-1"
           :icon="['fas', 'tag']" />
-        {{ post.tagLength }}
+        {{ post?.tagLength }}
       </div>
     </div>
   </div>
