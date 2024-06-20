@@ -1,4 +1,5 @@
 <template>
+  <AdminUILoading v-show="showLoadinmg"></AdminUILoading>
   <main class="py-3 px-8 rounded-md mr-auto ml-auto max-w-4xl bg-white">
     <UILayoutAlignCenter>
       <template v-if="datas">
@@ -77,6 +78,7 @@
   const route = useRoute();
   const postsUrl: string = '/api/findPostData';
   const postId: string | string[] = route.params.id;
+  const showLoadinmg: Ref<boolean> = ref(false);
   const { data, pending, error } = await useFetch<any>(postsUrl, {
     query: { id: postId },
   });
@@ -159,9 +161,10 @@
       items.value.subtitle === '' ||
       e.test(items.value.title) ||
       items.value.title === ''
-    )
+    ) {
       warning.value = true;
-    else {
+      showLoadinmg.value = false;
+    } else {
       const url: string = '/api/postUpdate';
       const posts: object | any = await $fetch(url, {
         method: 'POST',
@@ -182,6 +185,7 @@
   }
 
   function update() {
+    showLoadinmg.value = true;
     updateContent();
     bannerUpdate(bannerImg.value);
   }
