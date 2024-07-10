@@ -37,5 +37,5 @@
 </script>
 
 <style lang="scss" scoped>
-  @import './../../assets/scss/ckeditor.scss';
+  // @import './../../assets/scss/ckeditor.scss';
 </style>

@@ -4,6 +4,7 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
   // localstorage value.
   const auth = ref($locally.getItem('auth'));
   const authValue = auth.value;
+  console.log(authValue);
 
   // only run client side.
   if (!process.client) return;

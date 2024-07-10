@@ -2,7 +2,7 @@
   <div class="flex w-full justify-end">
     <UISubmitBTN class="flex">
       <NuxtLink
-        class="px-3"
+        class="px-3 py-1 block"
         to="/admin/newpost"
         >新增</NuxtLink
       >

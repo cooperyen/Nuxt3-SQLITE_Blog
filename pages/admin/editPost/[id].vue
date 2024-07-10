@@ -1,5 +1,5 @@
 <template>
-  <AdminUILoading v-show="showLoadinmg"></AdminUILoading>
+  <AdminUILoading></AdminUILoading>
   <main class="py-3 px-8 rounded-md mr-auto ml-auto max-w-4xl bg-white">
     <UILayoutAlignCenter>
       <template v-if="datas">
@@ -20,7 +20,7 @@
               :status="data.publish"
               @update:status="publish = $event"></UISwitchBTN>
             <UISubmitBTN
-              class="content-center"
+              class="content-center py-1"
               @click="update">
               <span class="px-3">Update</span>
             </UISubmitBTN>
@@ -69,6 +69,9 @@
     middleware: 'auth',
   });
 
+  import { useLoadingState } from '@/stores/globalStates';
+  const { loadingSwitch } = useLoadingState();
+
   const warning: Ref<boolean> = ref(false);
 
   const description =
@@ -96,7 +99,6 @@
   // custom url
   const customUrl: Ref<string> = ref(data.value.customUrl);
   function customUrlUpdate(el: string) {
-    // console.log(el);
     customUrl.value = el;
   }
 
@@ -163,7 +165,7 @@
       items.value.title === ''
     ) {
       warning.value = true;
-      showLoadinmg.value = false;
+      loadingSwitch(false);
     } else {
       const url: string = '/api/postUpdate';
       const posts: object | any = await $fetch(url, {
@@ -185,7 +187,7 @@
   }
 
   function update() {
-    showLoadinmg.value = true;
+    loadingSwitch(true);
     updateContent();
     bannerUpdate(bannerImg.value);
   }
@@ -194,4 +196,10 @@
     dsaads();
     if (!datas.value) router.replace('/admin');
   });
+
+  onBeforeUnmount(() => {
+    loadingSwitch(false);
+  });
+
+  
 </script>
