@@ -1,5 +1,5 @@
 <template>
-  <AdminUILoading v-show="showLoadinmg"></AdminUILoading>
+  <AdminUILoading></AdminUILoading>
   <div class="bg-gray-200 h-screen w-full">
     <div class="flex items-center h-full mx-auto max-w-96">
       <div class="w-full bg-white rounded-md px-5 pt-3 pb-6">
@@ -31,6 +31,7 @@
           </p>
           <input
             @click="wrongRemind = false"
+            @keyup.enter="login"
             autocomplete="off"
             :class="{ 'pb-1 pt-5': password }"
             class="px-2 py-3 w-full text-black"
@@ -53,7 +54,7 @@
           class="text-sm text-red-600 mt-1 ml-1">
           帳號密碼錯誤
         </div>
-        <!-- login -->
+        <!-- login button -->
         <div class="text-center w-full mt-5">
           <button
             @click="login"
@@ -71,6 +72,10 @@
   definePageMeta({
     layout: 'admin-login',
   });
+
+  import { useLoadingState } from '@/stores/globalStates';
+  const { loadingSwitch } = useLoadingState();
+
   const { $symbolRegExp, $locally } = useNuxtApp(); // make sure this is at the top or as close as possible to the top
   const router = useRouter();
   const account: Ref<string> = ref('');
@@ -79,7 +84,7 @@
   const password: Ref<string> = ref('');
   const showPassword: Ref<boolean> = ref(false);
   const loginProcess: Ref<boolean> = ref(false);
-  const showLoadinmg: Ref<boolean> = ref(false);
+
 
   const clickable = computed(() => {
     if (password.value && account.value && !wrongRemind.value) return false;
@@ -88,17 +93,14 @@
 
   function longinValueCheck() {
     let val = false;
-    if (loginProcess.value || clickable.value) true;
-    if (!checkSymbol()) val = true;
 
-    showLoadinmg.value = !val;
+    if (loginProcess.value || clickable.value) val = true;
+    if (!checkSymbol()) val = true;
 
     return val;
   }
 
-  // login();
-  async function login() {
-    if (longinValueCheck()) return;
+  async function doLogin() {
     loginProcess.value = true;
 
     interface res {
@@ -113,16 +115,26 @@
         password: password.value,
       },
     });
+
     if (!res.state) {
       loginProcess.value = false;
       wrongRemind.value = true;
-      showLoadinmg.value = false;
+      loadingSwitch(false);
     } else {
       $locally.setItem('auth', JSON.stringify({ id: res.id }));
 
       setTimeout(() => {
         router.replace('/admin');
       }, 2000);
+    }
+  }
+
+  function login() {
+    loadingSwitch(true);
+    if (longinValueCheck()) {
+      loadingSwitch(false);
+    } else {
+      doLogin();
     }
   }
 
@@ -147,4 +159,9 @@
       return false;
     }
   }
+
+  onBeforeUnmount(() => {
+    loadingSwitch(false);
+  });
+
 </script>

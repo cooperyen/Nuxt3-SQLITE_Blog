@@ -1,6 +1,6 @@
 <template>
   <Transition>
-    <div
+    <div v-show="loadingState"
       class="bg-[rgba(0,0,0,0.2)] w-full h-screen fixed left-0 top-0 z-50 flex items-center">
       <div class="h-5 w-5 mx-auto">
         <font-awesome-icon
@@ -11,4 +11,10 @@
   </Transition>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+  import { useLoadingState } from '@/stores/globalStates';
+  import { storeToRefs } from 'pinia';
+  const useLoading = useLoadingState();
+  const { loadingState } = storeToRefs(useLoading);
+
+</script>
