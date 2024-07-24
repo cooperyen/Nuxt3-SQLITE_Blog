@@ -58,6 +58,7 @@
             :data="datas.content"
             @update:editorData="editorData"></TheCkeditor>
         </div>
+        {{ datas.content }}
       </template>
     </UILayoutAlignCenter>
   </main>

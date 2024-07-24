@@ -1,4 +1,5 @@
 <template>
+
   <ckeditor
     :editor="ClassicEditor"
     v-model="editorData"

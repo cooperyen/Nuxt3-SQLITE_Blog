@@ -1,4 +1,7 @@
 <template>
+  <div>
+    <link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/42.0.1/ckeditor5.css" />
+  </div>
   <article v-if="data">
     <UILayoutAlignCenter class="justify-center">
       <div

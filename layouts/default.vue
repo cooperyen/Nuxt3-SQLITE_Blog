@@ -1,4 +1,9 @@
 <template>
+  <head>
+    <!-- <link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/42.0.1/ckeditor5.css" /> -->
+  </head>
+
+
   <AppHeader @update:showSearch="(el:boolean) => (showSearch = el)" />
   <div
     class="mt-14 px-5"
