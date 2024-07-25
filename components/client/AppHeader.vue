@@ -8,7 +8,7 @@
           <NuxtLink to="/">
             <img
               class="w-12"
-              src="./../public/logo.svg" />
+              src="./../../public/logo.svg" />
           </NuxtLink>
         </div>
         <!-- search function -->
@@ -32,7 +32,7 @@
       </div>
 
       <!-- info content -->
-      <InfoFull class="mr-5"></InfoFull>
+      <ClientInfoFull class="mr-5"></ClientInfoFull>
     </div>
   </header>
 

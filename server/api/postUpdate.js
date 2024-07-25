@@ -12,7 +12,7 @@ export default defineEventHandler(async (event) => {
       data: {
         title: body.title,
         subtitle: body.subtitle,
-        content: content,
+        content: body.content,
         sort: body.sort,
         publish: body.publish,
         customUrl: body.customUrl,

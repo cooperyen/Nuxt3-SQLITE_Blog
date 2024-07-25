@@ -1,6 +1,6 @@
 @import '_colors.scss';
 
-:deep(ul) {
+:deep(ul.ck-editor) {
   padding-left: 30px;
 }
 :deep(ol) {

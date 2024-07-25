@@ -1,7 +1,4 @@
 <template>
-  <div>
-    <link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/42.0.1/ckeditor5.css" />
-  </div>
   <article v-if="data">
     <UILayoutAlignCenter class="justify-center">
       <div
@@ -13,7 +10,8 @@
         <h2 class="text-2xl mt-3">{{ data.subtitle }}</h2>
         <PostSortTimeHandler
           :sort="data.sort"
-          :time="data.createdAt"></PostSortTimeHandler>
+          :time="data.createdAt">
+        </PostSortTimeHandler>
       </div>
       <UISeparatorLine class="mt-5" />
       <div
@@ -37,8 +35,15 @@
   async function back() {
     await navigateTo('/');
   }
+
+  useHead({
+      title: data.value.title,
+      link: [
+        {
+          rel: 'stylesheet',
+          href: 'https://cdn.ckeditor.com/ckeditor5/42.0.1/ckeditor5.css',
+        },
+      ],
+    });
 </script>
 
-<style lang="scss" scoped>
-  // @import './../../assets/scss/ckeditor.scss';
-</style>

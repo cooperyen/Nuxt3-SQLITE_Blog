@@ -28,7 +28,7 @@
           <div
             v-show="showItems"
             class="bg-white max-lg:border-t-2 max-lg:border-t-gray-100 max-lg:shadow-[0px_4px_8px_0px_rgba(0,0,0,0.1)] z-0 relative">
-            <ul>
+            <ul class="p-0">
               <NuxtLink
                 @click="clickShow = !clickShow"
                 class="text-md"
