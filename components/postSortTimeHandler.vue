@@ -1,13 +1,13 @@
 <template>
   <!-- time -->
-  <div class="text-base mt-3 flex items-center text-gray-500">
+  <div class="mt-3 flex items-center text-gray-500">
     <div><font-awesome-icon :icon="['fas', 'calendar-days']" /></div>
-    <p class="pl-2.5">{{ $sortDate(props.time) }}</p>
+    <span class="pl-1.5">{{ $sortDate(props.time) }}</span>
   </div>
   <!-- sort -->
   <div
     v-show="props.sort.length > 0"
-    class="mt-1 text-base items-center flex text-gray-500">
+    class="mt-1 items-center flex text-gray-500">
     <div>
       <font-awesome-icon :icon="['fas', 'box']" />
     </div>

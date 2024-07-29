@@ -1,41 +1,77 @@
 <template>
-  <header class="h-14 bg-[#263d56] border-b relative z-10">
-    <div
-      class="flex max-w-[1920px] mx-auto justify-between items-center h-full">
-      <div class="flex ml-5">
+  <header
+    :class="[
+      { fixed: windowScroll > 70 },
+      { 'animate-bounce-stand': windowScroll >= 70 },
+      { relative: windowScroll === 0 },
+    ]"
+    class="w-full h-16 bg-[#263d56] border-b z-10">
+    <div class="max-w-7xl flex mx-auto justify-between items-center h-full">
+      <div
+        v-if="!resize"
+        class="ml-5 text-white text-xl">
+        <font-awesome-icon :icon="['fas', 'bars']" />
+      </div>
+      <div class="flex max-xl:ml-5">
         <!-- logo img -->
-        <div class="mr-3">
+        <div class="max-xl:mr-3">
           <NuxtLink to="/">
             <img
               class="w-12"
               src="./../../public/logo.svg" />
           </NuxtLink>
         </div>
-        <!-- search function -->
-        <div class="border rounded-full w-48 flex pt-1.5 pb-1.5 bg-white">
-          <!-- icon -->
-          <div class="pl-3 pr-1.5">
-            <font-awesome-icon :icon="['fas', 'magnifying-glass']" />
+        <!-- search function desket-->
+        <ClientOnly>
+          <!-- desket -->
+          <div
+            v-if="resize"
+            class="border ml-3 rounded-full w-48 flex pt-1.5 pb-1.5 bg-white max-xl:mr-5">
+            <!-- icon -->
+            <div class="pl-3 pr-1.5">
+              <font-awesome-icon :icon="['fas', 'magnifying-glass']" />
+            </div>
+            <!-- search click -->
+            <div class="pr-3">
+              <input
+                id="post_search"
+                class="w-full cursor-pointer text-sm placeholder:text-slate-600 bg-white focus:outline-none"
+                type="text"
+                @click="switchSearch"
+                autocomplete="off"
+                readonly
+                placeholder="Search" />
+            </div>
           </div>
-          <!-- search click -->
-          <div class="pr-3">
-            <input
-              id="post_search"
-              class="w-full cursor-pointer text-sm placeholder:text-slate-600 bg-white focus:outline-none"
-              type="text"
-              @click="switchSearch"
-              autocomplete="off"
-              readonly
-              placeholder="Search" />
-          </div>
-        </div>
+        </ClientOnly>
       </div>
 
-      <!-- info content -->
-      <ClientInfoFull class="mr-5"></ClientInfoFull>
+      <!-- right side -->
+      <!-- search function mobile-->
+      <ClientOnly>
+        <!-- mobile -->
+        <div
+          v-if="!resize"
+          class="pl-3 pr-1.5 text-white mr-5">
+          <font-awesome-icon
+            @click="switchSearch"
+            :icon="['fas', 'magnifying-glass']" />
+        </div>
+      </ClientOnly>
+
+      <!-- info for desket -->
+      <div
+        class="flex"
+        v-if="resize">
+        <div class="mr-5 text-white">
+          <NuxtLink :to="'/about'"> 關於華生 </NuxtLink>
+        </div>
+        <!-- info content -->
+        <ClientInfoFull class="mr-5"></ClientInfoFull>
+      </div>
     </div>
   </header>
-
+  {{ windowScroll }}
   <!-- search content -->
   <div
     v-show="showSearch"
@@ -148,4 +184,25 @@
     searchInput.value = '';
     emit('update:showSearch', showSearch.value);
   }
+  const windowWidth: Ref<number> = ref(0);
+  const windowScroll: Ref<number> = ref(0);
+
+  const resize = computed(() => {
+    if (windowWidth.value >= 768) return true;
+    else return false;
+  });
+
+  onMounted(() => {
+    if (process.client) {
+      windowWidth.value = window.innerWidth;
+    }
+
+    window.addEventListener('resize', function () {
+      windowWidth.value = window.innerWidth;
+    });
+
+    window.addEventListener('scroll', function () {
+      windowScroll.value = window.scrollY;
+    });
+  });
 </script>
