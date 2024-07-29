@@ -1,18 +1,13 @@
 <template>
   <header
-    :class="[
-      { fixed: windowScroll > 70 },
-      { 'animate-bounce-stand': windowScroll >= 70 },
-      { relative: windowScroll === 0 },
-    ]"
-    class="w-full h-16 bg-[#263d56] border-b z-10">
-    <div class="max-w-7xl flex mx-auto justify-between items-center h-full">
+    class="fixed top-0 w-full h-16 bg-main-blue border-b z-10">
+    <div class="max-w-screen-2xl flex mx-auto justify-between items-center h-full">
       <div
         v-if="!resize"
         class="ml-5 text-white text-xl">
         <font-awesome-icon :icon="['fas', 'bars']" />
       </div>
-      <div class="flex max-xl:ml-5">
+      <div class="flex ml-5">
         <!-- logo img -->
         <div class="max-xl:mr-3">
           <NuxtLink to="/">
@@ -71,7 +66,7 @@
       </div>
     </div>
   </header>
-  {{ windowScroll }}
+
   <!-- search content -->
   <div
     v-show="showSearch"

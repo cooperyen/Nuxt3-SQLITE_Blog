@@ -30,6 +30,7 @@ module.exports = {
         'bounce-stand-back': 'bounce-stand-back 0.4s ease-in forwards',
       },
       colors: {
+        'main-blue':'#263d56',
         'main-gray': '#ededed',
         'light-gray': 'rgb(235,235,235)',
         tag: 'rgb(228 238 243)',

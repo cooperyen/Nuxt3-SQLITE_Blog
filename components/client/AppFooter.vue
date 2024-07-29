@@ -1,6 +1,6 @@
 <template>
-  <footer class="w-full mb-10 mt-20 sm:px-20 px-10">
-    <div class="max-w-3xl mx-auto">
+  <footer class="w-full mb-3 mt-20 px-10 border-t-2 border-main-blue">
+    <div class="max-w-3xl mt-5 mx-auto">
       <div>
         <p>
           This site contains affiliate links to products. We may receive a
@@ -11,7 +11,7 @@
         </p>
       </div>
     </div>
-    <div class="mt-10 text-center">
+    <div class="mt-5 text-center text-gray-400 text-sm">
       <p>©{{ year }} 華生水資源有限公司 All Rights Reserved.</p>
     </div>
   </footer>

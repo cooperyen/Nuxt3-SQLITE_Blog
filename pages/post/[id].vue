@@ -37,13 +37,12 @@
   }
 
   useHead({
-      title: data.value.title,
-      link: [
-        {
-          rel: 'stylesheet',
-          href: 'https://cdn.ckeditor.com/ckeditor5/42.0.1/ckeditor5.css',
-        },
-      ],
-    });
+    title: data.value.title,
+    link: [
+      {
+        rel: 'stylesheet',
+        href: 'https://cdn.ckeditor.com/ckeditor5/42.0.1/ckeditor5.css',
+      },
+    ],
+  });
 </script>
-

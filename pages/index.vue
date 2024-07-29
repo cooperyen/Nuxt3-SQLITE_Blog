@@ -1,23 +1,34 @@
 <template>
-  <div class="bg-slate-100 p-10 bg-cover min-h-96 flex items-center">
-    <div class="max-w-7xl mx-auto">
-      <h1>華生水資源有限公司</h1>
-      <p>Since 1999</p>
-      <p>
-        華生自1959年成立至今近60年歷史，專業誠信可靠，秉持著「健康、純淨、喝好水」的理念服務社會，並且追求我們的核心價值節能減碳愛護地球。
-        從華笙行的手工生產，至民國75年台灣先例從國外引進最新自動化機具生產，並同時汰換掉沈重、易碎不安全的玻璃瓶，改用較為輕便、安全的PC塑鋼瓶，又於民國100年全面汰換有雙酚A致癌疑慮的PC瓶改為安全衛生之PET寶特瓶。帶領桶裝飲用水走入新紀元。
-      </p>
+  <div>
+    <div class="bg-slate-100 p-10 bg-cover min-h-96 flex items-center">
+      <div class="max-w-7xl mx-auto">
+        <h1>華生水資源有限公司</h1>
+        <p>Since 1999</p>
+        <p>
+          華生自1959年成立至今近60年歷史，專業誠信可靠，秉持著「健康、純淨、喝好水」的理念服務社會，並且追求我們的核心價值節能減碳愛護地球。
+          從華笙行的手工生產，至民國75年台灣先例從國外引進最新自動化機具生產，並同時汰換掉沈重、易碎不安全的玻璃瓶，改用較為輕便、安全的PC塑鋼瓶，又於民國100年全面汰換有雙酚A致癌疑慮的PC瓶改為安全衛生之PET寶特瓶。帶領桶裝飲用水走入新紀元。
+        </p>
+      </div>
     </div>
-  </div>
-  <main>
-    <div
-      class="w-full mt-5 md:mt-10 max-xl:px-5 max-w-7xl mr-auto ml-auto bg-white md:grid md:gap-x-5 md:gap-y-8 md:grid-cols-3">
-      <clientIndexPosts :data="data"></clientIndexPosts>
+    <main>
+      <div
+        class="w-full mt-5 md:mt-10 max-xl:px-5 max-w-7xl mr-auto ml-auto bg-white md:grid md:gap-x-5 md:gap-y-8 md:grid-cols-3">
+        <clientIndexPosts :data="data"></clientIndexPosts>
+      </div>
+    </main>
+
+    <div class="dataLoader mt-20">
+      <button
+        v-show="!isLoadings"
+        type="button"
+        class="flex items-center mx-auto"
+        disabled>
+        <font-awesome-icon
+          class="animate-spin mr-1"
+          :icon="['fas', 'spinner']" />
+        Processing...
+      </button>
     </div>
-  </main>
-  <div class="dataLoader">
-    <span v-if="isLoading"> Loading </span>
-    <span v-else>done</span>
   </div>
 </template>
 
@@ -27,7 +38,6 @@
   });
   const postsUrl: string = '/api/post/postFullList';
   const nums: Ref<number> = ref(4);
-  const isLoading: Ref<Boolean> = ref(true);
 
   const { data, pending, error, refresh } = await useFetch<any>(postsUrl, {
     query: { postNum: nums },
@@ -35,23 +45,23 @@
     immediate: true,
   });
 
+  const isLoadings = computed(() => {
+    return nums.value > data.value.length;
+  });
+
   onMounted(() => {
     const intersectionObserver = new IntersectionObserver((entries) => {
       // 如果 intersectionRatio 为 0，则目标在视野外，
       // 我们不需要做任何事情。
+      console.log(entries[0].intersectionRatio);
       if (entries[0].intersectionRatio <= 0) return;
 
-      const totalLength: number = data.value.length;
+      nums.value += 3;
 
-      if (nums.value > totalLength) {
-        intersectionObserver.disconnect();
-        isLoading.value = false;
-      } else {
-        nums.value += 2;
-        console.log('Loaded new items');
-      }
+      if (nums.value > data.value.length) intersectionObserver.disconnect();
     });
-    // 开始监听
+
+    // dataLoader listener
     const dataLoader = document.querySelector('.dataLoader') as HTMLElement;
     intersectionObserver.observe(dataLoader);
   });

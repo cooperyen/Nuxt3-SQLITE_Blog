@@ -8,6 +8,10 @@ export default defineNuxtConfig({
     typeCheck: true,
   },
 
+  app: {
+    layoutTransition: { name: 'layout', mode: 'out-in' }
+  },
+
   routeRules: {
     '/admin/**': { ssr: false },
   },
