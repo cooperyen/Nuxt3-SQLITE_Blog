@@ -2,16 +2,20 @@
   <div class="text-white">
     <div class="flex gap-5">
       <div>
-        <font-awesome-icon
-          class="mr-1"
-          :icon="['fas', 'book-open']" />
-        {{ post?.postLength }}
+        <NuxtLink to="/sorts">
+          <font-awesome-icon
+            class="mr-1"
+            :icon="['fas', 'book-open']" />
+          {{ post?.postLength }}
+        </NuxtLink>
       </div>
       <div>
-        <font-awesome-icon
-          class="mr-1"
-          :icon="['fas', 'tag']" />
-        {{ post?.tagLength }}
+        <NuxtLink to="/tags">
+          <font-awesome-icon
+            class="mr-1"
+            :icon="['fas', 'tag']" />
+          {{ post?.tagLength }}
+        </NuxtLink>
       </div>
     </div>
   </div>
