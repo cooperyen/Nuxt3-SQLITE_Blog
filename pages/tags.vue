@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div class="max-w-7xl mx-auto mt-20 text-center">
+  <div class="">
+    <div class="max-w-7xl mx-auto md:mt-20 mt-10 text-center">
       <!-- title -->
       <div class="text-3xl font-bold">Tags</div>
       <div class="mt-10 text-xl">
@@ -10,13 +10,13 @@
 
     <!-- tags -->
     <div
-      class="max-w-4xl mx-auto mt-10 grid gap-x-2 gap-y-2 md:grid-cols-6 grid-cols-4 text-center break-words">
+      class="max-w-4xl mx-auto mt-10 grid gap-x-2 md:gap-y-6 gap-y-14 lg:grid-cols-6 sm:grid-cols-4 grid-cols-3 text-center break-words items-baseline">
       <div
         :class="index"
-        class=""
+        class="underline underline-offset-8"
         v-for="(index, val) in tagsList"
         :key="val">
-        {{ val }}
+        <p>{{ val }}</p>
       </div>
     </div>
   </div>
@@ -76,29 +76,33 @@
     const distributeTextStyle: arrayAsString = {};
 
     if (unduplicatedDistribute.length === 2) {
-      distributeTextStyle[unduplicatedDistribute[0]] = 'text-4xl font-bold';
-      distributeTextStyle[unduplicatedDistribute[1]] = 'text-lg';
+      distributeTextStyle[unduplicatedDistribute[0]] =
+        'text-4xl font-bold text-orange-500';
+      distributeTextStyle[unduplicatedDistribute[1]] = 'text-md';
     }
 
     if (unduplicatedDistribute.length === 3) {
-      distributeTextStyle[unduplicatedDistribute[0]] = 'text-5xl';
+      distributeTextStyle[unduplicatedDistribute[0]] =
+        'text-4xl font-bold text-orange-500';
       distributeTextStyle[unduplicatedDistribute[1]] = 'text-xl font-medium';
-      distributeTextStyle[unduplicatedDistribute[2]] = 'text-lg';
+      distributeTextStyle[unduplicatedDistribute[2]] = 'text-md';
     }
 
     if (unduplicatedDistribute.length === 4) {
-      distributeTextStyle[unduplicatedDistribute[0]] = 'text-5xl';
+      distributeTextStyle[unduplicatedDistribute[0]] =
+        'text-4xl font-bold text-orange-500';
       distributeTextStyle[unduplicatedDistribute[1]] = 'text-2xl font-medium';
       distributeTextStyle[unduplicatedDistribute[2]] = 'text-xl';
-      distributeTextStyle[unduplicatedDistribute[3]] = 'text-lg';
+      distributeTextStyle[unduplicatedDistribute[3]] = 'text-md';
     }
 
     if (unduplicatedDistribute.length === 5) {
-      distributeTextStyle[unduplicatedDistribute[0]] = 'text-4xl';
+      distributeTextStyle[unduplicatedDistribute[0]] =
+        'text-4xl font-bold text-orange-500';
       distributeTextStyle[unduplicatedDistribute[1]] = 'text-3xl font-semibold';
       distributeTextStyle[unduplicatedDistribute[2]] = 'text-2xl font-medium';
       distributeTextStyle[unduplicatedDistribute[3]] = 'text-xl';
-      distributeTextStyle[unduplicatedDistribute[4]] = 'text-lg';
+      distributeTextStyle[unduplicatedDistribute[4]] = 'text-md';
     }
 
     const objKeyWithTextStyle = Object.keys(aryDistribute).map(function (key) {

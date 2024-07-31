@@ -1,8 +1,8 @@
 <template>
-  <div class="trs">
+  <div class="">
     <ClientAppHeader @update:showSearch="(el:boolean) => (showSearch = el)" />
     <div
-      class="pt-24 max-md:px-5 min-h-screen trs"
+      class="py-24 max-md:px-5"
       :class="{ 'overflow-y-auto h-[calc(100vh_-_8.5rem)]': showSearch }">
       <slot></slot>
     </div>
