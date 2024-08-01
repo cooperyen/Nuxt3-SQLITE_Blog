@@ -2,7 +2,7 @@
   <div class="text-white">
     <div class="flex gap-5">
       <div>
-        <NuxtLink to="/sorts">
+        <NuxtLink to="/posts">
           <font-awesome-icon
             class="mr-1"
             :icon="['fas', 'book-open']" />
@@ -10,7 +10,7 @@
         </NuxtLink>
       </div>
       <div>
-        <NuxtLink to="/tags">
+        <NuxtLink to="/tag">
           <font-awesome-icon
             class="mr-1"
             :icon="['fas', 'tag']" />

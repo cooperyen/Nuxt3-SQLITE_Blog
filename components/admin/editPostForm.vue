@@ -31,7 +31,7 @@
           <div class="border-2 w-full rounded-md py-1 px-1 flex items-center">
             <ul class="flex px-1 m-0 text-center">
               <template
-                v-for="list in items[titles].split(',')"
+                v-for="list in items[titles]"
                 :key="list">
                 <li
                   class="list-none text-center rounded-md py-2 px-3 mr-3 bg-mian_color text-white flex"
@@ -102,14 +102,14 @@
   interface Provider {
     title: string;
     subtitle: string;
-    sort: string;
+    sort: any;
     [key: string]: string;
   }
 
   const items: Ref<Provider> = ref({
     title: props.title ? props.title : '',
     subtitle: props.subtitle ? props.subtitle : '',
-    sort: props.sort ? props.sort : '',
+    sort: props.sort ? props.sort : [],
   });
 
   const sorts: Ref<any> = ref('1');
@@ -122,26 +122,26 @@
   ]);
 
   function deleteSort(val: string) {
-    items.value.sort = items.value.sort
-      .split(',')
-      .filter((el) => el != val)
-      .join(',');
+    // items.value.sort = items.value.sort
+    //   .split(',')
+    //   .filter((el) => el != val)
+    //   .join(',');
   }
 
   function addSort() {
+    console.log(items.value.sort);
     const sortValue = sorts.value[0].value;
     const e = new RegExp('[ @$!%*?&#=\'"]');
 
     if (sortValue.match(e)) alert('禁止特殊符號 @$!%*?&#=\'"');
     if (sortValue.length < 3) alert('至少3字元');
     else {
-      const duplicate = items.value.sort
-        .split(',')
-        .filter((el) => el === sortValue);
+      const duplicate = items.value.sort.indexOf(sortValue);
+      console.log(duplicate, 'duplicate');
       if (duplicate.length > 0) alert('重複內容');
       else {
-        const sort = items.value.sort === '' ? `${sortValue}` : `,${sortValue}`;
-        items.value.sort += sort;
+        // const sort = items.value.sort.length === 0 ? '[]' : `${sortValue}`;
+        items.value.sort.push(sortValue);
         sorts.value[0].value = '';
         emit('update:postData', items.value);
       }

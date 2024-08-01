@@ -7,17 +7,17 @@
         目前標籤有 {{ Object.keys(tagsList).length }} 個
       </div>
     </div>
-
+    <!-- grid gap-x-2 md:gap-y-6 gap-y-14 lg:grid-cols-6 sm:grid-cols-4 grid-cols-3 text-center break-words items-baseline -->
     <!-- tags -->
-    <div
-      class="max-w-4xl mx-auto mt-10 grid gap-x-2 md:gap-y-6 gap-y-14 lg:grid-cols-6 sm:grid-cols-4 grid-cols-3 text-center break-words items-baseline">
-      <div
+    <div class="max-w-4xl mx-auto mt-10 text-center">
+      <NuxtLink
+        :to="`/tags/${val}`"
         :class="index"
-        class="underline underline-offset-8"
+        class="underline underline-offset-6 inline-block px-4 pb-8 break-all"
         v-for="(index, val) in tagsList"
         :key="val">
         <p>{{ val }}</p>
-      </div>
+      </NuxtLink>
     </div>
   </div>
 </template>

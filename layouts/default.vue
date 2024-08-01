@@ -2,7 +2,7 @@
   <div class="">
     <ClientAppHeader @update:showSearch="(el:boolean) => (showSearch = el)" />
     <div
-      class="py-24 max-md:px-5"
+      class="py-24 max-md:px-3 px-5"
       :class="{ 'overflow-y-auto h-[calc(100vh_-_8.5rem)]': showSearch }">
       <slot></slot>
     </div>

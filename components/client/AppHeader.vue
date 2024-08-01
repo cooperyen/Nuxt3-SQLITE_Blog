@@ -1,7 +1,7 @@
 <template>
-  <header
-    class="fixed top-0 w-full h-16 bg-main-blue border-b z-10">
-    <div class="max-w-screen-2xl flex mx-auto justify-between items-center h-full">
+  <header class="fixed top-0 w-full h-16 bg-main-blue border-b z-10">
+    <div
+      class="max-w-screen-2xl flex mx-auto justify-between items-center h-full">
       <div
         v-if="!resize"
         class="ml-5 text-white text-xl">
@@ -29,7 +29,6 @@
             <!-- search click -->
             <div class="pr-3">
               <input
-                id="post_search"
                 class="w-full cursor-pointer text-sm placeholder:text-slate-600 bg-white focus:outline-none"
                 type="text"
                 @click="switchSearch"
@@ -85,7 +84,6 @@
           </div>
           <div class="w-full">
             <input
-              id="post_search"
               class="text-sm w-full placeholder:text-slate-600 bg-light-gray focus:outline-none"
               type="text"
               v-model="searchInput"

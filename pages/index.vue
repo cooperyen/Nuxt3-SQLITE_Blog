@@ -42,18 +42,17 @@
   const { data, pending, error, refresh } = await useFetch<any>(postsUrl, {
     query: { postNum: nums },
     lazy: true,
-    immediate: true,
+    // immediate: true,
   });
 
   const isLoadings = computed(() => {
-    return nums.value > data.value.length;
+    if (data.value) return nums.value > data.value.length;
+    else return false;
   });
 
   onMounted(() => {
     const intersectionObserver = new IntersectionObserver((entries) => {
-      // 如果 intersectionRatio 为 0，则目标在视野外，
-      // 我们不需要做任何事情。
-      console.log(entries[0].intersectionRatio);
+      // if intersectionRatio === 0, means out of visible area
       if (entries[0].intersectionRatio <= 0) return;
 
       nums.value += 3;
