@@ -1,7 +1,8 @@
 <template>
   <div v-if="data">
-    {{ route.params.id }}
-    {{ data }}
+    <!-- {{ route.params.id }}
+    {{ data }} -->
+    <ClientPostTimeLineHadnler :data="data" target="tag"></ClientPostTimeLineHadnler>
   </div>
 </template>
 
