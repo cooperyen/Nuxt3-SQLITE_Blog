@@ -1,6 +1,7 @@
 <template>
   <header class="fixed top-0 w-full h-16 bg-main-blue border-b z-10">
     <div
+      v-show="show"
       class="max-w-screen-2xl flex mx-auto justify-between items-center h-full">
       <div
         v-if="!resize"
@@ -180,7 +181,10 @@
   const windowWidth: Ref<number> = ref(0);
   const windowScroll: Ref<number> = ref(0);
 
+  const show: Ref<Boolean> = ref(false);
+
   const resize = computed(() => {
+    show.value = true;
     if (windowWidth.value >= 768) return true;
     else return false;
   });

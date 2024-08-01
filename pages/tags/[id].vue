@@ -1,6 +1,8 @@
 <template>
-  {{ route.params.id }}
-  {{ data }}
+  <div v-if="data">
+    {{ route.params.id }}
+    {{ data }}
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -10,12 +12,14 @@
     query: { id: route.params.id },
   });
 
-  onBeforeMount(() => {
-    // if (!data.value) back();
-  });
+  if (!data.value) back();
+
+  // onBeforeMount(() => {
+  //   if (!data.value) back();
+  // });
 
   async function back() {
-    await navigateTo('/');
+    await navigateTo('/tag');
   }
 
   useHead({

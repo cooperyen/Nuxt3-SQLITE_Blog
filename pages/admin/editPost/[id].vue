@@ -135,7 +135,6 @@
     value: object;
   }
   function postData(el: any) {
-    // console.log(el);
     items.value = el;
   }
 
@@ -169,6 +168,7 @@
       loadingSwitch(false);
     } else {
       const url: string = '/api/postUpdate';
+
       const posts: object | any = await $fetch(url, {
         method: 'POST',
         body: {

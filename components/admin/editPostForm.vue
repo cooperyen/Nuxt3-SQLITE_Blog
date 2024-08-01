@@ -109,7 +109,7 @@
   const items: Ref<Provider> = ref({
     title: props.title ? props.title : '',
     subtitle: props.subtitle ? props.subtitle : '',
-    sort: props.sort ? props.sort : [],
+    sort: props.sort ? props.sort.split(',') : [],
   });
 
   const sorts: Ref<any> = ref('1');
@@ -122,14 +122,10 @@
   ]);
 
   function deleteSort(val: string) {
-    // items.value.sort = items.value.sort
-    //   .split(',')
-    //   .filter((el) => el != val)
-    //   .join(',');
+    items.value.sort = items.value.sort.filter((el: string) => el != val);
   }
 
   function addSort() {
-    console.log(items.value.sort);
     const sortValue = sorts.value[0].value;
     const e = new RegExp('[ @$!%*?&#=\'"]');
 
@@ -140,7 +136,6 @@
       console.log(duplicate, 'duplicate');
       if (duplicate.length > 0) alert('重複內容');
       else {
-        // const sort = items.value.sort.length === 0 ? '[]' : `${sortValue}`;
         items.value.sort.push(sortValue);
         sorts.value[0].value = '';
         emit('update:postData', items.value);

@@ -5,14 +5,11 @@ const prismaClient = new PrismaClient();
 
 export default defineEventHandler(async (event) => {
   const query = getQuery(event);
-  console.log(query);
-
   const posts = await prismaClient.post.findMany({
     where: {
       publish: true,
-      // sort: { search: query.id },
       sort: {
-        in: query.id,
+        contains: query.id,
       },
     },
     orderBy: [
@@ -22,5 +19,7 @@ export default defineEventHandler(async (event) => {
     ],
   });
 
-  return posts.length != 0 ? posts : false;
+  const res = posts.filter((el) => el.sort.split(',').indexOf(query.id) != -1);
+
+  return res.length != 0 ? res : false;
 });

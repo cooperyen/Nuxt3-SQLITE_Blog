@@ -6,23 +6,17 @@ const prismaClient = new PrismaClient();
 export default defineEventHandler(async (event) => {
   try {
     const body = await readBody(event);
-    const content = body.content.replace(/<img /g, '<img class="m-auto" ');
     const data = await prismaClient.post.update({
       where: { id: body.id },
       data: {
         title: body.title,
         subtitle: body.subtitle,
         content: body.content,
-        sort: body.sort,
+        sort: String(body.sort),
         publish: body.publish,
         customUrl: body.customUrl,
       },
     });
-
-    // deleteUnuseImg({
-    //   activeFiles: findImgName(body.content),
-    //   id: body.id,
-    // });
 
     return {
       state: 'ok',
