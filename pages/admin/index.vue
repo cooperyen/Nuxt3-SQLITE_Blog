@@ -1,5 +1,6 @@
 <template>
-  <div class="flex w-full justify-end">
+  <div>
+    <div class="flex w-full justify-end">
     <UISubmitBTN class="flex">
       <NuxtLink
         class="px-3 py-1 block"
@@ -11,6 +12,7 @@
 
   <AdminPostList @refresh="(el) => (refresh = el)"></AdminPostList>
   <AdminPostPagination :refresh="refresh"></AdminPostPagination>
+  </div>
 </template>
 
 <script setup lang="ts">

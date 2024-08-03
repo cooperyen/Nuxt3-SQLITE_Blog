@@ -1,10 +1,8 @@
 <template>
   <div v-if="data">
-    <!-- {{ route.params.id }}
-    {{ data }} -->
-    <Client
+    <ClientPostTimeLineHandler
       :data="data"
-      target="tag"></Client>
+      target="tag"></ClientPostTimeLineHandler>
   </div>
 </template>
 

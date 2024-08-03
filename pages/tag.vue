@@ -1,5 +1,6 @@
 <template>
   <div class="">
+    {{ tagsList }}
     <div class="max-w-7xl mx-auto md:mt-20 mt-10 text-center">
       <!-- title -->
       <div class="text-3xl font-bold">Tags</div>
@@ -60,18 +61,23 @@
     Object.keys(aryCount).forEach((key: any) => {
       const usageTimes = aryCount[key];
       const percent = Math.floor((usageTimes / totalUseTags) * 100);
-      if (percent > 80 && percent < 100) aryDistribute[key] = 'A';
-      if (percent > 60 && percent < 80) aryDistribute[key] = 'B';
-      if (percent > 40 && percent < 60) aryDistribute[key] = 'C';
-      if (percent > 20 && percent < 40) aryDistribute[key] = 'D';
-      if (percent > 0 && percent < 20) aryDistribute[key] = 'E';
+      if (percent > 80 && percent <= 100) aryDistribute[key] = 'A';
+      if (percent > 60 && percent <= 80) aryDistribute[key] = 'B';
+      if (percent > 40 && percent <= 60) aryDistribute[key] = 'C';
+      if (percent > 20 && percent <= 40) aryDistribute[key] = 'D';
+      if (percent > 0 && percent <= 20) aryDistribute[key] = 'E';
+      
     });
+
+
 
     const aryDistributeValues = Object.values(aryDistribute);
 
     const unduplicatedDistribute = aryDistributeValues.filter((val, index) => {
       return aryDistributeValues.indexOf(val) === index;
     });
+
+
 
     const distributeTextStyle: arrayAsString = {};
 
@@ -115,7 +121,8 @@
       const element = objKeyWithTextStyle[i];
       res[Object.keys(element)[0]] = element[Object.keys(element)[0]];
     }
-
     return res;
   });
+
+  console.log(tagsList.value);
 </script>

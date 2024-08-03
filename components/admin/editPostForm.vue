@@ -133,8 +133,7 @@
     if (sortValue.length < 3) alert('至少3字元');
     else {
       const duplicate = items.value.sort.indexOf(sortValue);
-      console.log(duplicate, 'duplicate');
-      if (duplicate.length > 0) alert('重複內容');
+      if (duplicate != -1) alert('重複內容');
       else {
         items.value.sort.push(sortValue);
         sorts.value[0].value = '';
