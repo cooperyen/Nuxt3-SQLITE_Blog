@@ -1,6 +1,5 @@
 <template>
-  <div class="">
-    {{ tagsList }}
+  <div>
     <div class="max-w-7xl mx-auto md:mt-20 mt-10 text-center">
       <!-- title -->
       <div class="text-3xl font-bold">Tags</div>
@@ -24,6 +23,11 @@
 </template>
 
 <script setup lang="ts">
+  definePageMeta({
+    layoutTransition: {
+      name: 'side', mode: 'out-in'
+    },
+  });
   const postsUrl: string = '/api/post/postTags';
 
   const { data: tags, pending, error, refresh } = await useFetch<any>(postsUrl);
@@ -66,18 +70,13 @@
       if (percent > 40 && percent <= 60) aryDistribute[key] = 'C';
       if (percent > 20 && percent <= 40) aryDistribute[key] = 'D';
       if (percent > 0 && percent <= 20) aryDistribute[key] = 'E';
-      
     });
-
-
 
     const aryDistributeValues = Object.values(aryDistribute);
 
     const unduplicatedDistribute = aryDistributeValues.filter((val, index) => {
       return aryDistributeValues.indexOf(val) === index;
     });
-
-
 
     const distributeTextStyle: arrayAsString = {};
 
@@ -124,5 +123,7 @@
     return res;
   });
 
-  console.log(tagsList.value);
+  onMounted(() => {
+    console.log(tagsList.value);
+  });
 </script>

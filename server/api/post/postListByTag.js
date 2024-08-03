@@ -1,4 +1,3 @@
-import { faL } from '@fortawesome/free-solid-svg-icons';
 import { PrismaClient } from '@prisma/client';
 
 const prismaClient = new PrismaClient();

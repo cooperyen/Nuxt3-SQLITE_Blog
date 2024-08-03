@@ -2,12 +2,12 @@
   <div class="text-white">
     <div class="flex gap-5">
       <div>
-        <NuxtLink to="/posts">
+        <!-- <NuxtLink to="/posts">
           <font-awesome-icon
             class="mr-1"
             :icon="['fas', 'book-open']" />
           {{ post?.postLength }}
-        </NuxtLink>
+        </NuxtLink> -->
       </div>
       <div>
         <NuxtLink to="/tag">

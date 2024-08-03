@@ -7,6 +7,8 @@ export default defineEventHandler(async (event) => {
     select: {
       id: true,
       sort: true,
+    },
+    where: {
       publish: true,
     },
   });

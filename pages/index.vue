@@ -35,13 +35,17 @@
 <script setup lang="ts">
   definePageMeta({
     layout: 'indexs',
+    // layoutTransition: {
+    //   name: 'side', mode: 'out-in'
+    // },
   });
+
   const postsUrl: string = '/api/post/postFullList';
   const nums: Ref<number> = ref(4);
 
-  const { data, pending, error, refresh } = await useFetch<any>(postsUrl, {
+  const { data, pending, error, refresh } = useFetch<any>(postsUrl, {
     query: { postNum: nums },
-    lazy: true,
+    // lazy: true,
     // immediate: true,
   });
 
@@ -60,8 +64,10 @@
       if (nums.value > data.value.length) intersectionObserver.disconnect();
     });
 
+    console.log(document.querySelector('.dataLoader'));
+
     // dataLoader listener
-    const dataLoader = document.querySelector('.dataLoader') as HTMLElement;
-    intersectionObserver.observe(dataLoader);
+    // const dataLoader = document.querySelector('.dataLoader') as HTMLElement;
+    // intersectionObserver.observe(dataLoader);
   });
 </script>

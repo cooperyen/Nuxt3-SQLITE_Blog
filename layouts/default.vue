@@ -1,5 +1,5 @@
 <template>
-  <div class="">
+  <div>
     <ClientAppHeader @update:showSearch="(el:boolean) => (showSearch = el)" />
     <div
       class="py-24 max-md:px-3 px-5"

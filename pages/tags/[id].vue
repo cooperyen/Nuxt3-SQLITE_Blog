@@ -1,8 +1,9 @@
 <template>
-  <div v-if="data">
+  <div>
     <ClientPostTimeLineHandler
       :data="data"
-      target="tag"></ClientPostTimeLineHandler>
+      target="tag"
+      :tag="route.params.id"></ClientPostTimeLineHandler>
   </div>
 </template>
 
@@ -24,7 +25,7 @@
   }
 
   useHead({
-    title: route.params.id && '分類',
+    title: route.params.id && '標籤',
     link: [
       {
         rel: 'stylesheet',
