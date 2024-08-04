@@ -23,11 +23,6 @@
 </template>
 
 <script setup lang="ts">
-  definePageMeta({
-    layoutTransition: {
-      name: 'side', mode: 'out-in'
-    },
-  });
   const postsUrl: string = '/api/post/postTags';
 
   const { data: tags, pending, error, refresh } = await useFetch<any>(postsUrl);
