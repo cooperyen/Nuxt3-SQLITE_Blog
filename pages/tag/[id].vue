@@ -1,10 +1,10 @@
 <template>
-  <div>
+  <UILayDefaultContainer>
     <ClientPostTimeLineHandler
       :data="data"
       target="tag"
       :tag="route.params.id"></ClientPostTimeLineHandler>
-  </div>
+  </UILayDefaultContainer>
 </template>
 
 <script setup lang="ts">

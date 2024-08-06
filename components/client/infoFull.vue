@@ -10,7 +10,7 @@
         </NuxtLink> -->
       </div>
       <div>
-        <NuxtLink to="/tag">
+        <NuxtLink to="/tags">
           <font-awesome-icon
             class="mr-1"
             :icon="['fas', 'tag']" />

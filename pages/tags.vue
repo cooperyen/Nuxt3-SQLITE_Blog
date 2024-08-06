@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div class="max-w-7xl mx-auto md:mt-20 mt-10 text-center">
+  <UILayDefaultContainer>
+    <div class="max-w-7xl mx-auto mt-20 text-center">
       <!-- title -->
       <div class="text-3xl font-bold">Tags</div>
       <div class="mt-10 text-xl">
@@ -11,7 +11,7 @@
     <!-- tags -->
     <div class="max-w-4xl mx-auto mt-10 text-center">
       <NuxtLink
-        :to="`/tags/${val}`"
+        :to="`/tag/${val}`"
         :class="index"
         class="underline underline-offset-6 inline-block px-4 pb-8 break-all"
         v-for="(index, val) in tagsList"
@@ -19,7 +19,7 @@
         <p>{{ val }}</p>
       </NuxtLink>
     </div>
-  </div>
+  </UILayDefaultContainer>
 </template>
 
 <script setup lang="ts">

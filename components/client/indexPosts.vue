@@ -29,7 +29,7 @@
           <!-- Sort and time -->
           <div class="text-xs mt-5 text-gray-500">
             <PostSortTimeHandler
-              :sort="blog.sort"
+              :tags="blog.sort"
               :time="blog.createdAt"></PostSortTimeHandler>
           </div>
         </div>
@@ -52,4 +52,5 @@
 
 <script setup lang="ts">
   const props = defineProps(['data']);
+  console.log(props.data);
 </script>

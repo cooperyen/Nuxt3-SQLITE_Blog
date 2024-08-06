@@ -3,11 +3,16 @@
     <div
       v-show="show"
       class="max-w-screen-2xl flex mx-auto justify-between items-center h-full">
+      <!-- bar menu for mobile -->
       <div
         v-if="!resize"
         class="ml-5 text-white text-xl">
-        <font-awesome-icon :icon="['fas', 'bars']" />
+        <font-awesome-icon
+          class="cursor-pointer"
+          @click="moblieShowMenu = !moblieShowMenu"
+          :icon="['fas', 'bars']" />
       </div>
+
       <div class="flex ml-5">
         <!-- logo img -->
         <div class="max-xl:mr-3">
@@ -22,7 +27,8 @@
           <!-- desket -->
           <div
             v-if="resize"
-            class="border ml-3 rounded-full w-48 flex pt-1.5 pb-1.5 bg-white max-xl:mr-5">
+            @click="switchSearch"
+            class="cursor-pointer border ml-3 rounded-full w-48 flex pt-1.5 pb-1.5 bg-white max-xl:mr-5">
             <!-- icon -->
             <div class="pl-3 pr-1.5">
               <font-awesome-icon :icon="['fas', 'magnifying-glass']" />
@@ -32,7 +38,6 @@
               <input
                 class="w-full cursor-pointer text-sm placeholder:text-slate-600 bg-white focus:outline-none"
                 type="text"
-                @click="switchSearch"
                 autocomplete="off"
                 readonly
                 placeholder="Search" />
@@ -41,13 +46,12 @@
         </ClientOnly>
       </div>
 
-      <!-- right side -->
       <!-- search function mobile-->
       <ClientOnly>
         <!-- mobile -->
         <div
           v-if="!resize"
-          class="pl-3 pr-1.5 text-white mr-5">
+          class="cursor-pointer pl-3 pr-1.5 text-white mr-5">
           <font-awesome-icon
             @click="switchSearch"
             :icon="['fas', 'magnifying-glass']" />
@@ -64,6 +68,21 @@
         <!-- info content -->
         <ClientInfoFull class="mr-5"></ClientInfoFull>
       </div>
+    </div>
+
+    <!-- bg-main-blue -->
+    <!-- info for mobile -->
+    <div
+      v-show="moblieShowMenu"
+      class="w-full bg-white px-5 py-10 shadow-md">
+      <ul>
+        <li class="mb-3">
+          <NuxtLink :to="'/about'">關於華生</NuxtLink>
+        </li>
+        <li>
+          <NuxtLink :to="'/tags'">標籤</NuxtLink>
+        </li>
+      </ul>
     </div>
   </header>
 
@@ -100,6 +119,7 @@
             :icon="['fas', 'circle-xmark']" />
         </div>
       </div>
+
       <!-- search resault -->
       <div class="px-2 md:px-5 max-md:px-4">
         <div
@@ -127,10 +147,12 @@
   const searchInput: Ref<string> = ref('');
   const showSearch: Ref<boolean> = ref(false);
   const emit = defineEmits(['update:showSearch']);
+  const moblieShowMenu: Ref<boolean> = ref(false);
 
   watch(
     () => router.path,
     () => {
+      moblieShowMenu.value = false;
       showSearch.value = false;
       searchInput.value = '';
       emit('update:showSearch', showSearch.value);
