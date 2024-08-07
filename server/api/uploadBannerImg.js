@@ -24,7 +24,6 @@ export default defineEventHandler(async (event) => {
         if (stats.isDirectory()) emptyDir(fileSpath);
         else {
           fs.unlinkSync(fileSpath);
-          console.log(`delete ${file}`);
         }
       });
 

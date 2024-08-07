@@ -117,7 +117,7 @@
       },
     });
 
-    console.log(res);
+    // console.log(res);
 
     if (!res.state) {
       loginProcess.value = false;
@@ -147,7 +147,7 @@
     const res = await $fetch('/api/test-create-user', {
       method: 'GET',
     });
-    console.log(res);
+    // console.log(res);
   }
 
   async function getIP() {

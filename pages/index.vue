@@ -28,6 +28,11 @@
           :icon="['fas', 'spinner']" />
         Processing...
       </button>
+      <span
+        class="text-center block"
+        v-show="isLoadings">
+        - END -
+      </span>
     </div>
   </div>
 </template>
@@ -36,14 +41,14 @@
   const postsUrl: string = '/api/post/postFullList';
   const nums: Ref<number> = ref(4);
 
-  const { data, pending, error, refresh } = await useFetch<any>(postsUrl, {
+  const { data } = await useFetch<any>('/api/post/postFullList', {
     query: { postNum: nums },
-    // lazy: true,
-    // immediate: true,
   });
 
+  const { data: fullListLength } = await useFetch<any>('/api/post/postLength');
+
   const isLoadings = computed(() => {
-    if (data.value) return nums.value > data.value.length;
+    if (data.value) return nums.value > fullListLength.value;
     else return false;
   });
 
@@ -54,7 +59,7 @@
 
       nums.value += 3;
 
-      if (nums.value > data.value.length) intersectionObserver.disconnect();
+      if (nums.value > fullListLength.value) intersectionObserver.disconnect();
     });
 
     // console.log(document.querySelector('.dataLoader'));

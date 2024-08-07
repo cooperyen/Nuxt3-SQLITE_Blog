@@ -1,67 +1,69 @@
 <template>
-  <AdminUILoading></AdminUILoading>
-  <main class="py-3 px-8 rounded-md mr-auto ml-auto max-w-4xl bg-white">
-    <UILayoutAlignCenter>
-      <template v-if="datas">
-        <!-- option content -->
-        <div class="flex mt-4 border-b pb-3 w-full max-sm:flex-wrap">
-          <div class="w-full content-center">
-            <p>
-              {{ description }}
-            </p>
-          </div>
-          <div class="justify-end w-full flex max-sm:mt-4">
-            <div
-              class="mr-1 ms-3 text-sm font-medium text-gray-900 content-center">
-              <p>Publish</p>
+  <div>
+    <AdminUILoading></AdminUILoading>
+    <main class="py-3 px-8 rounded-md mr-auto ml-auto max-w-4xl bg-white">
+      <UILayoutAlignCenter>
+        <template v-if="datas">
+          <!-- option content -->
+          <div class="flex mt-4 border-b pb-3 w-full max-sm:flex-wrap">
+            <div class="w-full content-center">
+              <p>
+                {{ description }}
+              </p>
             </div>
-            <UISwitchBTN
-              class="border-r-2 mr-2 pr-2"
-              :status="data.publish"
-              @update:status="publish = $event"></UISwitchBTN>
-            <UISubmitBTN
-              class="content-center py-1"
-              @click="update">
-              <span class="px-3">Update</span>
-            </UISubmitBTN>
+            <div class="justify-end w-full flex max-sm:mt-4">
+              <div
+                class="mr-1 ms-3 text-sm font-medium text-gray-900 content-center">
+                <p>Publish</p>
+              </div>
+              <UISwitchBTN
+                class="border-r-2 mr-2 pr-2"
+                :status="data.publish"
+                @update:status="publish = $event"></UISwitchBTN>
+              <UISubmitBTN
+                class="content-center py-1"
+                @click="update">
+                <span class="px-3">Update</span>
+              </UISubmitBTN>
+            </div>
           </div>
-        </div>
 
-        <div class="mt-3 border-b pb-3">
-          <div>
-            文章ID <span class="bg-slate-200 ml-2 px-2">{{ postId }}</span>
+          <div class="mt-3 border-b pb-3">
+            <div>
+              文章ID <span class="bg-slate-200 ml-2 px-2">{{ postId }}</span>
+            </div>
+            <div class="flex items-center mt-3">
+              文章ID
+              <AdminCustomUrlCheck
+                class="px-2"
+                @update:customUrl="customUrlUpdate"
+                :customUrl="data.customUrl"></AdminCustomUrlCheck>
+            </div>
           </div>
-          <div class="flex items-center mt-3">
-            文章ID
-            <AdminCustomUrlCheck
-              class="px-2"
-              @update:customUrl="customUrlUpdate"
-              :customUrl="data.customUrl"></AdminCustomUrlCheck>
-          </div>
-        </div>
 
-        <!-- post option content -->
-        <AdminEditPostForm
-          :warning="warning"
-          :title="datas.title"
-          :subtitle="datas.subtitle"
-          :sort="datas.sort"
-          :defaultBannerImg="defaultBannerImg"
-          :postId="postId"
-          @update:warning="(e) => (warning = e)"
-          @update:image="(el:string) => (bannerImg = el)"
-          @update:defaultBannerImg="(el:string) => (defaultBannerImg = el)"
-          @update:postData="postData"></AdminEditPostForm>
-        <!-- styling content -->
-        <div class="mb-5 pb-5">
-          <TheCkeditor
-            :data="datas.content"
-            @update:editorData="editorData"></TheCkeditor>
-        </div>
-        {{ datas.content }}
-      </template>
-    </UILayoutAlignCenter>
-  </main>
+          <!-- post option content -->
+          <AdminEditPostForm
+            :warning="warning"
+            :title="datas.title"
+            :subtitle="datas.subtitle"
+            :sort="datas.sort"
+            :defaultBannerImg="defaultBannerImg"
+            :postId="postId"
+            @update:warning="(e) => (warning = e)"
+            @update:image="(el:string) => (bannerImg = el)"
+            @update:defaultBannerImg="(el:string) => (defaultBannerImg = el)"
+            @update:postData="postData"></AdminEditPostForm>
+          <!-- styling content -->
+          <div class="mb-5 pb-5">
+            <TheCkeditor
+              :data="datas.content"
+              @update:editorData="editorData"></TheCkeditor>
+          </div>
+          {{ datas.content }}
+        </template>
+      </UILayoutAlignCenter>
+    </main>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -201,6 +203,4 @@
   onBeforeUnmount(() => {
     loadingSwitch(false);
   });
-
-  
 </script>

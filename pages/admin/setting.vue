@@ -3,7 +3,7 @@
     {{ items }}
     <div class="flex">
       <div>
-        <label>123</label>
+        <label>q</label>
         <AdminUIInputStyle
           :value="items['logo']"
           @update:value="(e) => reduceData('logo', e)">

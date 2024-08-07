@@ -1,17 +1,17 @@
 <template>
   <div>
     <div class="flex w-full justify-end">
-    <UISubmitBTN class="flex">
-      <NuxtLink
-        class="px-3 py-1 block"
-        to="/admin/newpost"
-        >新增</NuxtLink
-      >
-    </UISubmitBTN>
-  </div>
+      <UISubmitBTN class="flex">
+        <NuxtLink
+          class="px-3 py-1 block"
+          to="/admin/newpost"
+          >新增</NuxtLink
+        >
+      </UISubmitBTN>
+    </div>
 
-  <AdminPostList @refresh="(el) => (refresh = el)"></AdminPostList>
-  <AdminPostPagination :refresh="refresh"></AdminPostPagination>
+    <AdminPostList @refresh="(el) => (refresh = el)"></AdminPostList>
+    <AdminPostPagination :refresh="refresh"></AdminPostPagination>
   </div>
 </template>
 
