@@ -1,9 +1,9 @@
 <template>
-  <div v-if="dos">
+  <div v-if="dots">
     <ul>
       <li
-        @click="currentPage = i - 1"
-        v-for="i in dos"
+        @click="currentPage = i"
+        v-for="i in dots"
         :key="i">
         {{ i }}
       </li>
@@ -13,22 +13,36 @@
 
 <script setup lang="ts">
   const props = defineProps(['max', 'current']);
-  const currentPage: Ref<number> = ref(0);
+  const currentPage: Ref<number> = ref(1);
 
-  const dos = computed(() => {
-    const showPerPage = 2;
-    const range = 2;
-    const totalPages = Math.ceil(props.max / showPerPage);
-    const scopes = Math.ceil(totalPages / range);
-    const lists = Array.from({ length: props.max }, (v, k) => k).splice(
-      currentPage.value * 3,
-      showPerPage
-    );
+  const dots = computed(() => {
+    // 每頁顯示文章數
+    const showPerPage = 3;
+    // 每次顯示幾個分頁
+    const range = 6;
+    // 總計幾頁
+    const totalPages = Math.ceil(40 / showPerPage);
+    const lists = Array.from({ length: totalPages }, (v, k) => k + 1);
+    const currPage = currentPage.value;
 
-    // if(currentPage.value <= )
+    let res;
+    if (currPage === 1) res = lists.slice(currPage - 1, range);
 
-    console.log(currentPage);
+    if (currPage != 1 && currPage != totalPages) {
+      if (totalPages <= range) res = lists.slice(0, range);
 
-    return currentPage.value + range;
+      if (totalPages > range)
+        res = lists.slice(currPage - Math.ceil(range / 2), currPage + 1);
+    }
+
+    if (currPage != 1 && currPage === totalPages)
+      res = lists.slice(
+        currPage - range <= 0 ? 0 : currPage - range,
+        totalPages
+      );
+
+    console.log(res);
+
+    return res;
   });
 </script>
