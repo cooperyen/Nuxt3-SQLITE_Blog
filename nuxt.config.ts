@@ -18,10 +18,10 @@ export default defineNuxtConfig({
   },
 
   modules: [
-    '@nuxtjs/tailwindcss',
     '@nuxtjs/google-fonts',
     '@nuxt/image',
     '@pinia/nuxt',
+    '@nuxtjs/tailwindcss',
   ],
 
   googleFonts: {

@@ -12,11 +12,11 @@
         <div
           id="banner"
           class="lg:max-h-[200px] overflow-y-hidden rounded-t-md">
-          <BannerHander
+          <CommonBannerHandler
             class="md:object-cover md:h-full"
             :data="data"
             :postId="blog.id">
-          </BannerHander>
+          </CommonBannerHandler>
         </div>
         <div class="px-3 py-2">
           <!-- title -->

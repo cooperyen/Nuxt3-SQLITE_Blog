@@ -6,7 +6,7 @@
         <label>q</label>
         <AdminUIInputStyle
           :value="items['logo']"
-          @update:value="(e) => reduceData('logo', e)">
+          @update:value="(e:any) => reduceData('logo', e)">
         </AdminUIInputStyle>
       </div>
     </div>

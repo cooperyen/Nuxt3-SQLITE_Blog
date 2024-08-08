@@ -15,9 +15,9 @@
       :key="index">
       <!-- banner -->
       <div class="w-1/5 px-5 py-3">
-        <BannerHander
+        <CommonBannerHandler
           class=""
-          :postId="post.id"></BannerHander>
+          :postId="post.id"></CommonBannerHandler>
       </div>
       <div class="flex items-center px-5 xl:w-1/4 w-1/5">
         <p class="text-sm">{{ post.id }}</p>

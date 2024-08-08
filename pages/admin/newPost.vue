@@ -16,7 +16,7 @@
       </div>
       <AdminEditPostForm
         :warning="warning"
-        @update:warning="(e) => (warning = e)"
+        @update:warning="(e:any) => (warning = e)"
         @update:postData="postData"></AdminEditPostForm>
     </main>
   </div>

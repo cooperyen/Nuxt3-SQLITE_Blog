@@ -89,5 +89,10 @@
       path: 'admin/setting',
       icon: 'gear',
     },
+    {
+      title: '關於',
+      path: 'admin/about',
+      icon: 'gear',
+    },
   ];
 </script>

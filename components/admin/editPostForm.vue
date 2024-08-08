@@ -19,7 +19,7 @@
             :class="{ 'border-red-400': warningCheck(items[titles]) }"
             :value="items[titles]"
             @click="props.warning ? emit('update:warning', false) : ''"
-            @update:value="(e) => reduceData(<string>titles, e)">
+            @update:value="(e:any) => reduceData(<string>titles, e)">
           </AdminUIInputStyle>
         </template>
 
@@ -77,10 +77,10 @@
       </div>
       <div>
         <!-- v-if="props.postId" -->
-        <BannerHander
+        <CommonBannerHandler
           class="max-w-xs"
           :postId="props.postId"
-          :tempImg="imageUrl"></BannerHander>
+          :tempImg="imageUrl"></CommonBannerHandler>
       </div>
     </div>
   </div>

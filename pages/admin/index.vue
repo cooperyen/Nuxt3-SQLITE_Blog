@@ -10,15 +10,20 @@
       </UISubmitBTN>
     </div>
 
-    <AdminPostList @refresh="(el) => (refresh = el)"></AdminPostList>
-    <AdminPostPagination :refresh="refresh"></AdminPostPagination>
+    <AdminPostList @refresh="(el:any) => (refresh = el)"></AdminPostList>
+    <AdminPostPagination
+      :max="postCount"
+      :current="currentPage"></AdminPostPagination>
   </div>
 </template>
 
 <script setup lang="ts">
-  const refresh: Ref<any> = ref('[]');
   definePageMeta({
     layout: 'admin',
     middleware: 'auth',
   });
+
+  const currentPage: Ref<Number> = ref(1);
+
+  const { data: postCount, refresh } = await useFetch<any>('/api/postCount');
 </script>

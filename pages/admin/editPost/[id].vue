@@ -49,15 +49,15 @@
             :sort="datas.sort"
             :defaultBannerImg="defaultBannerImg"
             :postId="postId"
-            @update:warning="(e) => (warning = e)"
+            @update:warning="(e:boolean) => (warning = e)"
             @update:image="(el:string) => (bannerImg = el)"
             @update:defaultBannerImg="(el:string) => (defaultBannerImg = el)"
             @update:postData="postData"></AdminEditPostForm>
           <!-- styling content -->
           <div class="mb-5 pb-5">
-            <TheCkeditor
+            <CommonTheCkeditor
               :data="datas.content"
-              @update:editorData="editorData"></TheCkeditor>
+              @update:editorData="editorData"></CommonTheCkeditor>
           </div>
           {{ datas.content }}
         </template>
