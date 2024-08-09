@@ -14,7 +14,7 @@ export default defineEventHandler(async (event) => {
 
   // user have value.
   if (user != null) {
-    if (minuts(user.loginTime) < 10) return true;
+    if (minuts(user.loginTime) < 60) return true;
     else return false;
   }
   // user have not value.

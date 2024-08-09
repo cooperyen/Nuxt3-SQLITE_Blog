@@ -96,12 +96,12 @@
 
 <script setup lang="ts">
   const postsUrl: string = '/api/post/browserPostList';
-  const nums: Ref<number> = ref(10);
   const deletePostStatus: Ref<boolean> = ref(false);
   const deletePostTitle: Ref<string> = ref('');
   const deletePostId: Ref<string> = ref('');
   const checked: Ref<boolean> = ref(false);
   const emit = defineEmits(['refresh']);
+  const props = defineProps(['showPerPage', 'currentPage']);
 
   interface postType {
     post: {
@@ -111,16 +111,40 @@
       id: string;
     };
   }
+
+  const currentPage = computed(() => props.currentPage - 1);
+
+  // const {
+  //   data: postList,
+  //   pending,
+  //   error,
+  //   refresh,
+  // } = await useFetch<postType>(postsUrl, {
+  //   query: {
+  //     postNum: props.showPerPage,
+  //     skip: (currentPage.value - 1) * props.showPerPage,
+  //   },
+  //   lazy: true,
+  //   immediate: true,
+  // });
+
   const {
     data: postList,
     pending,
-    error,
     refresh,
-  } = await useFetch<postType>(postsUrl, {
-    query: { postNum: nums },
-    lazy: true,
-    immediate: true,
-  });
+  } = await useAsyncData<postType>(
+    'postsUrl',
+    () =>
+      $fetch(postsUrl, {
+        query: {
+          postNum: props.showPerPage,
+          skip: currentPage.value * props.showPerPage,
+        },
+      }),
+    {
+      watch: [currentPage],
+    }
+  );
 
   function checkDeleteFun(post: postType['post']) {
     deletePostStatus.value = true;

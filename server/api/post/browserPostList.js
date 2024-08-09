@@ -6,6 +6,7 @@ export default defineEventHandler(async (event) => {
   const query = getQuery(event);
 
   const posts = await prismaClient.post.findMany({
+    skip: Number(query.skip),
     take: Number(query.postNum),
     select: {
       id: true,
@@ -19,6 +20,5 @@ export default defineEventHandler(async (event) => {
       },
     ],
   });
-
   return posts;
 });

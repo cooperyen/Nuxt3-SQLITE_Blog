@@ -9,11 +9,16 @@
         >
       </UISubmitBTN>
     </div>
-
-    <AdminPostList @refresh="(el:any) => (refresh = el)"></AdminPostList>
+    <!-- @refresh="(el:any) => (refresh = el)" -->
+    <AdminPostList
+      :showPerPage="showPerPage"
+      :currentPage="currentPage"></AdminPostList>
+    {{ currentPage }}
     <AdminPostPagination
       :max="postCount"
-      :current="currentPage"></AdminPostPagination>
+      :currentPage="currentPage"
+      :showPerPage="showPerPage"
+      @update:currentPage="(e:number)=> currentPage = e"></AdminPostPagination>
   </div>
 </template>
 
@@ -24,6 +29,7 @@
   });
 
   const currentPage: Ref<Number> = ref(1);
+  const showPerPage: Ref<Number> = ref(5);
 
   const { data: postCount, refresh } = await useFetch<any>('/api/postCount');
 </script>
