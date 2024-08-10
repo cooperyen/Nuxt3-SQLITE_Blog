@@ -12,8 +12,9 @@
     <!-- @refresh="(el:any) => (refresh = el)" -->
     <AdminPostList
       :showPerPage="showPerPage"
-      :currentPage="currentPage"></AdminPostList>
-    {{ currentPage }}
+      :currentPage="currentPage"
+      :max="postCount"
+      ></AdminPostList>
     <AdminPostPagination
       :max="postCount"
       :currentPage="currentPage"
@@ -29,7 +30,7 @@
   });
 
   const currentPage: Ref<Number> = ref(1);
-  const showPerPage: Ref<Number> = ref(5);
+  const showPerPage: Ref<Number> = ref(1);
 
   const { data: postCount, refresh } = await useFetch<any>('/api/postCount');
 </script>

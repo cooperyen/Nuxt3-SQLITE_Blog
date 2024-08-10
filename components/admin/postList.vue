@@ -20,7 +20,13 @@
           :postId="post.id"></CommonBannerHandler>
       </div>
       <div class="flex items-center px-5 xl:w-1/4 w-1/5">
-        <p class="text-sm">{{ post.id }}</p>
+        <!-- <p class="text-sm"></p> -->
+        <NuxtLink
+          class="text-sm text-mian_color"
+          target="_blank"
+          :to="'/post/' + (post.customUrl ? post.customUrl : post.id)"
+          >{{ post.id }}</NuxtLink
+        >
       </div>
       <!-- title -->
       <div class="xl:w-1/2 w-1/3 px-5 flex items-center">
@@ -109,6 +115,7 @@
       createdAt: string;
       publish: boolean;
       id: string;
+      customUrl: string;
     };
   }
 
@@ -122,17 +129,17 @@
   // } = await useFetch<postType>(postsUrl, {
   //   query: {
   //     postNum: props.showPerPage,
-  //     skip: (currentPage.value - 1) * props.showPerPage,
+  //     skip: (currentPage.value) * props.showPerPage,
   //   },
-  //   lazy: true,
-  //   immediate: true,
+
+  //   watch:[currentPage]
   // });
 
   const {
     data: postList,
     pending,
     refresh,
-  } = await useAsyncData<postType>(
+  } = useAsyncData<postType>(
     'postsUrl',
     () =>
       $fetch(postsUrl, {
@@ -167,9 +174,9 @@
       },
     });
 
-    refresh();
-    if (posts) emit('refresh', new Date());
-    resetDeleteValue();
+    if (posts) {
+      resetDeleteValue();
+    }
   }
 
   const titles = [

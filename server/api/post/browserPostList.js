@@ -13,6 +13,7 @@ export default defineEventHandler(async (event) => {
       title: true,
       createdAt: true,
       publish: true,
+      customUrl:true,
     },
     orderBy: [
       {
