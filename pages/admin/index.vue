@@ -30,7 +30,7 @@
   });
 
   const currentPage: Ref<Number> = ref(1);
-  const showPerPage: Ref<Number> = ref(1);
+  const showPerPage: Ref<Number> = ref(5);
 
   const { data: postCount, refresh } = await useFetch<any>('/api/postCount');
 </script>
