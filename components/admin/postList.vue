@@ -50,7 +50,7 @@
       <!-- time -->
       <div class="w-1/5 px-5 flex items-center">
         <p
-          class="cursor-pointer"
+          class="cursor-pointer select-none"
           @click="checkDeleteFun(post)">
           刪除
         </p>

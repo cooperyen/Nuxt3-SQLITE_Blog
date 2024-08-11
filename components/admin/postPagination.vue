@@ -1,7 +1,7 @@
 <template>
   <div
     v-if="dots"
-    class="mt-5 select-none">
+    class="m-10 select-none">
     <ul class="flex justify-center">
       <!-- pre -->
       <li v-show="pre">

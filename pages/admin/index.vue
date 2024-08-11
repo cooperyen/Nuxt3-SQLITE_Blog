@@ -9,7 +9,7 @@
         >
       </UISubmitBTN>
     </div>
-    <!-- @refresh="(el:any) => (refresh = el)" -->
+
     <AdminPostList
       :showPerPage="showPerPage"
       :currentPage="currentPage"
