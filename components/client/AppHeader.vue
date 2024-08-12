@@ -141,8 +141,6 @@
 </template>
 
 <script setup lang="ts">
-  import { filename } from 'pathe/utils';
-  console.log(filename);
   const router = useRoute();
   const postsUrl: string = '/api/post/shortPostFullList';
   const nums: Ref<number> = ref(10);
@@ -160,6 +158,9 @@
       emit('update:showSearch', showSearch.value);
     }
   );
+
+  const { data: logo } = await useFetch<any>('/api/option/getLogoImg');
+  console.log(logo.value);
 
   const {
     data: post,
