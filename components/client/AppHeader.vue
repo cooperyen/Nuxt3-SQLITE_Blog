@@ -141,6 +141,8 @@
 </template>
 
 <script setup lang="ts">
+  import { filename } from 'pathe/utils';
+  console.log(filename);
   const router = useRoute();
   const postsUrl: string = '/api/post/shortPostFullList';
   const nums: Ref<number> = ref(10);

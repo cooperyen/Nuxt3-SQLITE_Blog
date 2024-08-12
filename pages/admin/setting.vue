@@ -3,13 +3,17 @@
     {{ items }}
     <div class="flex">
       <div>
-        <label>q</label>
+        <label
+          class="rounded-md border-2 p-1 cursor-pointer"
+          for="banner"
+          >Select file</label
+        >
         <input
           type="file"
           id="banner"
           name="img"
           ref="file"
-          @change="updateLogo"
+          @change="onFileChange"
           accept="image/*" />
         <!-- <AdminUIInputStyle
           :value="items['logo']"
@@ -35,54 +39,24 @@
 
   const file: Ref<any> = ref();
 
-  async function updateLogo(e: any) {
-    // if (!e.target.files.length) return;
-    // let reader = new FileReader();
+  function onFileChange(event: any) {
+    file.value = event.target.files[0];
+    updateLogo();
+  }
 
-    file.value = (e.target as HTMLInputElement).files;
-    console.log(file.value);
-    const fd = new FormData();
-    fd.append('file', file.value[0]);
+  async function updateLogo() {
+    console.log('object');
+    const formData = new FormData();
+    formData.append('image', file.value);
 
-    console.log(fd.get('file'));
-
-    const posts: object | any = await $fetch('/api/option/logoUpdate', {
-      method: 'POST',
-      body: {
-        img: fd,
-      },
-    });
-
-    console.log(posts);
-
-    // reader.readAsDataURL(e.target.files[0]);
-    // reader.onload = async (es: any) => {
-    //   // imageUrl.value = es.target.result;
-    //   // emit('update:defaultBannerImg', es.target.result);
-    //   // emit('update:image', e.target.files[0]);
-
-    //   const posts: object | any = await $fetch('/api/option/logoUpdate', {
-    //     method: 'POST',
-    //     body: {
-    //       img: e.target.files,
-    //     },
-    //   });
-
-    //   console.log(posts);
-
-    //   if (posts) {
-    //     console.log('object');
-    //   }
-    // };
-    // const posts: object | any = await $fetch('/api/option/logoUpdate', {
-    //   method: 'POST',
-    //   query: {
-    //     id: deletePostId.value,
-    //   },
-    // });
-
-    // if (posts) {
-    //   resetDeleteValue();
-    // }
+    try {
+      const posts: object | any = await $fetch('/api/option/logoUpdate', {
+        method: 'POST',
+        body: formData,
+      });
+      if (posts.code === 400) alert('Image size have to under 1MB');
+    } catch (err) {
+      alert(err);
+    }
   }
 </script>
