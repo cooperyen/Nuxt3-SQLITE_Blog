@@ -19,7 +19,7 @@
           <NuxtLink to="/">
             <img
               class="w-12"
-              src="./../../public/logo.svg" />
+              :src="'./' + logo" />
           </NuxtLink>
         </div>
         <!-- search function desket-->
@@ -160,7 +160,6 @@
   );
 
   const { data: logo } = await useFetch<any>('/api/option/getLogoImg');
-  console.log(logo.value);
 
   const {
     data: post,

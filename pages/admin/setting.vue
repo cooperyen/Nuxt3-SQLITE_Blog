@@ -1,25 +1,30 @@
 <template>
   <AdminUIMainContainer>
-    {{ items }}
-    <div class="flex">
-      <div>
-        <label
-          class="rounded-md border-2 p-1 cursor-pointer"
-          for="banner"
-          >Select file</label
-        >
-        <input
-          type="file"
-          id="banner"
-          name="img"
-          ref="file"
-          @change="onFileChange"
-          accept="image/*" />
+    <div class="mx-5 py-5">
+      <div class="flex items-center">
+        <div>LOGO</div>
+        <div class="max-w-24"><img :src="'./../' + logo" /></div>
+        <div class="ml-5">
+          <label
+            class="rounded-md border-2 p-1 cursor-pointer"
+            for="banner"
+            >Select file</label
+          >
+          <input
+            type="file"
+            id="banner"
+            name="img"
+            ref="file"
+            style="visibility: hidden"
+            @change="onFileChange"
+            accept="image/*" />
+        </div>
         <!-- <AdminUIInputStyle
           :value="items['logo']"
           @update:value="(e:any) => reduceData('logo', e)">
         </AdminUIInputStyle> -->
       </div>
+      <UISeparatorLine></UISeparatorLine>
     </div>
   </AdminUIMainContainer>
 </template>
@@ -28,6 +33,10 @@
   definePageMeta({
     layout: 'admin',
   });
+
+  const { data: logo, refresh: logoRefresh } = await useFetch<any>(
+    '/api/option/getLogoImg'
+  );
 
   const items: Ref<any> = ref({
     logo: '',
@@ -45,7 +54,6 @@
   }
 
   async function updateLogo() {
-    console.log('object');
     const formData = new FormData();
     formData.append('image', file.value);
 
@@ -55,6 +63,7 @@
         body: formData,
       });
       if (posts.code === 400) alert('Image size have to under 1MB');
+      if (posts.code === 200) logoRefresh();
     } catch (err) {
       alert(err);
     }

@@ -20,8 +20,9 @@ export default defineEventHandler(async (event) => {
       });
     });
 
-    const filepath = path.join(process.cwd(), '/public', `ssss.${fileType}`);
-    fs.writeFileSync(filepath, file.data);
+    const filepaths = path.join(process.cwd(), '/public', `ssss.${fileType}`);
+
+    fs.writeFileSync(filepaths, file.data);
 
     return { code: 200 };
   }
