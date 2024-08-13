@@ -11,7 +11,7 @@ export default defineEventHandler(async (event) => {
     for await (const fileName of x) {
       if (fileName.split('.').at(0) === 'ssss') {
         console.log(fileName);
-        return fileName;
+        return { fileName, date: new Date() };
       }
     }
   } catch (err) {

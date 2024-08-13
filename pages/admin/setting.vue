@@ -3,7 +3,7 @@
     <div class="mx-5 py-5">
       <div class="flex items-center">
         <div>LOGO</div>
-        <div class="max-w-24"><img :src="'./../' + logo" /></div>
+        <div class="max-w-24"><img :src="'./../' + img" /></div>
         <div class="ml-5">
           <label
             class="rounded-md border-2 p-1 cursor-pointer"
@@ -38,6 +38,11 @@
     '/api/option/getLogoImg'
   );
 
+  const img = computed(() => {
+    console.log(logo.value.date);
+    return logo.value.fileName;
+  });
+
   const items: Ref<any> = ref({
     logo: '',
   });
@@ -62,8 +67,11 @@
         method: 'POST',
         body: formData,
       });
-      if (posts.code === 400) alert('Image size have to under 1MB');
-      if (posts.code === 200) logoRefresh();
+
+      console.log(posts);
+
+      if ((await posts.code) === 400) alert('Image size have to under 1MB');
+      if ((await posts.code) === 200) logoRefresh();
     } catch (err) {
       alert(err);
     }
