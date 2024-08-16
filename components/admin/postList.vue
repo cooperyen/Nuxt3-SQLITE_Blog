@@ -139,7 +139,7 @@
   const {
     data: postList,
     refresh,
-  } = useAsyncData<postType>(
+  } = await useAsyncData<postType>(
     'postsUrl',
     () =>
       $fetch(postsUrl, {
@@ -152,6 +152,8 @@
       watch: [currentPage],
     }
   );
+
+  // console.log(postList.value,1);
 
   function checkDeleteFun(post: postType['post']) {
     deletePostStatus.value = true;
@@ -175,6 +177,7 @@
     });
 
     if (posts) {
+      refresh();
       resetDeleteValue();
     }
   }

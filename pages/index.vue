@@ -57,7 +57,7 @@
       // if intersectionRatio === 0, means out of visible area
       if (entries[0].intersectionRatio <= 0) return;
 
-      nums.value += 3;
+      nums.value += 6;
 
       if (nums.value > fullListLength.value) intersectionObserver.disconnect();
     });

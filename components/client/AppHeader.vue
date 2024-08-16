@@ -19,7 +19,7 @@
           <NuxtLink to="/">
             <img
               class="w-12"
-              :src="'./' + logo.fileName" />
+              :src="'/' + logo?.fileName" />
           </NuxtLink>
         </div>
         <!-- search function desket-->

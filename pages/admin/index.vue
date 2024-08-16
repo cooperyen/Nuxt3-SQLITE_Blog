@@ -13,8 +13,8 @@
     <AdminPostList
       :showPerPage="showPerPage"
       :currentPage="currentPage"
-      :max="postCount"
-      ></AdminPostList>
+      :max="postCount"></AdminPostList>
+
     <AdminPostPagination
       :max="postCount"
       :currentPage="currentPage"

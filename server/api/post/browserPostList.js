@@ -21,5 +21,6 @@ export default defineEventHandler(async (event) => {
       },
     ],
   });
+  console.log(123);
   return posts;
 });

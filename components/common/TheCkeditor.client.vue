@@ -1,14 +1,13 @@
 <template>
-
-  <ckeditor
+  <Ckeditor
     :editor="ClassicEditor"
     v-model="editorData"
     :config="editorConfig">
-  </ckeditor>
+  </Ckeditor>
 </template>
 
 <script setup lang="ts">
-  import { CkeditorPlugin } from '@ckeditor/ckeditor5-vue';
+  import { CkeditorPlugin, Ckeditor } from '@ckeditor/ckeditor5-vue';
   import { ClassicEditor } from '@ckeditor/ckeditor5-editor-classic';
   import { Alignment } from '@ckeditor/ckeditor5-alignment';
   import {

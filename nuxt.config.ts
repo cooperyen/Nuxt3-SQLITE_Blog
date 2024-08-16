@@ -1,9 +1,11 @@
 import ckeditor5 from '@ckeditor/vite-plugin-ckeditor5';
+import {fileURLToPath} from "url";
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   ssr: true,
   devtools: { enabled: false },
+
   typescript: {
     typeCheck: true,
   },
@@ -23,6 +25,10 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     '@nuxtjs/tailwindcss',
   ],
+
+  alias:{
+    'images': fileURLToPath(new URL('./', import.meta.url)),
+  },
 
   googleFonts: {
     families: {
@@ -74,4 +80,6 @@ export default defineNuxtConfig({
       baseURL: '/',
     },
   },
+
+  compatibilityDate: '2024-08-16',
 });
