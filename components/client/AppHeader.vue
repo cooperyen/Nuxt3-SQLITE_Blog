@@ -19,7 +19,7 @@
           <NuxtLink to="/">
             <img
               class="w-12"
-              :src="'./' + logo" />
+              :src="'./' + logo.fileName" />
           </NuxtLink>
         </div>
         <!-- search function desket-->
@@ -141,6 +141,7 @@
 </template>
 
 <script setup lang="ts">
+  const { $sortDate } = useNuxtApp();
   const router = useRoute();
   const postsUrl: string = '/api/post/shortPostFullList';
   const nums: Ref<number> = ref(10);
@@ -163,7 +164,6 @@
 
   const {
     data: post,
-    pending,
     error,
     refresh,
   } = await useFetch<any>(postsUrl, {

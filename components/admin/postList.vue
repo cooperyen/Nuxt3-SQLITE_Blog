@@ -101,6 +101,7 @@
 </template>
 
 <script setup lang="ts">
+  const { $sortDate } = useNuxtApp();
   const postsUrl: string = '/api/post/browserPostList';
   const deletePostStatus: Ref<boolean> = ref(false);
   const deletePostTitle: Ref<string> = ref('');
@@ -137,7 +138,6 @@
 
   const {
     data: postList,
-    pending,
     refresh,
   } = useAsyncData<postType>(
     'postsUrl',

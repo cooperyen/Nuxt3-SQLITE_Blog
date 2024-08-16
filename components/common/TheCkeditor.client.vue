@@ -8,7 +8,7 @@
 </template>
 
 <script setup lang="ts">
-  import CKEditor from '@ckeditor/ckeditor5-vue';
+  import { CkeditorPlugin } from '@ckeditor/ckeditor5-vue';
   import { ClassicEditor } from '@ckeditor/ckeditor5-editor-classic';
   import { Alignment } from '@ckeditor/ckeditor5-alignment';
   import {
@@ -40,7 +40,7 @@
   import { SimpleUploadAdapter } from '@ckeditor/ckeditor5-upload';
   import { ListProperties } from '@ckeditor/ckeditor5-list';
 
-  const ckeditor: any = defineComponent(CKEditor.component);
+  const ckeditor: any = defineComponent(CkeditorPlugin);
   const props = defineProps(['data']);
   const route = useRoute();
   const editorData: Ref<string> = props.data

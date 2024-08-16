@@ -31,5 +31,6 @@
 </template>
 
 <script setup lang="ts">
+const { $sortDate } = useNuxtApp();
   const props = defineProps(['tags', 'time', 'linkOpen']);
 </script>
