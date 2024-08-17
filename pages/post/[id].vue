@@ -27,7 +27,7 @@
 <script setup lang="ts">
   const postsUrl: string = '/api/test_find_post_data';
   const route = useRoute();
-  const { data, pending, error } = await useFetch<any>(postsUrl, {
+  const { data, error } = await useFetch<any>(postsUrl, {
     query: { id: route.params.id },
   });
 

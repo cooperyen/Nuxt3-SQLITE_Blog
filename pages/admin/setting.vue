@@ -68,7 +68,6 @@
         body: formData,
       });
 
-      console.log(posts);
 
       if ((await posts.code) === 400) alert('Image size have to under 1MB');
       if ((await posts.code) === 200) logoRefresh();
