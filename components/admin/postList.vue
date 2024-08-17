@@ -139,7 +139,7 @@
   const {
     data: postList,
     refresh,
-  } = await useAsyncData<postType>(
+  } = useAsyncData<postType>(
     'postsUrl',
     () =>
       $fetch(postsUrl, {
@@ -150,6 +150,7 @@
       }),
     {
       watch: [currentPage],
+      server:false,
     }
   );
 
@@ -166,6 +167,7 @@
     deletePostTitle.value = '';
     deletePostId.value = '';
     checked.value = false;
+    refresh();
   }
 
   async function deletePostFun() {
@@ -177,7 +179,7 @@
     });
 
     if (posts) {
-      refresh();
+      // refresh();
       resetDeleteValue();
     }
   }

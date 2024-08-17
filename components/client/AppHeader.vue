@@ -18,7 +18,7 @@
         <div class="max-xl:mr-3">
           <NuxtLink to="/">
             <img
-              class="w-12"
+              class="max-h-10 w-full"
               :src="'/' + logo?.fileName" />
           </NuxtLink>
         </div>

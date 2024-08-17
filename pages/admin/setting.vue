@@ -17,7 +17,7 @@
             ref="file"
             style="visibility: hidden"
             @change="onFileChange"
-            accept="image/*" />
+            accept=".jpg,.png" />
         </div>
         <!-- <AdminUIInputStyle
           :value="items['logo']"
@@ -40,7 +40,7 @@
 
   const img = computed(() => {
     // console.log(logo.value.date);
-    return logo.value?.fileName;
+    return `${logo.value?.fileName}?${Math.random()}`;
   });
 
   const items: Ref<any> = ref({
