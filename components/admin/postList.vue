@@ -136,10 +136,7 @@
   //   watch:[currentPage]
   // });
 
-  const {
-    data: postList,
-    refresh,
-  } = await useAsyncData<postType>(
+  const { data: postList, refresh } = await useAsyncData<postType>(
     'postsUrl',
     () =>
       $fetch(postsUrl, {
