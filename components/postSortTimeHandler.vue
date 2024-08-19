@@ -12,18 +12,20 @@
       <font-awesome-icon :icon="['fas', 'box']" />
     </div>
     <ul
-      class="flex pl-2.5 m-0 items-center"
+      class="flex pl-1.5 m-0 items-center"
       v-if="props.tags.length != 0">
       <li
         class="list-none"
         v-for="(tag, index) in props.tags.split(',')"
         :key="index">
-        <NuxtLink
-          v-if="linkOpen"
-          class="text-cyan-600"
-          :to="'/tag/' + tag">
-          {{ index === 0 ? '' : '、' }}{{ tag }}
-        </NuxtLink>
+        <div v-if="linkOpen">
+          <span v-if="index != 0">、</span>
+          <NuxtLink
+            class="text-cyan-600"
+            :to="'/tag/' + tag">
+            {{ tag }}
+          </NuxtLink>
+        </div>
         <span v-else> {{ index === 0 ? '' : '、' }}{{ tag }}</span>
       </li>
     </ul>
@@ -31,6 +33,6 @@
 </template>
 
 <script setup lang="ts">
-const { $sortDate } = useNuxtApp();
+  const { $sortDate } = useNuxtApp();
   const props = defineProps(['tags', 'time', 'linkOpen']);
 </script>

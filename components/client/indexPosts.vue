@@ -3,7 +3,7 @@
     v-for="blog in props.data"
     :key="blog">
     <NuxtLink
-      :to="`/post/${blog.id}`"
+      :to="`/post/${blog.customUrl ? blog.customUrl: blog.id}`"
       class="text-[#263d56] lg:hover:underline">
       <div
         v-if="blog.publish"

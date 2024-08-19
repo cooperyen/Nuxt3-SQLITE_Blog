@@ -73,6 +73,7 @@
 <script setup lang="ts">
   definePageMeta({
     layout: 'admin-login',
+    pageTransition: false,
   });
 
   import { useLoadingState } from '@/stores/globalStates';

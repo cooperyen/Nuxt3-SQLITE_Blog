@@ -1,6 +1,6 @@
 <template>
   <UILayDefaultContainer>
-    <article v-if="data">
+    <article v-if="data" class="pt-10">
       <UILayoutAlignCenter class="justify-center">
         <div
           id="title"
@@ -18,7 +18,7 @@
         <UISeparatorLine class="mt-5" />
         <div
           v-html="data.content"
-          class="ck-content"></div>
+          class="ck-content mt-10"></div>
       </UILayoutAlignCenter>
     </article>
   </UILayDefaultContainer>

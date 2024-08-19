@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="">
     <AdminUILoading></AdminUILoading>
     <main class="py-3 px-8 rounded-md mr-auto ml-auto max-w-4xl bg-white">
       <UILayoutAlignCenter>
@@ -68,7 +68,6 @@
 <script setup lang="ts">
   definePageMeta({
     layout: 'admin',
-    middleware: 'auth',
   });
 
   import { useLoadingState } from '@/stores/globalStates';
@@ -84,7 +83,7 @@
   const postsUrl: string = '/api/findPostData';
   const postId: string | string[] = route.params.id;
   const showLoadinmg: Ref<boolean> = ref(false);
-  const { data, pending, error } = await useFetch<any>(postsUrl, {
+  const { data, error } = await useFetch<any>(postsUrl, {
     query: { id: postId },
   });
 

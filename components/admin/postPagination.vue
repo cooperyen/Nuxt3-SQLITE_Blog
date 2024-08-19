@@ -53,7 +53,9 @@
   ]);
   const emits = defineEmits(['update:currentPage']);
   const pre = computed(() => {
-    const res = Math.min(...dots.value);
+    let res:number = 0;
+    if (dots.value.length != 0) res = Math.min(...dots.value);
+
     return res <= 1 ? false : true;
   });
 
@@ -78,22 +80,25 @@
 
   const rangeDefault = 5;
 
-  const lastPage = computed(() =>
-    totalPages.value - props.currentPage > 2 ? true : false
-  );
-  const firstPage = computed(() =>
-    props.currentPage >= 5 ? true : false
-  );
+  const lastPage = computed(() => {
+    let res = false;
+    if (totalPages.value > 5)
+      res = totalPages.value - props.currentPage > 2 ? true : false;
+
+    return res;
+  });
+  const firstPage = computed(() => (props.currentPage >= 5 ? true : false));
 
   const next = computed(() => {
     const currentPage = props.currentPage;
     const range = props.range ? props.range : rangeDefault;
     const max = props.max;
-    // 每頁顯示文章數
-    const showPerPage = props.showPerPage ? props.showPerPage : 1;
-    let res = max - currentPage > range + 1 ? true : false;
-    if (totalPages.value - currentPage <= 2) res = false;
 
+    let res = false;
+    if (totalPages.value > 5 && totalPages.value - currentPage > 2)
+      res = max - currentPage > range + 1 ? true : false;
+
+    console.log(totalPages.value, currentPage);
     return res;
   });
 

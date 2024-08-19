@@ -130,7 +130,7 @@
     const e = new RegExp('[ @$!%*?&#=\'"]');
 
     if (sortValue.match(e)) alert('禁止特殊符號 @$!%*?&#=\'"');
-    if (sortValue.length < 3) alert('至少3字元');
+    // if (sortValue.length < 3) alert('至少3字元');
     else {
       const duplicate = items.value.sort.indexOf(sortValue);
       if (duplicate != -1) alert('重複內容');

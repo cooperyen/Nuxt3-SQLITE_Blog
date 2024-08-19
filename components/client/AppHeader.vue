@@ -1,5 +1,5 @@
 <template>
-  <header class="fixed top-0 w-full h-16 bg-main-blue border-b z-10">
+  <header class="fixed top-0 w-full max-h-20 h-full bg-main-blue border-b z-10">
     <div
       v-show="show"
       class="max-w-screen-2xl flex mx-auto justify-between items-center h-full">
@@ -13,12 +13,12 @@
           :icon="['fas', 'bars']" />
       </div>
 
-      <div class="flex ml-5">
+      <div class="flex ml-5 items-center">
         <!-- logo img -->
         <div class="max-xl:mr-3">
           <NuxtLink to="/">
             <img
-              class="max-h-10 w-full"
+              class="max-h-12 w-full"
               :src="'/' + logo?.fileName" />
           </NuxtLink>
         </div>
@@ -28,7 +28,7 @@
           <div
             v-if="resize"
             @click="switchSearch"
-            class="cursor-pointer border ml-3 rounded-full w-48 flex pt-1.5 pb-1.5 bg-white max-xl:mr-5">
+            class="max-h-10 cursor-pointer border ml-3 rounded-full w-48 flex pt-1.5 pb-1.5 bg-white max-xl:mr-5">
             <!-- icon -->
             <div class="pl-3 pr-1.5">
               <font-awesome-icon :icon="['fas', 'magnifying-glass']" />

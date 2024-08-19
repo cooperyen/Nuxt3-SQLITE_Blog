@@ -1,5 +1,5 @@
 <template>
-  <AdminUIMainContainer>
+  <AdminUIMainContainer v-if="currentPage">
     <div class="flex">
       <div
         class="px-5 border-b border-gray-300 py-5 text-gray-500"
@@ -11,8 +11,8 @@
     </div>
     <div
       class="flex border-b last:border-none border-gray-300 py-2"
-      v-for="(post, index) in postList"
-      :key="index">
+      v-for="post in article"
+      :key="post.id">
       <!-- banner -->
       <div class="w-1/5 px-5 py-3">
         <CommonBannerHandler
@@ -51,32 +51,35 @@
       <div class="w-1/5 px-5 flex items-center">
         <p
           class="cursor-pointer select-none"
-          @click="checkDeleteFun(post)">
+          @click="openDeleteMenu(post)">
           刪除
         </p>
       </div>
     </div>
 
     <!-- delete confirm -->
-    <UILayoutTopLevelContent v-if="deletePostStatus">
+    <UILayoutTopLevelContent v-if="deleteData.open">
       <div class="">
-        <strong class="text-2xl">確定要刪除 {{ deletePostTitle }} ?</strong>
+        <p class="text-2xl">
+          確定要刪除 <strong>{{ deleteData.title }}</strong> ?
+        </p>
         <p class="mt-2">一旦刪除將無法恢復，如確定請勾選同意</p>
       </div>
-      <div>
+      <div class="mt-5">
         <input
+          class="mr-1 cursor-pointer"
           type="checkbox"
-          v-model="checked" />
+          v-model="deleteData.agree" />
         <label>同意</label>
       </div>
       <div class="flex w-full justify-center mt-5">
         <UILayoutAnswerBTN>
           <template
-            v-if="checked"
+            v-if="deleteData.agree"
             #submit
             ><span
               class="text-white px-3"
-              @click="deletePostFun"
+              @click="processingDelete"
               >確定</span
             >
           </template>
@@ -102,87 +105,8 @@
 
 <script setup lang="ts">
   const { $sortDate } = useNuxtApp();
-  const postsUrl: string = '/api/post/browserPostList';
-  const deletePostStatus: Ref<boolean> = ref(false);
+  const articleAPI: string = '/api/admin/articlesHandler';
   const deletePostTitle: Ref<string> = ref('');
-  const deletePostId: Ref<string> = ref('');
-  const checked: Ref<boolean> = ref(false);
-  const emit = defineEmits(['refresh']);
-  const props = defineProps(['showPerPage', 'currentPage']);
-
-  interface postType {
-    post: {
-      title: string;
-      createdAt: string;
-      publish: boolean;
-      id: string;
-      customUrl: string;
-    };
-  }
-
-  const currentPage = computed(() => props.currentPage - 1);
-
-  // const {
-  //   data: postList,
-  //   pending,
-  //   error,
-  //   refresh,
-  // } = await useFetch<postType>(postsUrl, {
-  //   query: {
-  //     postNum: props.showPerPage,
-  //     skip: (currentPage.value) * props.showPerPage,
-  //   },
-
-  //   watch:[currentPage]
-  // });
-
-  const {
-    data: postList,
-    refresh,
-  } = useAsyncData<postType>(
-    'postsUrl',
-    () =>
-      $fetch(postsUrl, {
-        query: {
-          postNum: props.showPerPage,
-          skip: currentPage.value * props.showPerPage,
-        },
-      }),
-    {
-      watch: [currentPage],
-      server:false,
-    }
-  );
-
-  // console.log(postList.value,1);
-
-  function checkDeleteFun(post: postType['post']) {
-    deletePostStatus.value = true;
-    deletePostTitle.value = post.title;
-    deletePostId.value = post.id;
-  }
-
-  function resetDeleteValue() {
-    deletePostStatus.value = false;
-    deletePostTitle.value = '';
-    deletePostId.value = '';
-    checked.value = false;
-    refresh();
-  }
-
-  async function deletePostFun() {
-    const posts: object | any = await $fetch('/api/post/deletePostData', {
-      method: 'POST',
-      query: {
-        id: deletePostId.value,
-      },
-    });
-
-    if (posts) {
-      // refresh();
-      resetDeleteValue();
-    }
-  }
 
   const titles = [
     { ch: '首圖', en: 'Banner' },
@@ -192,6 +116,82 @@
     { ch: '發布', en: 'Publish' },
     { ch: '', en: '' },
   ];
+
+  interface DeleteData {
+    open: boolean;
+    title: string;
+    id: string;
+    agree: boolean;
+  }
+
+  const deleteData = reactive<DeleteData>({
+    open: false,
+    title: '',
+    id: '',
+    agree: false,
+  });
+  const emit = defineEmits(['refresh']);
+  const props = defineProps(['showPerPage', 'currentPage']);
+  const currentPage = computed(async () => {
+    if (props.currentPage) await doFetch();
+    else return null;
+  });
+
+  interface Article {
+    id: string;
+    title: string;
+    createdAt: string;
+    publish: boolean;
+    customUrl: string;
+    open: boolean;
+  }
+
+  const article: Ref<Article[]> = ref([]);
+
+  async function doFetch() {
+    await fetchArticles();
+  }
+
+  async function fetchArticles() {
+    try {
+      const data = await $fetch<Article[]>(articleAPI, {
+        method: 'GET',
+        query: {
+          postNum: props.showPerPage,
+          skip: (props.currentPage - 1) * props.showPerPage,
+        },
+      });
+      article.value = data;
+    } catch (error) {
+      console.error('Failed to fetch article:', error);
+    }
+  }
+
+  function openDeleteMenu(post: Article) {
+    console.log(post);
+    deleteData.open = true;
+    deleteData.title = post.title;
+    deleteData.id = post.id;
+  }
+
+  function resetDeleteValue() {
+    deleteData.open = false;
+    deleteData.title = '';
+    deleteData.id = '';
+    deleteData.agree = false;
+    doFetch();
+  }
+
+  async function processingDelete() {
+    const posts: object | any = await $fetch(articleAPI, {
+      method: 'DELETE',
+      query: {
+        id: deleteData.id,
+      },
+    });
+
+    if (posts) resetDeleteValue();
+  }
 
   interface trSize {
     ch: string;

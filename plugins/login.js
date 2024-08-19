@@ -3,7 +3,7 @@ export default defineNuxtPlugin(() => {
     provide: {
       locally: {
         getItem(item) {
-          if (process.client) {
+          if (import.meta.client) {
             return localStorage.getItem(item);
           } else {
             return undefined;
@@ -11,15 +11,11 @@ export default defineNuxtPlugin(() => {
         },
 
         setItem(item, value) {
-          if (process.client) {
-            return localStorage.setItem(item, value);
-          }
+          if (import.meta.client) return localStorage.setItem(item, value);
         },
 
         removeItem(item) {
-          if (process.client) {
-            return localStorage.removeItem(item);
-          }
+          if (import.meta.client) return localStorage.removeItem(item);
         },
       },
     },

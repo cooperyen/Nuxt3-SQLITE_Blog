@@ -25,6 +25,7 @@
 <script setup lang="ts">
   definePageMeta({
     layout: 'admin',
+    pageTransition: false,
   });
   const router = useRouter();
   const warning: Ref<boolean> = ref(false);

@@ -1,30 +1,39 @@
 <template>
   <AdminUIMainContainer>
     <div class="mx-5 py-5">
-      <div class="flex items-center">
-        <div>LOGO</div>
-        <div class="max-w-24"><img :src="'./../' + img" /></div>
-        <div class="ml-5">
-          <label
-            class="rounded-md border-2 p-1 cursor-pointer"
-            for="banner"
-            >Select file</label
-          >
-          <input
-            type="file"
-            id="banner"
-            name="img"
-            ref="file"
-            style="visibility: hidden"
-            @change="onFileChange"
-            accept=".jpg,.png" />
+      <AdminUISettingGap>
+        <template #title>LOGO</template>
+        <template #desc>尺寸 300*100</template>
+        <div class="flex items-center">
+          <div>
+            <img
+              class="max-h-40 w-full"
+              :src="'./../' + img" />
+          </div>
+          <div class="ml-5">
+            <label
+              class="rounded-md border-2 p-1 cursor-pointer"
+              for="banner"
+              >Select file</label
+            >
+            <input
+              type="file"
+              id="banner"
+              name="img"
+              ref="file"
+              style="visibility: hidden"
+              @change="onFileChange"
+              accept=".jpg,.png,.svg" />
+          </div>
         </div>
-        <!-- <AdminUIInputStyle
+      </AdminUISettingGap>
+
+      <!-- <AdminUIInputStyle
           :value="items['logo']"
           @update:value="(e:any) => reduceData('logo', e)">
         </AdminUIInputStyle> -->
-      </div>
-      <UISeparatorLine></UISeparatorLine>
+
+      <!-- <UISeparatorLine></UISeparatorLine> -->
     </div>
   </AdminUIMainContainer>
 </template>
@@ -32,6 +41,7 @@
 <script setup lang="ts">
   definePageMeta({
     layout: 'admin',
+    pageTransition: false,
   });
 
   const { data: logo, refresh: logoRefresh } = await useFetch<any>(
@@ -67,7 +77,6 @@
         method: 'POST',
         body: formData,
       });
-
 
       if ((await posts.code) === 400) alert('Image size have to under 1MB');
       if ((await posts.code) === 200) logoRefresh();

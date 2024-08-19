@@ -1,5 +1,6 @@
 import ckeditor5 from '@ckeditor/vite-plugin-ckeditor5';
-import {fileURLToPath} from "url";
+import { fileURLToPath } from 'url';
+import type { NuxtPage } from 'nuxt/schema';
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
@@ -26,8 +27,8 @@ export default defineNuxtConfig({
     '@nuxtjs/tailwindcss',
   ],
 
-  alias:{
-    'images': fileURLToPath(new URL('./', import.meta.url)),
+  alias: {
+    images: fileURLToPath(new URL('./', import.meta.url)),
   },
 
   googleFonts: {
