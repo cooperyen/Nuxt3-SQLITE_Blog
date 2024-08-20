@@ -1,89 +1,98 @@
 <template>
-  <header class="fixed top-0 w-full max-h-20 h-full bg-main-blue border-b z-10">
-    <div
-      v-show="show"
-      class="max-w-screen-2xl flex mx-auto justify-between items-center h-full">
-      <!-- bar menu for mobile -->
+  <header class="relative top-0">
+    <div class="fixed top-0 w-full max-h-20 h-full bg-main-blue border-b z-10">
       <div
-        v-if="!resize"
-        class="ml-5 text-white text-xl">
-        <font-awesome-icon
-          class="cursor-pointer"
-          @click="moblieShowMenu = !moblieShowMenu"
-          :icon="['fas', 'bars']" />
-      </div>
-
-      <div class="flex ml-5 items-center">
-        <!-- logo img -->
-        <div class="max-xl:mr-3">
-          <NuxtLink to="/">
-            <img
-              class="max-h-12 w-full"
-              :src="'/' + logo?.fileName" />
-          </NuxtLink>
-        </div>
-        <!-- search function desket-->
-        <ClientOnly>
-          <!-- desket -->
-          <div
-            v-if="resize"
-            @click="switchSearch"
-            class="max-h-10 cursor-pointer border ml-3 rounded-full w-48 flex pt-1.5 pb-1.5 bg-white max-xl:mr-5">
-            <!-- icon -->
-            <div class="pl-3 pr-1.5">
-              <font-awesome-icon :icon="['fas', 'magnifying-glass']" />
-            </div>
-            <!-- search click -->
-            <div class="pr-3">
-              <input
-                class="w-full cursor-pointer text-sm placeholder:text-slate-600 bg-white focus:outline-none"
-                type="text"
-                autocomplete="off"
-                readonly
-                placeholder="Search" />
-            </div>
-          </div>
-        </ClientOnly>
-      </div>
-
-      <!-- search function mobile-->
-      <ClientOnly>
-        <!-- mobile -->
+        v-show="show"
+        class="max-w-screen-2xl flex mx-auto justify-between items-center h-full">
+        <!-- bar menu for mobile -->
         <div
           v-if="!resize"
-          class="cursor-pointer pl-3 pr-1.5 text-white mr-5">
+          class="ml-5 text-white text-xl">
           <font-awesome-icon
-            @click="switchSearch"
-            :icon="['fas', 'magnifying-glass']" />
+            class="cursor-pointer"
+            @click="moblieShowMenu = !moblieShowMenu"
+            :icon="['fas', 'bars']" />
         </div>
-      </ClientOnly>
 
-      <!-- info for desket -->
-      <div
-        class="flex"
-        v-if="resize">
-        <div class="mr-5 text-white">
-          <NuxtLink :to="'/about'"> 關於華生 </NuxtLink>
+        <div class="flex ml-5 items-center">
+          <!-- logo img -->
+          <div class="max-xl:mr-3">
+            <NuxtLink to="/">
+              <img
+                class="max-h-12 w-full"
+                :src="'/' + logo?.fileName" />
+            </NuxtLink>
+          </div>
+
+          <div class="text-white ml-4">
+            <h2>華生水資源</h2>
+            <span class="text-xl">BLOG</span>
+          </div>
+          <!-- search function desket-->
+          <ClientOnly>
+            <!-- desket -->
+            <div
+              v-if="resize"
+              @click="switchSearch"
+              class="max-h-10 cursor-pointer border ml-3 rounded-full w-48 flex pt-1.5 pb-1.5 bg-white max-xl:mr-5">
+              <!-- icon -->
+              <div class="pl-3 pr-1.5">
+                <font-awesome-icon :icon="['fas', 'magnifying-glass']" />
+              </div>
+              <!-- search click -->
+              <div class="pr-3">
+                <input
+                  class="w-full cursor-pointer text-sm placeholder:text-slate-600 bg-white focus:outline-none"
+                  type="text"
+                  autocomplete="off"
+                  readonly
+                  placeholder="Search" />
+              </div>
+            </div>
+          </ClientOnly>
         </div>
-        <!-- info content -->
-        <ClientInfoFull class="mr-5"></ClientInfoFull>
+
+        <!-- search function mobile-->
+        <ClientOnly>
+          <!-- mobile -->
+          <div
+            v-if="!resize"
+            class="cursor-pointer pl-3 pr-1.5 text-white mr-5">
+            <font-awesome-icon
+              @click="switchSearch"
+              :icon="['fas', 'magnifying-glass']" />
+          </div>
+        </ClientOnly>
+
+        <!-- info for desket -->
+        <div
+          class="flex"
+          v-if="resize">
+          <div class="mr-5 text-white">
+            <NuxtLink :to="'/about'"> 關於華生 </NuxtLink>
+          </div>
+          <!-- info content -->
+          <ClientInfoFull class="mr-5"></ClientInfoFull>
+        </div>
+      </div>
+
+      <!-- bg-main-blue -->
+      <!-- info for mobile -->
+      <div
+        v-show="moblieShowMenu"
+        class="w-full bg-white px-5 py-10 shadow-md">
+        <ul>
+          <li class="mb-3">
+            <NuxtLink :to="'/about'">關於華生</NuxtLink>
+          </li>
+          <li>
+            <NuxtLink :to="'/tags'">標籤</NuxtLink>
+          </li>
+        </ul>
       </div>
     </div>
-
-    <!-- bg-main-blue -->
-    <!-- info for mobile -->
-    <div
-      v-show="moblieShowMenu"
-      class="w-full bg-white px-5 py-10 shadow-md">
-      <ul>
-        <li class="mb-3">
-          <NuxtLink :to="'/about'">關於華生</NuxtLink>
-        </li>
-        <li>
-          <NuxtLink :to="'/tags'">標籤</NuxtLink>
-        </li>
-      </ul>
-    </div>
+    <!-- unvisible block -->
+    <div class="h-20"></div>
   </header>
 
   <!-- search content -->

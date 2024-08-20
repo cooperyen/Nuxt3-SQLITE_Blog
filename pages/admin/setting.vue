@@ -5,7 +5,7 @@
         <template #title>LOGO</template>
         <template #desc>尺寸 300*100</template>
         <div class="flex items-center">
-          <div>
+          <div class="bg-slate-600">
             <img
               class="max-h-40 w-full"
               :src="'./../' + img" />

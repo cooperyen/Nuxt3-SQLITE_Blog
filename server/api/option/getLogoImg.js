@@ -9,7 +9,7 @@ export default defineEventHandler(async (event) => {
     const res = 1;
 
     for await (const fileName of x) {
-      if (fileName.split('.').at(0) === 'ssss') {
+      if (fileName.split('.').at(0) === 'logo') {
         console.log(fileName);
         return { fileName, date: new Date() };
       }

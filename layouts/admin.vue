@@ -1,10 +1,12 @@
 <template>
   <div class="lg:flex">
     <AdminMenu class="bg-white"></AdminMenu>
+    <!-- overflow-y-hidden h-screen -->
     <div
-      class="max-lg:mt-16 absolute first-line:max-lg:mr-auto h-screen bg-[#efefef] overflow-y-hidden top-0 right-0 w-full lg:w-[calc(100%-12rem)]">
-      <div class="lg:ml-2 overflow-y-scroll h-full lg:px-10 px-3">
-        <div class="my-12">
+      class="absolute first-line:max-lg:mr-auto right-0 w-full lg:w-[calc(100%-12rem)]">
+      <!--  overflow-y-scroll h-full -->
+      <div class="lg:ml-2  lg:px-10 px-3">
+        <div class="mt-12">
           <nuxt-page />
         </div>
       </div>
@@ -13,8 +15,17 @@
 </template>
 
 <script setup lang="ts">
+  // onMounted(() => {
+  //   document.body.style.backgroundColor = '#efefef'; // 设置背景颜色
+  // });
 </script>
 
 <style lang="scss" scoped>
   @import '@/assets/scss/_default.scss';
+</style>
+
+<style>
+  body {
+    background-color: #efefef;
+  }
 </style>

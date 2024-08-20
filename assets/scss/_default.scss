@@ -1,14 +1,23 @@
 @import '_colors.scss';
 
-:deep(ul.ck-editor) {
-  padding-left: 30px;
+:deep(.ck) {
+  ul,
+  ol {
+    padding-left: 30px;
+  }
 }
-:deep(ol) {
-  padding-left: 30px;
+
+:deep(.ck-content) {
+  ul,
+  ol {
+    padding-left: 30px;
+  }
+  img {
+    -webkit-user-drag: none;
+  }
 }
 
 * {
   color: $default_text;
   // background-color: red;
 }
-

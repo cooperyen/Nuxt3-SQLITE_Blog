@@ -17,13 +17,13 @@ export default defineEventHandler(async (event) => {
       
       await Promise.all(
         trr.map(async (fil) => {
-          if (fil.split('.').at(0) === 'ssss') {
+          if (fil.split('.').at(0) === 'logo') {
             const filePath = path.join('public', fil);
             await fs.unlink(filePath);
           }
         })
       );
-      const filepaths = path.join(process.cwd(), '/public', `ssss.${fileType}`);
+      const filepaths = path.join(process.cwd(), '/public', `logo.${fileType}`);
       await fs.writeFile(filepaths, file.data);
 
       return { code: 200 };

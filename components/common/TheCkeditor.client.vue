@@ -8,6 +8,7 @@
 
 <script setup lang="ts">
   import { CkeditorPlugin, Ckeditor } from '@ckeditor/ckeditor5-vue';
+  import { Table, TableToolbar, TableCaption,TableColumnResize } from '@ckeditor/ckeditor5-table';
   import { ClassicEditor } from '@ckeditor/ckeditor5-editor-classic';
   import { Alignment } from '@ckeditor/ckeditor5-alignment';
   import {
@@ -54,6 +55,10 @@
       uploadUrl: `/api/testUploadImg?id=${route.params.id}`,
     },
     plugins: [
+      Table,
+      TableToolbar,
+      TableColumnResize,
+      TableCaption,
       ImageCaption,
       FontSize,
       FontFamily,
@@ -78,6 +83,7 @@
       ImageResize,
       Heading,
     ],
+
     toolbar: {
       items: [
         'heading',
@@ -90,6 +96,8 @@
         'italic',
         'underline',
         'strikethrough',
+        '|',
+        'insertTable',
         '|',
         'link',
         '|',
@@ -115,6 +123,14 @@
     },
     styles: {
       options: ['inline', 'alignLeft', 'alignRight'],
+    },
+    table: {
+      contentToolbar: [
+        'tableColumn',
+        'tableRow',
+        'mergeTableCells',
+        'toggleTableCaption',
+      ],
     },
     image: {
       toolbar: [

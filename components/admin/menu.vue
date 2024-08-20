@@ -1,60 +1,69 @@
 <template>
-  <div
-    class="lg:relative fixed z-50 max-lg:h-16 lg:max-w-48 w-full lg:h-screen shadow-[4px_0px_20px_0px_rgba(0,0,0,0.1)]">
-    <div class="h-full flex flex-col">
-      <div class="w-full h-full">
-        <div
-          class="lg:mb-10 max-lg:flex max-lg:items-center justify-between max-lg:p-3 max-lg:h-full relative z-10 bg-white">
-          <div class="max-lg:ml-3">
-            <h1 class="text-3xl lg:text-center lg:p-5 max-lg:text-xl">華生</h1>
-          </div>
+  <header class="lg:max-w-48 w-full lg:fixed">
+    <div
+      class="lg:relative fixed z-50 max-lg:h-16 w-full lg:h-screen shadow-[4px_0px_20px_0px_rgba(0,0,0,0.1)]">
+      <div class="h-full flex flex-col">
+        <div class="w-full h-full">
           <div
-            @click="clickShow = !clickShow"
-            class="text-xl max-lg:mr-3 lg:hidden">
-            <font-awesome-icon
-              v-show="!clickShow"
-              :icon="['fas', 'bars']" />
-            <font-awesome-icon
-              v-show="clickShow"
-              :icon="['fas', 'xmark']" />
+            class="lg:mb-10 max-lg:flex max-lg:items-center justify-between max-lg:p-3 max-lg:h-full relative z-10 bg-white">
+            <div class="max-lg:ml-3">
+              <h1 class="text-3xl lg:text-center lg:p-5 max-lg:text-xl">
+                華生
+              </h1>
+            </div>
+            <div
+              @click="clickShow = !clickShow"
+              class="text-xl max-lg:mr-3 lg:hidden cursor-pointer">
+              <font-awesome-icon
+                v-show="!clickShow"
+                :icon="['fas', 'bars']" />
+              <font-awesome-icon
+                v-show="clickShow"
+                :icon="['fas', 'xmark']" />
+            </div>
           </div>
-        </div>
 
-        <transition
-          enter-from-class="translate-y-[-150%] opacity-0"
-          leave-to-class="translate-y-[-150%] opacity-0"
-          enter-active-class="transition duration-300"
-          leave-active-class="transition duration-300">
-          <div
-            v-show="showItems"
-            class="bg-white max-lg:border-t-2 max-lg:border-t-gray-100 max-lg:shadow-[0px_4px_8px_0px_rgba(0,0,0,0.1)] z-0 relative">
-            <ul class="p-0">
-              <NuxtLink
-                @click="clickShow = !clickShow"
-                class="text-md"
-                v-for="(content, index) in menu"
-                :key="index"
-                :to="`/${content.path}`">
-                <li
-                  :class="{ 'bg-gray-200': route.path === `/${content.path}` }"
-                  class="px-5 py-5">
-                  <font-awesome-icon
-                    class="mr-2"
-                    :icon="['fas', content.icon]" />
-                  {{ content.title }}
-                </li>
-              </NuxtLink>
-            </ul>
-          </div>
-        </transition>
-      </div>
-      <div class="text-center mb-5 w-full flex-end">
-        <button class="text-gray-900 lg:text-gray-400 hover:text-gray-900">
-          登出
-        </button>
+          <!-- drop menu -->
+          <transition
+            enter-from-class="translate-y-[-150%] opacity-0"
+            leave-to-class="translate-y-[-150%] opacity-0"
+            enter-active-class="transition duration-300"
+            leave-active-class="transition duration-300">
+            <div
+              v-show="showItems"
+              class="bg-white max-lg:border-t-2 max-lg:border-t-gray-100 max-lg:shadow-[0px_4px_8px_0px_rgba(0,0,0,0.1)] z-0 relative">
+              <ul class="p-0">
+                <NuxtLink
+                  @click="clickShow = !clickShow"
+                  class="text-md"
+                  v-for="(content, index) in menu"
+                  :key="index"
+                  :to="`/${content.path}`">
+                  <li
+                    :class="{
+                      'bg-gray-200': route.path === `/${content.path}`,
+                    }"
+                    class="px-5 py-5">
+                    <font-awesome-icon
+                      class="mr-2"
+                      :icon="['fas', content.icon]" />
+                    {{ content.title }}
+                  </li>
+                </NuxtLink>
+              </ul>
+              <div class="text-center mb-5 w-full flex-end">
+                <button
+                  class="text-gray-900 lg:text-gray-400 hover:text-gray-900">
+                  登出
+                </button>
+              </div>
+            </div>
+          </transition>
+        </div>
       </div>
     </div>
-  </div>
+    <div class="max-lg:h-16"></div>
+  </header>
 </template>
 
 <script setup lang="ts">
