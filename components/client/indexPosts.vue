@@ -1,7 +1,7 @@
 <template>
   <div
     v-for="blog in props.data"
-    :key="blog">
+    :key="blog.id">
     <NuxtLink
       :to="`/post/${blog.customUrl ? blog.customUrl: blog.id}`"
       class="text-[#263d56] lg:hover:underline">

@@ -31,11 +31,15 @@
   );
 
   async function imgPath(el: any) {
+
+    console.log(el);
+
     const path = await findBanner(el);
     if (path != 'fail')
-      bannerImg.value = `${path}?${Math.random()
-        .toString(36)
-        .replace('0.', '')}`;
+      // bannerImg.value = `${path}?${Math.random()
+      //   .toString(36)
+      //   .replace('0.', '')}`;
+      bannerImg.value = path;
     if (path === 'fail') bannerImg.value = defaultBannerImg;
   }
 
