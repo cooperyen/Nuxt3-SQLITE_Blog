@@ -1,7 +1,7 @@
 <template>
   <div class="">
     <AdminUILoading></AdminUILoading>
-    <main class="py-3 px-8 rounded-md mr-auto ml-auto max-w-4xl bg-white">
+    <main class="py-3 px-3 md:px-8 rounded-md mr-auto ml-auto max-w-4xl bg-white">
       <UILayoutAlignCenter>
         <template v-if="datas">
           <!-- option content -->
@@ -29,15 +29,31 @@
           </div>
 
           <div class="mt-3 border-b pb-3">
-            <div>
-              文章ID <span class="bg-slate-200 ml-2 px-2">{{ postId }}</span>
+            <!-- article id -->
+            <div class="flex flex-wrap">
+              <p class="max-sm:w-full">文章ID</p>
+              <span class="bg-slate-200 sm:ml-2 px-2 max-sm:w-full">{{ postId }}</span>
             </div>
-            <div class="flex items-center mt-3">
-              文章ID
+            <!-- custom url -->
+            <div class="flex items-center mt-3 flex-wrap">
+              <p class="max-sm:w-full">自訂URL</p>
               <AdminCustomUrlCheck
-                class="px-2"
+                class="sm:px-2"
                 @update:customUrl="customUrlUpdate"
                 :customUrl="data.customUrl"></AdminCustomUrlCheck>
+            </div>
+            <!-- pin to top -->
+            <div class="mt-3">
+              <div class="flex items-center">
+                <p>置頂文章</p>
+                <UISwitchBTN
+                  class="ml-2"
+                  :status="data.pinTop"
+                  @update:status="pinTop = $event"></UISwitchBTN>
+              </div>
+              <span class="italic text-sm"
+                >*僅能一篇文章置頂，將會替會掉原有置頂文章</span
+              >
             </div>
           </div>
 
@@ -125,6 +141,7 @@
   });
 
   const publish: Ref<boolean> = ref(data.value?.publish);
+  const pinTop: Ref<boolean> = ref(data.value?.pinTop);
 
   function editorData(el: string) {
     content.value = el;
@@ -177,6 +194,7 @@
           content: content.value,
           id: postId,
           publish: publish.value,
+          pinTop: pinTop.value,
         },
       });
       if (posts.state === 'ok') {

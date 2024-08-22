@@ -32,7 +32,8 @@ model Post {
   updatedAt      DateTime @updatedAt
   content        String   @default("Post")
   sort           String  
-  customUrl      String   
+  customUrl      String 
+  pinTop         Boolean  @default(false)
 }
 
 

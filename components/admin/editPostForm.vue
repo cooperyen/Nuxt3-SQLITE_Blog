@@ -74,6 +74,7 @@
           for="banner"
           >Select file</label
         >
+        <p class="mt-3 italic">Size: 1600 x 1000 px</p>
       </div>
       <div>
         <!-- v-if="props.postId" -->

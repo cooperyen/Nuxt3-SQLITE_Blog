@@ -6,6 +6,18 @@ const prismaClient = new PrismaClient();
 export default defineEventHandler(async (event) => {
   try {
     const body = await readBody(event);
+
+    if (body.pinTop) {
+      const turnOffpinTop = await prismaClient.post.updateMany({
+        where: {
+          pinTop: true,
+        },
+        data: {
+          pinTop: false,
+        },
+      });
+    }
+
     const data = await prismaClient.post.update({
       where: { id: body.id },
       data: {
@@ -13,8 +25,9 @@ export default defineEventHandler(async (event) => {
         subtitle: body.subtitle,
         content: body.content,
         sort: String(body.sort),
-        publish: body.publish,
+        publish: body.pinTop ? true : body.publish,
         customUrl: body.customUrl,
+        pinTop: body.pinTop,
       },
     });
 
@@ -23,7 +36,7 @@ export default defineEventHandler(async (event) => {
       id: data.id,
     };
   } catch (error) {
-    // console.log(error);
+    console.log(error);
     return { state: 'fail' };
   }
 });

@@ -2,7 +2,7 @@
   <div class="flex items-center">
     <div>
       <input
-        class="min-w-3 border rounded-md py-1 px-2"
+        class="sm:min-w-3 w-full border rounded-md py-1 px-2"
         placeholder="新增"
         v-model="customUrl"
         @input="valueCheck" />

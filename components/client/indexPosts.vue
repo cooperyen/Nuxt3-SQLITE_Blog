@@ -13,8 +13,7 @@
           id="banner"
           class="lg:max-h-[200px] overflow-y-hidden rounded-t-md">
           <CommonBannerHandler
-            class="md:object-cover md:h-full"
-            :data="data"
+            class="md:object-cover h-full"
             :postId="blog.id">
           </CommonBannerHandler>
         </div>
