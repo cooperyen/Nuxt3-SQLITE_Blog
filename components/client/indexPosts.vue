@@ -2,21 +2,22 @@
   <div
     v-for="blog in props.data"
     :key="blog.id">
-    <NuxtLink
-      :to="`/post/${blog.customUrl ? blog.customUrl: blog.id}`"
-      class="text-[#263d56] lg:hover:underline">
+    <div
+      v-if="blog.publish"
+      class="border border-gray-150 max-md:mb-10 rounded-md">
+      <!-- img -->
       <div
-        v-if="blog.publish"
-        class="border border-gray-150 max-md:mb-10 rounded-md">
-        <!-- img -->
-        <div
-          id="banner"
-          class="lg:max-h-[200px] overflow-y-hidden rounded-t-md">
-          <CommonBannerHandler
-            class="md:object-cover h-full"
-            :postId="blog.id">
-          </CommonBannerHandler>
-        </div>
+        id="banner"
+        class="lg:max-h-[200px] overflow-y-hidden rounded-t-md">
+        <CommonBannerHandler
+          class="md:object-cover h-full rounded-md"
+          :postId="blog.id">
+        </CommonBannerHandler>
+      </div>
+
+      <NuxtLink
+        :to="`/post/${blog.customUrl ? blog.customUrl : blog.id}`"
+        class="text-[#263d56] lg:hover:underline">
         <div class="px-3 py-2">
           <!-- title -->
           <div class="mt-2">
@@ -32,8 +33,8 @@
               :time="blog.createdAt"></PostSortTimeHandler>
           </div>
         </div>
-      </div>
-    </NuxtLink>
+      </NuxtLink>
+    </div>
   </div>
 </template>
 
