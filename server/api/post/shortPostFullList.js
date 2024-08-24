@@ -6,11 +6,13 @@ export default defineEventHandler(async (event) => {
   const query = getQuery(event);
 
   const posts = await prismaClient.post.findMany({
+    orderBy: [
+      {
+        createdAt: 'desc',
+      },
+    ],
     where: {
       publish: true,
-      sort: {
-        contains: query.sort,
-      },
     },
     select: {
       id: true,

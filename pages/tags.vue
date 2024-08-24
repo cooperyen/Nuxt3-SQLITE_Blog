@@ -25,7 +25,7 @@
 <script setup lang="ts">
   const postsUrl: string = '/api/post/postTags';
 
-  const { data: tags, pending, error, refresh } = await useFetch<any>(postsUrl);
+  const { data: tags, error, refresh } = await useFetch<any>(postsUrl);
 
   const tagsList = computed(() => {
     interface arrayAsString {
@@ -44,10 +44,14 @@
 
       const eachTags = element.sort.split(',');
       eachTags.forEach((vl: string) => {
-        if (aryCount[vl]) aryCount[vl] += 1;
-        else aryCount[vl] = 1;
+        if (vl != '') {
+          if (aryCount[vl]) aryCount[vl] += 1;
+          else aryCount[vl] = 1;
+        }
       });
     });
+
+    console.log(aryCount);
 
     // lays for 5
     // 80 - 100
@@ -60,6 +64,7 @@
     Object.keys(aryCount).forEach((key: any) => {
       const usageTimes = aryCount[key];
       const percent = Math.floor((usageTimes / totalUseTags) * 100);
+      // console.log(key, percent, usageTimes, totalUseTags);
       if (percent > 80 && percent <= 100) aryDistribute[key] = 'A';
       if (percent > 60 && percent <= 80) aryDistribute[key] = 'B';
       if (percent > 40 && percent <= 60) aryDistribute[key] = 'C';
@@ -115,6 +120,7 @@
       const element = objKeyWithTextStyle[i];
       res[Object.keys(element)[0]] = element[Object.keys(element)[0]];
     }
+
     return res;
   });
 </script>

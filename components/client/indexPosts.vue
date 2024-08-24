@@ -1,5 +1,5 @@
 <template>
-  <div
+  <article
     v-for="blog in props.data"
     :key="blog.id">
     <div
@@ -35,7 +35,7 @@
         </div>
       </NuxtLink>
     </div>
-  </div>
+  </article>
 </template>
 
 <script setup lang="ts">

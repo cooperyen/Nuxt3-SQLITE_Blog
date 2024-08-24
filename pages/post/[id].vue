@@ -1,6 +1,8 @@
 <template>
   <UILayDefaultContainer>
-    <article v-if="data" class="pt-10">
+    <article
+      v-if="data"
+      class="pt-10">
       <UILayoutAlignCenter class="justify-center">
         <div
           id="title"

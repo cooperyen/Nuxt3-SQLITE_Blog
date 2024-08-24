@@ -80,13 +80,13 @@
       <!-- info for mobile -->
       <div
         v-show="moblieShowMenu"
-        class="w-full bg-white px-5 py-10 shadow-md">
+        class="w-full bg-white px-6 py-6 shadow-md">
         <ul>
-          <li class="mb-3">
-            <NuxtLink :to="'/about'">關於華生</NuxtLink>
-          </li>
-          <li>
-            <NuxtLink :to="'/tags'">標籤</NuxtLink>
+          <li
+            class="mb-5 last-of-type:mb-0"
+            v-for="link in mobileMeunLinks"
+            :key="link.to">
+            <NuxtLink :to="link.to">{{ link.title }}</NuxtLink>
           </li>
         </ul>
       </div>
@@ -159,6 +159,12 @@
   const emit = defineEmits(['update:showSearch']);
   const moblieShowMenu: Ref<boolean> = ref(false);
 
+  const mobileMeunLinks = [
+    { to: '/about', title: '關於華生' },
+    { to: '/tags', title: '所有標籤' },
+    { to: '/articles', title: '所有文章' },
+  ];
+
   watch(
     () => router.path,
     () => {
@@ -176,7 +182,6 @@
     error,
     refresh,
   } = await useFetch<any>(postsUrl, {
-    query: { postNum: nums },
     lazy: true,
     immediate: true,
   });
