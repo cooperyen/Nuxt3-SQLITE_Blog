@@ -37,4 +37,11 @@ model Post {
 }
 
 
+model Pages {
+  id             String   @id @default(uuid())
+  publish        Boolean  @default(false)
+  title          String 
+  content        String   
+  url            String   @unique
+}
 

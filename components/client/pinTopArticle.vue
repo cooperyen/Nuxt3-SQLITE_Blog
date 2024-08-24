@@ -14,9 +14,7 @@
       </div>
       <!-- text -->
       <NuxtLink
-        :to="`/post/${
-          atricle.data.customUrl ? atricle.data.customUrl : atricle.data.id
-        }`"
+        :to="`/post/${articleUrl}`"
         class="text-[#263d56] lg:hover:underline">
         <div
           class="px-3 py-2 md:py-3 md:px-5 md:absolute md:bottom-0 md:bg-black/[.6] md:w-full md:min-h-32 md:rounded-b-md">
@@ -69,4 +67,7 @@
 
 <script lang="ts" setup>
   const { data: atricle } = await useFetch<any>('/api/post/pinTopArticle');
+  const articleUrl = computed(() =>
+    atricle.value.data.customUrl ? atricle.value.data.customUrl : atricle.value.data.id
+  );
 </script>
