@@ -10,7 +10,13 @@
 
 <script setup lang="ts">
   useHead({
-    title: '關於我',
+    title: '關於華生 ｜ 華生水資源生技有限公司',
+    meta: [
+      {
+        name: 'description',
+        content: 'this.description',
+      },
+    ],
     link: [
       {
         rel: 'stylesheet',
