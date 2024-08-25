@@ -23,6 +23,7 @@ export default defineEventHandler(async (event) => {
 async function updateData(event) {
   try {
     const body = await readBody(event);
+    console.log(body);
     const data = await prismaClient.pages.update({
       where: {
         url: 'about',

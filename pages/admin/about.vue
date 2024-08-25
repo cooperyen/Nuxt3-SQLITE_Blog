@@ -1,9 +1,9 @@
 <template>
-  <div class="">
-    <AdminUILoading></AdminUILoading>
-    <main
-      class="py-3 px-3 md:px-8 rounded-md mr-auto ml-auto max-w-4xl bg-white">
-      <UILayoutAlignCenter>
+  <div>
+    <AdminUIMainContainer>
+      <AdminUILoading></AdminUILoading>
+      <main
+        class="py-3 px-3 md:px-8 rounded-md mr-auto ml-auto max-w-4xl bg-white">
         <template v-if="data">
           <!-- option content -->
           <div class="flex mt-4 border-b pb-3 w-full max-sm:flex-wrap">
@@ -34,8 +34,8 @@
               @update:editorData="editorData"></CommonTheCkeditor>
           </div>
         </template>
-      </UILayoutAlignCenter>
-    </main>
+      </main>
+    </AdminUIMainContainer>
   </div>
 </template>
 
@@ -51,7 +51,7 @@
     method: 'GET',
   });
 
-  const publish: Ref<boolean> = ref(data.value?.publish);
+  const publish: Ref<boolean> = ref(data?.publish);
   const content: Ref<string> = ref('<div></div>');
 
   async function update() {

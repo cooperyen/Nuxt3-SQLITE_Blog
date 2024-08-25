@@ -1,10 +1,10 @@
 <template>
   <UILayDefaultContainer>
-    <h1>about</h1>
-    {{ data.content }}
-    <div
-      class="ck-content"
-      v-html="data.content"></div>
+    <div class="w-full max-xl:px-5 max-w-4xl mr-auto ml-auto">
+      <div
+        class="ck-content"
+        v-html="data.content"></div>
+    </div>
   </UILayDefaultContainer>
 </template>
 
