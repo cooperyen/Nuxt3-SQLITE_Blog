@@ -13,28 +13,27 @@
             @click="moblieShowMenu = !moblieShowMenu"
             :icon="['fas', 'bars']" />
         </div>
-
-        <div class="flex ml-5 items-center">
-          <!-- logo img -->
-          <div class="max-xl:mr-3">
-            <NuxtLink to="/">
+        <div class="ml-5 flex items-center">
+          <NuxtLink class="flex items-center" to="/">
+            <!-- logo img -->
+            <div class="md:mr-5 mr-2">
               <img
                 class="max-h-12 w-full"
                 :src="'/' + logo?.fileName" />
-            </NuxtLink>
-          </div>
+            </div>
 
-          <div class="text-white ml-4">
-            <h2>華生水資源</h2>
-            <span class="text-xl">BLOG</span>
-          </div>
+            <div class="text-white">
+              <h2>華生水資源</h2>
+              <span class="text-xl">BLOG</span>
+            </div>
+          </NuxtLink>
           <!-- search function desket-->
           <ClientOnly>
             <!-- desket -->
             <div
               v-if="resize"
               @click="switchSearch"
-              class="max-h-10 cursor-pointer border ml-3 rounded-full w-48 flex pt-1.5 pb-1.5 bg-white max-xl:mr-5">
+              class="max-h-10 cursor-pointer border ml-6 rounded-full w-48 flex pt-1.5 pb-1.5 bg-white max-xl:mr-5">
               <!-- icon -->
               <div class="pl-3 pr-1.5">
                 <font-awesome-icon :icon="['fas', 'magnifying-glass']" />

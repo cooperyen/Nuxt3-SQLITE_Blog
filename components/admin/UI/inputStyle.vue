@@ -1,7 +1,7 @@
 <template>
   <input
     v-model="parentValue"
-    class="border-2 w-full rounded-md py-2 px-3" />
+    class="border-2 rounded-md py-2 px-3 w-full mt-1" />
 </template>
 
 <script setup lang="ts">

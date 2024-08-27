@@ -1,14 +1,15 @@
 <template>
   <div class="">
     <AdminUILoading></AdminUILoading>
-    <main class="py-3 px-3 md:px-8 rounded-md mr-auto ml-auto max-w-4xl bg-white">
+    <main
+      class="py-3 px-3 md:px-8 rounded-md mr-auto ml-auto max-w-4xl bg-white">
       <UILayoutAlignCenter>
         <template v-if="datas">
           <!-- option content -->
           <div class="flex mt-4 border-b pb-3 w-full max-sm:flex-wrap">
             <div class="w-full content-center">
               <p>
-                {{ description }}
+                {{ editDescription }}
               </p>
             </div>
             <div class="justify-end w-full flex max-sm:mt-4">
@@ -28,22 +29,42 @@
             </div>
           </div>
 
-          <div class="mt-3 border-b pb-3">
+          <div class="mt-5 border-b pb-3">
             <!-- article id -->
-            <div class="flex flex-wrap">
+            <div class="mb-5 flex flex-wrap">
               <p class="max-sm:w-full">文章ID</p>
-              <span class="bg-slate-200 sm:ml-2 px-2 max-sm:w-full">{{ postId }}</span>
+              <span class="bg-slate-200 sm:ml-2 px-2 max-sm:w-full">{{
+                postId
+              }}</span>
             </div>
             <!-- custom url -->
-            <div class="flex items-center mt-3 flex-wrap">
-              <p class="max-sm:w-full">自訂URL</p>
+            <div class="flex items-center mb-5 flex-wrap">
+              <div>
+                <p class="max-sm:w-full">自訂URL</p>
+                <span class="italic text-sm">*留空值為無設定</span>
+              </div>
               <AdminCustomUrlCheck
-                class="sm:px-2"
+                class="w-full"
                 @update:customUrl="customUrlUpdate"
                 :customUrl="data.customUrl"></AdminCustomUrlCheck>
             </div>
+            <!-- custom url -->
+            <div class="flex items-center mb-5 flex-wrap">
+              <div>
+                <p class="max-sm:w-full">Meta Description</p>
+                <span class="italic text-sm"
+                  >*針對SEO優化，簡易概要重點。字數限制80字</span
+                >
+              </div>
+              <div class="w-full">
+                <AdminUIInputStyle
+                  class="sm:pl-2"
+                  :value="data.description"
+                  @update:value="descriptionUpdate"></AdminUIInputStyle>
+              </div>
+            </div>
             <!-- pin to top -->
-            <div class="mt-3">
+            <div class="mt-4">
               <div class="flex items-center">
                 <p>置頂文章</p>
                 <UISwitchBTN
@@ -91,7 +112,7 @@
 
   const warning: Ref<boolean> = ref(false);
 
-  const description =
+  const editDescription =
     'To avoid data loss, make sure to save your data before leaving the page.';
 
   const router = useRouter();
@@ -110,6 +131,7 @@
   });
 
   const content: Ref<string> = ref('<div></div>');
+  const description: Ref<string> = ref('');
   const bannerImg: Ref<string> = ref('');
   const defaultBannerImg: Ref<string> = ref('');
 
@@ -145,6 +167,10 @@
 
   function editorData(el: string) {
     content.value = el;
+  }
+
+  function descriptionUpdate(el: string) {
+    description.value = el;
   }
 
   // post data
@@ -195,6 +221,7 @@
           id: postId,
           publish: publish.value,
           pinTop: pinTop.value,
+          description: description.value
         },
       });
       if (posts.state === 'ok') {

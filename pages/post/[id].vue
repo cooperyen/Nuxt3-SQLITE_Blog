@@ -41,8 +41,18 @@
     await navigateTo('/');
   }
 
+
+  if (data.value.description)
+    useSeoMeta({
+      title: data.value.title,
+      description: () => data.value.description,
+    });
+  else
+    useSeoMeta({
+      title: data.value.title,
+    });
+
   useHead({
-    title: data.value.title,
     link: [
       {
         rel: 'stylesheet',

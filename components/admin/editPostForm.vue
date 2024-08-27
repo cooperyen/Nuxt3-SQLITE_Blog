@@ -3,12 +3,11 @@
   <div class="w-full mb-8 mt-10">
     <!-- input items -->
     <div
-      class="w-full mb-3"
+      class="w-full mb-5"
       v-for="(content, titles, index) in items"
       :key="titles">
       <!-- item -->
       <div
-        class="mb-1"
         v-if="titles != 'sort' && props.postId != ''">
         <p>{{ titles }}</p>
       </div>

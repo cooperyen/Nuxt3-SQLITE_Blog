@@ -1,15 +1,15 @@
 <template>
-  <div class="flex items-center">
-    <div>
+  <div class="flex items-center w-full mt-1">
+    <div class="sm:min-w-3 w-full border-2 rounded-md">
       <input
-        class="sm:min-w-3 w-full border rounded-md py-1 px-2"
+        class="w-full py-2 sm:px-2.5 px-3 rounded-md"
         placeholder="新增"
         v-model="customUrl"
         @input="valueCheck" />
     </div>
     <div
       v-if="!checkButton"
-      class="border rounded-md ml-2 py-1 px-2">
+      class="border-2 rounded-md ml-2 py-2 px-2 break-keep cursor-pointer">
       <button @click="addCustomUrl">檢查</button>
     </div>
     <div class="ml-2">

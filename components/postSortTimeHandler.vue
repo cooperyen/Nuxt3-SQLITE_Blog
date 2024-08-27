@@ -22,7 +22,7 @@
         v-for="(tag, index) in tags"
         :key="index">
         <div v-if="linkOpen">
-          <span v-if="index != 0">、</span>
+          <span v-if="index != 0 && tags.length > 1">、</span>
           <NuxtLink
             class="text-cyan-600"
             :to="'/tag/' + tag">
@@ -41,7 +41,7 @@
   const { $sortDate } = useNuxtApp();
   const props = defineProps(['tags', 'time', 'linkOpen', 'color']);
   const tags = computed(() => {
-    return props.tags.split(',');
+    return props.tags.split(',').filter((el: string) => el);
   });
   const textColor = computed(() =>
     props.color ? props.color : 'text-gray-500'

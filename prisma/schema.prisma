@@ -34,6 +34,7 @@ model Post {
   sort           String  
   customUrl      String 
   pinTop         Boolean  @default(false)
+  description    String?  
 }
 
 

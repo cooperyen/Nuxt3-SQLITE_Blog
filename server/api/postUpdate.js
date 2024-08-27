@@ -28,6 +28,7 @@ export default defineEventHandler(async (event) => {
         publish: body.pinTop ? true : body.publish,
         customUrl: body.customUrl,
         pinTop: body.pinTop,
+        description: body.description
       },
     });
 

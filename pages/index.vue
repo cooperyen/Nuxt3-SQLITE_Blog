@@ -31,6 +31,10 @@
 </template>
 
 <script setup lang="ts">
+  useHead({
+    title: `華生水資源 Blog | 環保、減碳、減塑`,
+  });
+
   const postsUrl: string = '/api/post/postFullList';
   const nums: Ref<number> = ref(4);
 
