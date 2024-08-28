@@ -29,6 +29,15 @@
 <script setup lang="ts">
   const postsUrl: string = '/api/test_find_post_data';
   const route = useRoute();
+
+  interface seo {
+    title: string;
+    description?: string;
+    ogDescription?: string;
+    ogTitle: string;
+    ogImage: string;
+  }
+
   const { data, error } = await useFetch<any>(postsUrl, {
     query: { id: route.params.id },
   });
@@ -41,16 +50,21 @@
     await navigateTo('/');
   }
 
+  // SEO
+  const { data: logo } = await useFetch<any>('/api/option/getLogoImg');
 
-  if (data.value.description)
-    useSeoMeta({
-      title: data.value.title,
-      description: () => data.value.description,
-    });
-  else
-    useSeoMeta({
-      title: data.value.title,
-    });
+  const seo: seo = {
+    title: data.value.title,
+    ogTitle: data.value.title,
+    ogImage: `${location.host}/${logo.value.fileName}`,
+  };
+
+  if (data.value.description) {
+    seo['description'] = data.value.description;
+    seo['ogDescription'] = data.value.description;
+  }
+
+  useSeoMeta(seo);
 
   useHead({
     link: [

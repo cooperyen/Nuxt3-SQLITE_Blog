@@ -221,7 +221,7 @@
           id: postId,
           publish: publish.value,
           pinTop: pinTop.value,
-          description: description.value
+          description: description.value,
         },
       });
       if (posts.state === 'ok') {
