@@ -35,7 +35,9 @@
     description?: string;
     ogDescription?: string;
     ogTitle: string;
-    ogImage: string;
+    ogUrl: string;
+    twitterTitle: string;
+    twitterDescription?: string;
   }
 
   const { data, error } = await useFetch<any>(postsUrl, {
@@ -51,18 +53,24 @@
   }
 
   // SEO
-  const { data: logo } = await useFetch<any>('/api/option/getLogoImg');
+
 
   const seo: seo = {
     title: data.value.title,
     ogTitle: data.value.title,
-    ogImage: `${location.host}/${logo.value.fileName}`,
+    ogUrl:`https://blog.hwaseng.com.tw/article/${route.params.id}`,
+    twitterTitle: data.value.title,
+
+
   };
 
   if (data.value.description) {
     seo['description'] = data.value.description;
     seo['ogDescription'] = data.value.description;
+    seo['twitterDescription'] = data.value.description;
   }
+
+  console.log(seo);
 
   useSeoMeta(seo);
 

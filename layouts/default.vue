@@ -15,12 +15,33 @@
   const defaultDescription =
     '華生將是您戮力於ESG企業的最佳夥伴！60餘年歷史，飲水專家，歡迎前來華生水水工廠體驗館。擁有最先進高科技淨水設備，主要販售飲水機、瓶裝水、桶裝水，每日檢驗讓您安心喝好水。提供多項優惠組合，歡迎選購。';
 
+  const { data: logo } = await useFetch<any>('/api/option/getLogoImg');
+  const title = '華生水資源';
+  const ogImg = `/${logo.value.fileName}`;
+  const seo: any = {
+    title: title,
+    ogTitle: title,
+    ogDescription: defaultDescription,
+    description: defaultDescription,
+    ogImage: '/og_logo.jpg',
+    ogUrl: 'https://blog.hwaseng.com.tw',
+    twitterTitle: title,
+    twitterDescription: defaultDescription,
+    twitterImage: ogImg,
+    twitterCard: 'summary',
+  };
+
+  useSeoMeta(seo);
+
   useHeadSafe({
-    title: '華生水資源',
-    meta: [
+    htmlAttrs: {
+      lang: 'zh-TW',
+    },
+    link: [
       {
-        name: 'description',
-        content: defaultDescription,
+        rel: 'icon',
+        type: 'image/png',
+        href: '/favicon.ico',
       },
     ],
   });
