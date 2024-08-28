@@ -16,7 +16,7 @@
       </div>
 
       <NuxtLink
-        :to="`/post/${blog.customUrl ? blog.customUrl : blog.id}`"
+        :to="`/article/${blog.customUrl ? blog.customUrl : blog.id}`"
         class="text-[#263d56] lg:hover:underline">
         <div class="px-3 py-2">
           <!-- title -->

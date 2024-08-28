@@ -24,7 +24,7 @@
         <NuxtLink
           class="text-sm text-mian_color"
           target="_blank"
-          :to="'/post/' + (post.customUrl ? post.customUrl : post.id)"
+          :to="'/article/' + (post.customUrl ? post.customUrl : post.id)"
           >{{ post.id }}</NuxtLink
         >
       </div>

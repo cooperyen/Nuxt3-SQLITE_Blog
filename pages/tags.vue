@@ -23,7 +23,7 @@
 </template>
 
 <script setup lang="ts">
-  const postsUrl: string = '/api/post/postTags';
+  const postsUrl: string = '/api/article/postTags';
 
   const { data: tags, error, refresh } = await useFetch<any>(postsUrl);
 

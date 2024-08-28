@@ -22,7 +22,7 @@
 </template>
 
 <script setup lang="ts">
-  const postsUrl: string = '/api/post/infoFull';
+  const postsUrl: string = '/api/article/infoFull';
   const emit = defineEmits(['update:showSearch']);
 
   const {

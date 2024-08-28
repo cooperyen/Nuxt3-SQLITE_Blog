@@ -41,7 +41,7 @@
               <!-- title and link -->
               <div class="inline pl-5 max-md:pl-3">
                 <NuxtLink
-                  :to="'/post/' + getlinks(item)"
+                  :to="'/article/' + getlinks(item)"
                   class="max-md:text-xl max-md:leading-relaxed text-3xl text-cyan-700 underline underline-offset-8 leading-relaxed">
                   {{ item.title }}
                 </NuxtLink>

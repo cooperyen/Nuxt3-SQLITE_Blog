@@ -134,7 +134,7 @@
           class="last:border-b-0 border-b py-3 last:pb-5"
           v-for="(target, index) in searchRes"
           :key="index">
-          <NuxtLink :to="'/post/' + target.id">
+          <NuxtLink :to="'/article/' + target.id">
             <div>
               <span class="bg-tag rounded-lg px-1 mb-2 text-xs">
                 {{ $sortDate(target.createdAt) }}
@@ -151,7 +151,7 @@
 <script setup lang="ts">
   const { $sortDate } = useNuxtApp();
   const router = useRoute();
-  const postsUrl: string = '/api/post/shortPostFullList';
+  const postsUrl: string = '/api/article/shortPostFullList';
   const nums: Ref<number> = ref(10);
   const searchInput: Ref<string> = ref('');
   const showSearch: Ref<boolean> = ref(false);

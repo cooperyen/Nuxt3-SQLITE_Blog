@@ -35,14 +35,14 @@
     title: `華生水資源 Blog | 環保、減碳、減塑`,
   });
 
-  const postsUrl: string = '/api/post/postFullList';
+  const postsUrl: string = '/api/article/postFullList';
   const nums: Ref<number> = ref(4);
 
-  const { data } = await useFetch<any>('/api/post/postFullList', {
+  const { data } = await useFetch<any>('/api/article/postFullList', {
     query: { postNum: nums },
   });
 
-  const { data: fullListLength } = await useFetch<any>('/api/post/postLength');
+  const { data: fullListLength } = await useFetch<any>('/api/article/postLength');
 
   const isLoadings = computed(() => {
     if (data.value) return nums.value > fullListLength.value;

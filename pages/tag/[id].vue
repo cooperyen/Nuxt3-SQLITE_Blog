@@ -8,7 +8,7 @@
 </template>
 
 <script setup lang="ts">
-  const postsUrl: string = '/api/post/postListByTag';
+  const postsUrl: string = '/api/article/postListByTag';
   const route = useRoute();
   const { data, error } = await useFetch<any>(postsUrl, {
     query: { id: route.params.id },

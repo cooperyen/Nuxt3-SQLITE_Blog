@@ -10,11 +10,10 @@ export default defineEventHandler(async (event) => {
 
     for await (const fileName of x) {
       if (fileName.split('.').at(0) === 'logo') {
-        console.log(fileName);
         return { fileName, date: new Date() };
       }
     }
   } catch (err) {
-    console.log(err,456);
+    console.log(err, 456);
   }
 });
