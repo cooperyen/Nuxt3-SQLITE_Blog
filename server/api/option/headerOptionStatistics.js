@@ -6,7 +6,7 @@ export default defineEventHandler(async (event) => {
   const content = {};
   let tagLength = 0;
 
-  const posts = await prismaClient.post.findMany({
+  const articles = await prismaClient.post.findMany({
     where: {
       publish: true,
     },
@@ -16,8 +16,8 @@ export default defineEventHandler(async (event) => {
     },
   });
 
-  for (let i = 0; i < posts.length; i++) {
-    const element = posts[i];
+  for (let i = 0; i < articles.length; i++) {
+    const element = articles[i];
     const sorts = element.sort.split(',');
     for (let s = 0; s < sorts.length; s++) {
       const sort = sorts[s];
@@ -30,5 +30,5 @@ export default defineEventHandler(async (event) => {
       }
     }
   }
-  return { tag: content, postLength: posts.length, tagLength };
+  return { tag: content, articleLength: articles.length, tagLength };
 });

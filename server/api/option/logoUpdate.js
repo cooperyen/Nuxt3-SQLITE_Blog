@@ -9,7 +9,7 @@ export default defineEventHandler(async (event) => {
     const file = files[0];
     const fileSize = file.data.length / 10000000;
     const fileType = file.filename.split('.').at(-1);
-    console.log(fileSize);
+
 
     if (fileSize > 1) return { code: 400, msg: 'too large' };
     if (fileSize <= 1) {

@@ -105,7 +105,7 @@
 
 <script setup lang="ts">
   const { $sortDate } = useNuxtApp();
-  const articleAPI: string = '/api/admin/articlesHandler';
+  const articleAPI: string = '/api/admin/articleHandler';
   const deletePostTitle: Ref<string> = ref('');
 
   const titles = [
@@ -154,14 +154,14 @@
 
   async function fetchArticles() {
     try {
-      const data = await $fetch<Article[]>(articleAPI, {
+      const data = await $fetch<any>(articleAPI, {
         method: 'GET',
         query: {
           postNum: props.showPerPage,
           skip: (props.currentPage - 1) * props.showPerPage,
         },
       });
-      article.value = data;
+      article.value = data.data;
     } catch (error) {
       console.error('Failed to fetch article:', error);
     }

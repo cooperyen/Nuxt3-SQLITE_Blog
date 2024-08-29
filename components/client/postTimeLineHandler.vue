@@ -61,7 +61,7 @@
   const sortData = computed(() => {
     const res: any = {};
 
-    props.data.forEach((el: any) => {
+    props.data?.forEach((el: any) => {
       const date = new Date($sortDate(el.createdAt));
       const year = date.getFullYear();
 
@@ -89,7 +89,6 @@
   });
 
   function getlinks(val: any) {
-    console.log(val);
     return val.customUrl != '' && val.customUrl ? val.customUrl : val.id;
   }
 </script>

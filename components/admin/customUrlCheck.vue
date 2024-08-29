@@ -40,7 +40,7 @@
       }
 
       if (url != '') {
-        const api: string = '/api/option/customUrlCheck';
+        const api: string = '/api/option/checkCustomizeURL';
         res = await $fetch<boolean>(api, {
           method: 'POST',
           body: {

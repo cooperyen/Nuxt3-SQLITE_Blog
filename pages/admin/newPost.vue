@@ -57,18 +57,18 @@
       // repeat execution is prohibited.
       if (!postProcess.value) return;
       postProcess.value = false;
-      const url: string = '/api/test-new-post';
+      const url: string = '/api/admin/articleHandler';
       const posts: object | any = await $fetch(url, {
         method: 'POST',
         body: {
           ...items.value,
         },
       });
-      if (posts.state === 'ok')
+      if (posts.state === 200)
         setTimeout(() => {
           router.replace(`/admin/editpost/${posts.id}`);
-        }, 1000);
-      if (posts.state === 'fail') {
+        }, 2000);
+      else {
         alert('save fail');
         loadingSwitch(false);
       }

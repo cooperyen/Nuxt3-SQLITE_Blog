@@ -4,7 +4,7 @@
     <main
       class="py-3 px-3 md:px-8 rounded-md mr-auto ml-auto max-w-4xl bg-white">
       <UILayoutAlignCenter>
-        <template v-if="datas">
+        <template v-if="article">
           <!-- option content -->
           <div class="flex mt-4 border-b pb-3 w-full max-sm:flex-wrap">
             <div class="w-full content-center">
@@ -19,7 +19,7 @@
               </div>
               <UISwitchBTN
                 class="border-r-2 mr-2 pr-2"
-                :status="data.publish"
+                :status="article.publish"
                 @update:status="publish = $event"></UISwitchBTN>
               <UISubmitBTN
                 class="content-center py-1"
@@ -46,7 +46,7 @@
               <AdminCustomUrlCheck
                 class="w-full"
                 @update:customUrl="customUrlUpdate"
-                :customUrl="data.customUrl"></AdminCustomUrlCheck>
+                :customUrl="article.customUrl"></AdminCustomUrlCheck>
             </div>
             <!-- custom url -->
             <div class="flex items-center mb-5 flex-wrap">
@@ -59,7 +59,7 @@
               <div class="w-full">
                 <AdminUIInputStyle
                   class="sm:pl-2"
-                  :value="data.description"
+                  :value="article.description"
                   @update:value="descriptionUpdate"></AdminUIInputStyle>
               </div>
             </div>
@@ -69,7 +69,7 @@
                 <p>置頂文章</p>
                 <UISwitchBTN
                   class="ml-2"
-                  :status="data.pinTop"
+                  :status="article.pinTop"
                   @update:status="pinTop = $event"></UISwitchBTN>
               </div>
               <span class="italic text-sm"
@@ -81,9 +81,9 @@
           <!-- post option content -->
           <AdminEditPostForm
             :warning="warning"
-            :title="datas.title"
-            :subtitle="datas.subtitle"
-            :sort="datas.sort"
+            :title="article.title"
+            :subtitle="article.subtitle"
+            :sort="article.sort"
             :defaultBannerImg="defaultBannerImg"
             :postId="postId"
             @update:warning="(e:boolean) => (warning = e)"
@@ -93,7 +93,7 @@
           <!-- styling content -->
           <div class="mb-5 pb-5">
             <CommonTheCkeditor
-              :data="datas.content"
+              :data="article.content"
               @update:editorData="editorData"></CommonTheCkeditor>
           </div>
         </template>
@@ -117,16 +117,25 @@
 
   const router = useRouter();
   const route = useRoute();
-  const postsUrl: string = '/api/findPostData';
+
   const postId: string | string[] = route.params.id;
   const showLoadinmg: Ref<boolean> = ref(false);
-  const { data, error } = await useFetch<any>(postsUrl, {
+
+  const apiURL: string = '/api/admin/articleHandler';
+  const { data, error } = await useFetch<any>(apiURL, {
     query: { id: postId },
+    method: 'GET',
   });
 
-  const datas = computed(() => {
+  const article = computed(() => {
+    const val = data.value;
     let res;
-    res = data.value;
+    if (val.state === 200) res = val.data;
+    else {
+      alert(val.msg);
+      res = null;
+    }
+
     return res;
   });
 
@@ -136,16 +145,19 @@
   const defaultBannerImg: Ref<string> = ref('');
 
   // custom url
-  const customUrl: Ref<string> = ref(data.value.customUrl);
+  const customUrl: Ref<string> = ref(article.value?.customUrl);
   function customUrlUpdate(el: string) {
     customUrl.value = el;
   }
 
   async function dsaads() {
-    const res = await $fetch('/api/findBannerImg', {
-      method: 'POST',
-      body: { id: route.params.id },
-    });
+    const res = await $fetch<string>(
+      '/api/article/findSingleArticleBannerPath',
+      {
+        method: 'POST',
+        body: { id: route.params.id },
+      }
+    );
     if (res === 'fail') defaultBannerImg.value = '/postImg/default_banner.jpg';
     else defaultBannerImg.value = res;
   }
@@ -162,8 +174,8 @@
     subtitle: 'string',
   });
 
-  const publish: Ref<boolean> = ref(data.value?.publish);
-  const pinTop: Ref<boolean> = ref(data.value?.pinTop);
+  const publish: Ref<boolean> = ref(article.value?.publish);
+  const pinTop: Ref<boolean> = ref(article.value?.pinTop);
 
   function editorData(el: string) {
     content.value = el;
@@ -183,7 +195,7 @@
 
   function bannerUpdate(e: any) {
     if (!e) return;
-    const url: string = '/api/uploadBannerImg';
+    const url: string = '/api/article/uploadArticleBannerImg';
     let reader = new FileReader();
     reader.readAsDataURL(e);
     reader.onload = (es: any) => {
@@ -210,10 +222,9 @@
       warning.value = true;
       loadingSwitch(false);
     } else {
-      const url: string = '/api/postUpdate';
 
-      const posts: object | any = await $fetch(url, {
-        method: 'POST',
+      const posts: object | any = await $fetch(apiURL, {
+        method: 'PUT',
         body: {
           ...items.value,
           customUrl: customUrl.value,
@@ -224,10 +235,14 @@
           description: description.value,
         },
       });
-      if (posts.state === 'ok') {
+
+      if (posts.state === 200) {
         setTimeout(() => {
           router.replace('/admin');
         }, 1000);
+      } else {
+        alert(posts.msg);
+        loadingSwitch(false);
       }
     }
   }
@@ -240,7 +255,7 @@
 
   onBeforeMount(() => {
     dsaads();
-    if (!datas.value) router.replace('/admin');
+    if (!article.value) router.replace('/admin');
   });
 
   onBeforeUnmount(() => {

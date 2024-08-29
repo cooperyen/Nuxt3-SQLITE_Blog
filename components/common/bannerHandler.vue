@@ -37,7 +37,7 @@
   }
 
   async function findBanner(id: string) {
-    const res = await $fetch('/api/findBannerImg', {
+    const res = await $fetch<string>('/api/article/findSingleArticleBannerPath', {
       method: 'POST',
       body: { id },
     });

@@ -1,25 +1,25 @@
 <template>
   <UILayDefaultContainer>
     <article
-      v-if="data"
+      v-if="article.data"
       class="pt-10">
       <UILayoutAlignCenter class="justify-center">
         <div
           id="title"
           class="">
           <!-- title -->
-          <h1 class="text-4xl font-bold">{{ data.title }}</h1>
+          <h1 class="text-4xl font-bold">{{ article.data.title }}</h1>
           <!-- subtitle -->
-          <h2 class="text-2xl mt-3">{{ data.subtitle }}</h2>
+          <h2 class="text-2xl mt-3">{{ article.data.subtitle }}</h2>
           <PostSortTimeHandler
-            :tags="data.sort"
-            :time="data.createdAt"
+            :tags="article.data.sort"
+            :time="article.data.createdAt"
             :linkOpen="true">
           </PostSortTimeHandler>
         </div>
         <UISeparatorLine class="mt-5" />
         <div
-          v-html="data.content"
+          v-html="article.data.content"
           class="ck-content mt-10"></div>
       </UILayoutAlignCenter>
     </article>
@@ -27,7 +27,7 @@
 </template>
 
 <script setup lang="ts">
-  const postsUrl: string = '/api/test_find_post_data';
+  const postsUrl: string = '/api/article/findSingleArticle';
   const route = useRoute();
 
   interface seo {
@@ -40,12 +40,14 @@
     twitterDescription?: string;
   }
 
-  const { data, error } = await useFetch<any>(postsUrl, {
+  const { data: article, error } = await useFetch<any>(postsUrl, {
     query: { id: route.params.id },
+    method: 'GET',
   });
 
+
   onBeforeMount(() => {
-    if (!data.value) back();
+    if (article.value.state != 200) back();
   });
 
   async function back() {
@@ -54,23 +56,18 @@
 
   // SEO
 
-
   const seo: seo = {
-    title: data.value.title,
-    ogTitle: data.value.title,
-    ogUrl:`https://blog.hwaseng.com.tw/article/${route.params.id}`,
-    twitterTitle: data.value.title,
-
-
+    title: article.value.data.title,
+    ogTitle: article.value.data.title,
+    ogUrl: `https://blog.hwaseng.com.tw/article/${route.params.id}`,
+    twitterTitle: article.value.data.title,
   };
 
-  if (data.value.description) {
-    seo['description'] = data.value.description;
-    seo['ogDescription'] = data.value.description;
-    seo['twitterDescription'] = data.value.description;
+  if (article.value.data.description) {
+    seo['description'] = article.value.data.description;
+    seo['ogDescription'] = article.value.data.description;
+    seo['twitterDescription'] = article.value.data.description;
   }
-
-  console.log(seo);
 
   useSeoMeta(seo);
 

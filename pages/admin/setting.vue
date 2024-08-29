@@ -45,7 +45,8 @@
   });
 
   const { data: logo, refresh: logoRefresh } = await useFetch<any>(
-    '/api/option/getLogoImg'
+    '/api/option/logoHandler',
+    { method: 'GET' }
   );
 
   const img = computed(() => {

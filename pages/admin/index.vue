@@ -13,10 +13,10 @@
     <AdminPostList
       :showPerPage="showPerPage"
       :currentPage="currentPage"
-      :max="postCount"></AdminPostList>
+      :max="articleLength"></AdminPostList>
 
     <AdminPostPagination
-      :max="postCount"
+      :max="articleLength"
       :currentPage="currentPage"
       :showPerPage="showPerPage"
       @update:currentPage="(e:number)=> currentPage = e"></AdminPostPagination>
@@ -32,5 +32,7 @@
   const currentPage: Ref<Number> = ref(1);
   const showPerPage: Ref<Number> = ref(5);
 
-  const { data: postCount, refresh } = await useFetch<any>('/api/postCount');
+  const { data: articleLength, refresh } = await useFetch<any>(
+    '/api/article/articleLength'
+  );
 </script>

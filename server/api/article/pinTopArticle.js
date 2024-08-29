@@ -12,20 +12,16 @@ export default defineEventHandler(async (event) => {
 
     if (pinTopArticle)
       return {
-        state: 'ok',
+        state: 200,
         data: pinTopArticle,
       };
 
     if (!pinTopArticle)
       return {
-        state: 'fail',
+        state: 400,
         msg: 'No pinned articles found',
       };
   } catch (error) {
-    console.log(error);
-    return {
-      state: 'fail',
-      msg: 'someting wrong.',
-    };
+    console.log('error', error);
   }
 });

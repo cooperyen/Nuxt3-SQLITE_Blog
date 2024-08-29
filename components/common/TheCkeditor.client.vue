@@ -52,7 +52,7 @@
   const editorConfig = {
     placeholder: 'type the content here',
     simpleUpload: {
-      uploadUrl: `/api/testUploadImg?id=${route.params.id}`,
+      uploadUrl: `/api/article/uploadArticleContentImg?id=${route.params.id}`,
     },
     plugins: [
       Table,

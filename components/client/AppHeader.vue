@@ -14,7 +14,9 @@
             :icon="['fas', 'bars']" />
         </div>
         <div class="ml-5 flex items-center">
-          <NuxtLink class="flex items-center" to="/">
+          <NuxtLink
+            class="flex items-center"
+            to="/">
             <!-- logo img -->
             <div class="md:mr-5 mr-2">
               <img
@@ -151,7 +153,6 @@
 <script setup lang="ts">
   const { $sortDate } = useNuxtApp();
   const router = useRoute();
-  const postsUrl: string = '/api/article/shortPostFullList';
   const nums: Ref<number> = ref(10);
   const searchInput: Ref<string> = ref('');
   const showSearch: Ref<boolean> = ref(false);
@@ -174,15 +175,25 @@
     }
   );
 
-  const { data: logo } = await useFetch<any>('/api/option/getLogoImg');
+  const { data: logo } = await useFetch<any>('/api/option/logoHandler');
 
-  const {
-    data: post,
-    error,
-    refresh,
-  } = await useFetch<any>(postsUrl, {
+  const { data: post } = await useFetch<any>('/api/article/findManyArticles', {
     lazy: true,
     immediate: true,
+    method: 'GET',
+    query: {
+      id: true,
+      title: true,
+      createdAt: true,
+      sort: true,
+      content: true,
+    },
+  });
+
+  const articles = computed(() => {
+    const val = post.value;
+    if (val.state === 200) return post.value.data;
+    else return null;
   });
 
   interface list {
@@ -194,17 +205,17 @@
 
   const searchRes = computed(() => {
     let res: Array<list> = [];
-    const target = searchInput.value;
+    const target = searchInput.value.toLowerCase();
 
     if (target.length > 2)
-      post.value.forEach((element: list) => {
+      articles.value.forEach((element: list) => {
         const data: list = {
           title: element.title,
           createdAt: element.createdAt,
           id: element.id,
         };
-        if (element.title.match(target)) res.push(data);
-        else if (element.content.match(target)) res.push(data);
+        if (element.title.toLowerCase().match(target)) res.push(data);
+        else if (element.content.toLowerCase().match(target)) res.push(data);
       });
 
     return res;

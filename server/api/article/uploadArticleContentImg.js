@@ -1,9 +1,6 @@
-import { PrismaClient } from '@prisma/client';
 import formidable from 'formidable';
 import fs from 'fs';
 import path from 'path';
-
-const prismaClient = new PrismaClient();
 
 export default defineEventHandler(async (event) => {
   const nodeRequestObject = event.node.req;
@@ -17,7 +14,7 @@ export default defineEventHandler(async (event) => {
   fs.readFile(file.filepath, (err, data) => {
     if (!fs.existsSync(path.resolve(`public/postImg/${query.id}`))) {
       fs.mkdirSync(path.resolve(`public/postImg/${query.id}`), {
-        recursive: true, // 创建目录，如果父级目录不存在则创建
+        recursive: true, 
       });
     }
     fs.writeFile(
