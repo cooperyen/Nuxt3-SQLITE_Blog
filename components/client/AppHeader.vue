@@ -1,13 +1,11 @@
 <template>
-  <header class="relative top-0">
-    <div class="fixed top-0 w-full max-h-20 h-full bg-main-blue border-b z-10">
+  <header class="relative top-0 select-none">
+    <div
+      class="md:fixed top-0 py-3 w-full md:max-h-20 h-full min-h-20 bg-main-blue border-b z-20">
       <div
-        v-show="show"
         class="max-w-screen-2xl flex mx-auto justify-between items-center h-full">
         <!-- bar menu for mobile -->
-        <div
-          v-if="!resize"
-          class="ml-5 text-white text-xl">
+        <div class="ml-5 text-white text-xl md:hidden">
           <font-awesome-icon
             class="cursor-pointer"
             @click="moblieShowMenu = !moblieShowMenu"
@@ -30,45 +28,38 @@
             </div>
           </NuxtLink>
           <!-- search function desket-->
-          <ClientOnly>
-            <!-- desket -->
-            <div
-              v-if="resize"
-              @click="switchSearch"
-              class="max-h-10 cursor-pointer border ml-6 rounded-full w-48 flex pt-1.5 pb-1.5 bg-white max-xl:mr-5">
-              <!-- icon -->
-              <div class="pl-3 pr-1.5">
-                <font-awesome-icon :icon="['fas', 'magnifying-glass']" />
-              </div>
-              <!-- search click -->
-              <div class="pr-3">
-                <input
-                  class="w-full cursor-pointer text-sm placeholder:text-slate-600 bg-white focus:outline-none"
-                  type="text"
-                  autocomplete="off"
-                  readonly
-                  placeholder="Search" />
-              </div>
+
+          <!-- desket -->
+          <div
+            @click="switchSearch"
+            class="max-h-10 cursor-pointer border ml-6 rounded-full w-48 flex pt-1.5 pb-1.5 bg-white max-xl:mr-5 max-md:hidden">
+            <!-- icon -->
+            <div class="pl-3 pr-1.5">
+              <font-awesome-icon :icon="['fas', 'magnifying-glass']" />
             </div>
-          </ClientOnly>
+            <!-- search click -->
+            <div class="pr-3">
+              <input
+                class="w-full cursor-pointer text-sm placeholder:text-slate-600 bg-white focus:outline-none"
+                type="text"
+                autocomplete="off"
+                readonly
+                placeholder="Search" />
+            </div>
+          </div>
         </div>
 
         <!-- search function mobile-->
-        <ClientOnly>
-          <!-- mobile -->
-          <div
-            v-if="!resize"
-            class="cursor-pointer pl-3 pr-1.5 text-white mr-5">
-            <font-awesome-icon
-              @click="switchSearch"
-              :icon="['fas', 'magnifying-glass']" />
-          </div>
-        </ClientOnly>
+
+        <!-- mobile -->
+        <div class="cursor-pointer pl-3 pr-1.5 text-white mr-5 md:hidden">
+          <font-awesome-icon
+            @click="switchSearch"
+            :icon="['fas', 'magnifying-glass']" />
+        </div>
 
         <!-- info for desket -->
-        <div
-          class="flex"
-          v-if="resize">
+        <div class="flex max-md:hidden">
           <div class="mr-5 text-white">
             <NuxtLink :to="'/about'"> 關於華生 </NuxtLink>
           </div>
@@ -77,11 +68,10 @@
         </div>
       </div>
 
-      <!-- bg-main-blue -->
       <!-- info for mobile -->
       <div
         v-show="moblieShowMenu"
-        class="w-full bg-white px-6 py-6 shadow-md">
+        class="w-full bg-white px-6 py-6 shadow-md absolute z-10 top-20">
         <ul>
           <li
             class="mb-5 last-of-type:mb-0"
@@ -92,8 +82,9 @@
         </ul>
       </div>
     </div>
+
     <!-- unvisible block -->
-    <div class="h-20"></div>
+    <div class="h-20 max-md:hidden"></div>
   </header>
 
   <!-- search content -->
@@ -114,7 +105,7 @@
           </div>
           <div class="w-full">
             <input
-              class="text-sm w-full placeholder:text-slate-600 bg-light-gray focus:outline-none"
+              class="text-inherit md:text-sm w-full placeholder:text-slate-600 bg-light-gray focus:outline-none"
               type="text"
               v-model="searchInput"
               autocomplete="off"
@@ -237,8 +228,8 @@
     else return false;
   });
 
-  onMounted(() => {
-    if (process.client) {
+  onBeforeMount(() => {
+    if (import.meta.client) {
       windowWidth.value = window.innerWidth;
     }
 
