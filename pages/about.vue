@@ -1,9 +1,11 @@
 <template>
   <UILayDefaultContainer>
-    <div class="w-full max-xl:px-5 max-w-4xl mr-auto ml-auto">
+    <div
+      v-if="aboutDate"
+      class="w-full max-xl:px-5 max-w-4xl mr-auto ml-auto">
       <div
         class="ck-content"
-        v-html="data.content"></div>
+        v-html="aboutDate?.content"></div>
     </div>
   </UILayDefaultContainer>
 </template>
@@ -25,7 +27,12 @@
     ],
   });
 
-  const data = await $fetch<any>('/api/pages/aboutPageUpdate', {
+  const aboutFetch = await $fetch<any>('/api/pages/aboutPageHandler', {
     method: 'GET',
+  });
+
+  const aboutDate = computed(() => {
+    if (aboutFetch.state === 200) return aboutFetch.data;
+    else return null;
   });
 </script>

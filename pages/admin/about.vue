@@ -4,7 +4,7 @@
       <AdminUILoading></AdminUILoading>
       <main
         class="py-3 px-3 md:px-8 rounded-md mr-auto ml-auto max-w-4xl bg-white">
-        <template v-if="data">
+        <template v-if="aboutDate">
           <!-- option content -->
           <div class="flex mt-4 border-b pb-3 w-full max-sm:flex-wrap">
             <div class="w-full content-center">
@@ -17,7 +17,7 @@
               </div>
               <UISwitchBTN
                 class="border-r-2 mr-2 pr-2"
-                :status="data.publish"
+                :status="aboutDate?.publish"
                 @update:status="publish = $event"></UISwitchBTN>
               <UISubmitBTN
                 class="content-center py-1"
@@ -30,7 +30,7 @@
           <!-- styling content -->
           <div class="mb-5 pb-5">
             <CommonTheCkeditor
-              :data="data.content"
+              :data="aboutDate?.content"
               @update:editorData="editorData"></CommonTheCkeditor>
           </div>
         </template>
@@ -46,17 +46,22 @@
   });
 
   const { loadingSwitch } = useLoadingState();
-
-  const data = await $fetch<any>('/api/pages/aboutPageUpdate', {
+  const aboutAPI = '/api/pages/aboutPageHandler';
+  const aboutFetch = await $fetch<any>(aboutAPI, {
     method: 'GET',
   });
 
-  const publish: Ref<boolean> = ref(data?.publish);
+  const aboutDate = computed(() => {
+    if (aboutFetch.state === 200) return aboutFetch.data;
+    else return null;
+  });
+
+  const publish: Ref<boolean> = ref(aboutDate.value?.publish);
   const content: Ref<string> = ref('<div></div>');
 
   async function update() {
     loadingSwitch(true);
-    const data = await $fetch<boolean>('/api/pages/aboutPageUpdate', {
+    const data = await $fetch<boolean>(aboutAPI, {
       method: 'POST',
       body: {
         content: content.value,

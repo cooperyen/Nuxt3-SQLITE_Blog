@@ -11,19 +11,17 @@ export default defineEventHandler(async (event) => {
         return await updateData(event);
       default:
         // Method Not Allowed
-        event.statusCode = 405;
-        return { error: 'Method Not Allowed' };
+        return { state: 400, msg: 'Method Not Allowed' };
     }
   } catch (error) {
-    // console.log(error);
-    return { state: 'fail' };
+    console.log('error', error);
   }
 });
 
 async function updateData(event) {
   try {
     const body = await readBody(event);
-    console.log(body);
+
     const data = await prismaClient.pages.update({
       where: {
         url: 'about',
@@ -33,7 +31,8 @@ async function updateData(event) {
       },
     });
 
-    return data ? true : false;
+    if (data) return { state: 200 };
+    else return { state: 400, msg: 'someting wrong.' };
   } catch (error) {
     console.log(error);
   }
@@ -62,7 +61,9 @@ async function getData() {
       },
     });
 
-    if (data) return data;
+    if (data) {
+      return { state: 200, data };
+    }
     if (!data) {
       const res = await createData();
       if (res) return await getData();

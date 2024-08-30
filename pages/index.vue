@@ -1,7 +1,6 @@
 <template>
   <div class="w-full max-xl:px-5 max-w-7xl mr-auto ml-auto">
     <ClientPinTopArticle></ClientPinTopArticle>
-
     <main>
       <div
         class="mt-5 md:mt-10 bg-white md:grid md:gap-x-5 md:gap-y-8 md:grid-cols-3">
@@ -55,12 +54,18 @@
     else return null;
   });
 
-  const { data: fullListLength } = await useFetch<any>(
-    '/api/article/postLength'
+  const { data: articleLengthAPI } = await useFetch<any>(
+    '/api/article/totalArticleLength'
   );
 
+  const articleLength = computed(() => {
+    if (articleLengthAPI.value.state === 200)
+      return articleLengthAPI.value.data;
+    else return 0;
+  });
+
   const isLoadings = computed(() => {
-    if (data.value) return nums.value > fullListLength.value;
+    if (data.value) return nums.value > articleLength.value;
     else return false;
   });
 
@@ -71,7 +76,7 @@
 
       nums.value += 6;
 
-      if (nums.value > fullListLength.value) intersectionObserver.disconnect();
+      if (nums.value > articleLength.value) intersectionObserver.disconnect();
     });
 
     // console.log(document.querySelector('.dataLoader'));

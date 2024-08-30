@@ -33,6 +33,6 @@
   const showPerPage: Ref<Number> = ref(5);
 
   const { data: articleLength, refresh } = await useFetch<any>(
-    '/api/article/articleLength'
+    '/api/article/totalArticleLength'
   );
 </script>

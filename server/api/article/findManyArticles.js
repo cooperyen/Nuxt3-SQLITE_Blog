@@ -4,18 +4,13 @@ const prismaClient = new PrismaClient();
 
 export default defineEventHandler(async (event) => {
   try {
-    let res = null;
-
     switch (event.method) {
       case 'GET':
-        res = await findMany(event);
-        break;
+        return await findMany(event);
       default:
         // Method Not Allowed
         return { state: 400, msg: 'Method Not Allowed' };
     }
-
-    return res;
   } catch (error) {
     console.log('error', error);
   }
