@@ -1,6 +1,6 @@
 <template>
   <article
-    class="mt-5"
+    class=""
     v-if="article">
     <div class="border border-gray-150 max-md:mb-10 rounded-md md:relative">
       <!-- img -->

@@ -1,9 +1,7 @@
 <template>
-  <div  :class="{ 'overflow-y-auto h-[calc(100vh_-_10rem)]': showSearch }">
+  <div :class="{ 'overflow-y-auto h-[calc(100vh)]': showSearch }">
     <ClientAppHeader @update:showSearch="(el:boolean) => (showSearch = el)" />
-    <div
-      class="relative top-0"
-     >
+    <div class="relative top-0">
       <NuxtPage />
     </div>
     <ClientAppFooter></ClientAppFooter>

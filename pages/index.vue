@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full max-xl:px-5 max-w-7xl mr-auto ml-auto">
+  <div class="w-full max-xl:px-5 max-w-7xl mt-10 md:mt-5 mx-auto">
     <ClientPinTopArticle></ClientPinTopArticle>
     <main>
       <div

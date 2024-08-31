@@ -1,7 +1,7 @@
 <template>
   <header class="relative top-0 select-none">
     <div
-      class="md:fixed top-0 py-3 w-full md:max-h-20 h-full min-h-20 bg-main-blue border-b z-20">
+      class="md:fixed top-0 py-3 w-full md:max-h-20 h-full md:min-h-20 bg-main-blue border-b z-20 relative">
       <div
         class="max-w-screen-2xl flex mx-auto justify-between items-center h-full">
         <!-- bar menu for mobile -->
@@ -11,6 +11,7 @@
             @click="moblieShowMenu = !moblieShowMenu"
             :icon="['fas', 'bars']" />
         </div>
+
         <div class="ml-5 flex items-center">
           <NuxtLink
             class="flex items-center"
@@ -18,13 +19,13 @@
             <!-- logo img -->
             <div class="md:mr-5 mr-2">
               <img
-                class="max-h-12 w-full"
+                class="max-h-9 md:max-h-12 w-full"
                 :src="'/' + logo?.fileName" />
             </div>
 
             <div class="text-white">
-              <h2>華生水資源</h2>
-              <span class="text-xl">BLOG</span>
+              <h2 class="max-md:text-xs">華生水資源</h2>
+              <span class="text-sm md:text-xl">BLOG</span>
             </div>
           </NuxtLink>
           <!-- search function desket-->
@@ -51,7 +52,7 @@
 
         <!-- search function mobile-->
 
-        <!-- mobile -->
+        <!-- mobile menu  -->
         <div class="cursor-pointer pl-3 pr-1.5 text-white mr-5 md:hidden">
           <font-awesome-icon
             @click="switchSearch"
@@ -67,20 +68,20 @@
           <ClientInfoFull class="mr-5"></ClientInfoFull>
         </div>
       </div>
+    </div>
 
-      <!-- info for mobile -->
-      <div
-        v-show="moblieShowMenu"
-        class="w-full bg-white px-6 py-6 shadow-md absolute z-10 top-20">
-        <ul>
-          <li
-            class="mb-5 last-of-type:mb-0"
-            v-for="link in mobileMeunLinks"
-            :key="link.to">
-            <NuxtLink :to="link.to">{{ link.title }}</NuxtLink>
-          </li>
-        </ul>
-      </div>
+    <!-- info for mobile -->
+    <div
+      v-show="moblieShowMenu"
+      class="animate-top-to-bottom w-full bg-white px-6 py-6 shadow-[0_35px_60px_-15px_rgba(0,0,0,0.5)] absolute z-10 md:top-20 border-b-4 border-main-blue">
+      <ul>
+        <li
+          class="mb-5 last-of-type:mb-0"
+          v-for="link in mobileMeunLinks"
+          :key="link.to">
+          <NuxtLink :to="link.to">{{ link.title }}</NuxtLink>
+        </li>
+      </ul>
     </div>
 
     <!-- unvisible block -->
@@ -94,12 +95,11 @@
     class="z-30 backdrop-blur-sm bg-gray-400/70 fixed w-full h-full lef-0 top-0">
     <!-- content -->
     <div
-      class="bg-white w-[calc(100%_-_40px)] md:max-w-3xl fixed left-1/2 -translate-x-1/2 md:top-32 top-5 min-h-48 rounded-lg">
+      class="bg-white w-[calc(100%_-_40px)] h-5/6 md:h-2/3 min-h-48 md:max-w-3xl fixed left-1/2 -translate-x-1/2 md:top-32 top-10 rounded-lg">
       <!-- search area -->
       <div class="flex">
         <!-- content -->
-        <div
-          class="flex my-5 ml-5 w-full rounded-lg py-1.5 mr-10 bg-light-gray">
+        <div class="flex my-5 ml-5 w-full rounded-lg py-1.5 bg-light-gray">
           <div class="pl-3 pr-1.5">
             <font-awesome-icon :icon="['fas', 'magnifying-glass']" />
           </div>
@@ -113,7 +113,7 @@
           </div>
         </div>
         <!-- close -->
-        <div class="w-14 flex items-center">
+        <div class="mx-3 flex items-center">
           <font-awesome-icon
             @click="switchSearch"
             class="text-2xl w-full cursor-pointer"
@@ -122,7 +122,8 @@
       </div>
 
       <!-- search resault -->
-      <div class="px-2 md:px-5 max-md:px-4">
+      <div
+        class="px-2 md:px-5 max-md:px-4 overflow-y-auto md:h-3/4 h-4/5 min-h-48">
         <div
           class="last:border-b-0 border-b py-3 last:pb-5"
           v-for="(target, index) in searchRes"
@@ -222,11 +223,11 @@
 
   const show: Ref<Boolean> = ref(false);
 
-  const resize = computed(() => {
-    show.value = true;
-    if (windowWidth.value >= 768) return true;
-    else return false;
-  });
+  // const resize = computed(() => {
+  //   show.value = true;
+  //   if (windowWidth.value >= 768) return true;
+  //   else return false;
+  // });
 
   onBeforeMount(() => {
     if (import.meta.client) {
@@ -235,6 +236,7 @@
 
     window.addEventListener('resize', function () {
       windowWidth.value = window.innerWidth;
+      moblieShowMenu.value = false;
     });
 
     window.addEventListener('scroll', function () {
