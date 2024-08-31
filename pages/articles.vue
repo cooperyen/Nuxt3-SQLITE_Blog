@@ -12,9 +12,11 @@
   const { data } = await useFetch<any>(postsUrl, {
     method: 'GET',
     query: {
-      id: true,
-      title: true,
-      createdAt: true,
+      select: {
+        id: true,
+        title: true,
+        createdAt: true,
+      },
     },
   });
 
@@ -23,5 +25,4 @@
     if (val.state === 200) return data.value.data;
     else return null;
   });
-
 </script>

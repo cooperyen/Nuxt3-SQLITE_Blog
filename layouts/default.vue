@@ -4,7 +4,7 @@
     <div class="relative top-0">
       <NuxtPage />
     </div>
-    <ClientAppFooter></ClientAppFooter>
+    <!-- <ClientAppFooter></ClientAppFooter> -->
   </div>
 </template>
 

@@ -19,6 +19,9 @@ export default defineEventHandler(async (event) => {
 async function findMany(event) {
   try {
     const query = getQuery(event);
+    const select = query.select ? JSON.parse(query.select) : null;
+    const where = query.where ? JSON.parse(query.where) : null;
+
     const options = {
       orderBy: [
         {
@@ -29,16 +32,17 @@ async function findMany(event) {
         publish: true,
       },
       select: {
-        id: query.id ? true : false,
-        title: query.title ? true : false,
-        createdAt: query.createdAt ? true : false,
-        sort: query.sort ? true : false,
-        content: query.content ? true : false,
-        publish: query.publish ? true : false,
+        id: select?.id ? true : false,
+        title: select?.title ? true : false,
+        createdAt: select?.createdAt ? true : false,
+        sort: select?.sort ? true : false,
+        content: select?.content ? true : false,
+        publish: select?.publish ? true : false,
       },
     };
 
-    if (query.postNum) options['take'] = Number(query.postNum);
+    if (query?.postNum) options['take'] = Number(query.postNum);
+    if (where?.content) options['where']['content'] =  { contains: where.content } ;
 
     const data = await prismaClient.post.findMany(options);
 

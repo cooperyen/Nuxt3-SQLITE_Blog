@@ -46,6 +46,14 @@
       sort: true,
       content: true,
       publish: true,
+      select: {
+        id: true,
+        title: true,
+        createdAt: true,
+        sort: true,
+        content: true,
+        publish: true,
+      },
     },
   });
   const articles = computed(() => {

@@ -95,9 +95,9 @@
     class="z-30 backdrop-blur-sm bg-gray-400/70 fixed w-full h-full lef-0 top-0">
     <!-- content -->
     <div
-      class="bg-white w-[calc(100%_-_40px)] h-5/6 md:h-2/3 min-h-48 md:max-w-3xl fixed left-1/2 -translate-x-1/2 md:top-32 top-10 rounded-lg">
+      class="bg-white w-[calc(100%_-_40px)] md:h-2/3 md:max-w-3xl h-5/6 fixed left-1/2 -translate-x-1/2 md:top-32 top-10 rounded-lg overflow-y-auto">
       <!-- search area -->
-      <div class="flex">
+      <div class="flex sticky top-0 bg-white">
         <!-- content -->
         <div class="flex my-5 ml-5 w-full rounded-lg py-1.5 bg-light-gray">
           <div class="pl-3 pr-1.5">
@@ -108,6 +108,8 @@
               class="text-inherit md:text-sm w-full placeholder:text-slate-600 bg-light-gray focus:outline-none"
               type="text"
               v-model="searchInput"
+              @input="searchArticles"
+              @compositionend="searchArticles"
               autocomplete="off"
               placeholder="Search" />
           </div>
@@ -122,11 +124,10 @@
       </div>
 
       <!-- search resault -->
-      <div
-        class="px-2 md:px-5 max-md:px-4 overflow-y-auto md:h-3/4 h-4/5 min-h-48">
+      <div class="px-2 md:px-5 max-md:px-4">
         <div
           class="last:border-b-0 border-b py-3 last:pb-5"
-          v-for="(target, index) in searchRes"
+          v-for="(target, index) in searchReturn"
           :key="index">
           <NuxtLink :to="'/article/' + target.id">
             <div>
@@ -134,6 +135,8 @@
                 {{ $sortDate(target.createdAt) }}
               </span>
               <p class="px-1 font-bold mt-1">{{ target.title }}</p>
+              <!-- <p>{{ dosome(target.content) }}</p> -->
+              <div v-text="dosome(target.content)"></div>
             </div>
           </NuxtLink>
         </div>
@@ -144,14 +147,18 @@
 
 <script setup lang="ts">
   const { $sortDate } = useNuxtApp();
+  const { data: logo } = await useFetch<any>('/api/option/logoHandler');
   const router = useRoute();
-  const nums: Ref<number> = ref(10);
   const searchInput: Ref<string> = ref('');
+  const searchReturn: Ref<any> = ref('');
   const showSearch: Ref<boolean> = ref(false);
   const emit = defineEmits(['update:showSearch']);
   const moblieShowMenu: Ref<boolean> = ref(false);
+  const windowWidth: Ref<number> = ref(0);
+  const windowScroll: Ref<number> = ref(0);
 
   const mobileMeunLinks = [
+    { to: '/', title: '首頁' },
     { to: '/about', title: '關於華生' },
     { to: '/tags', title: '所有標籤' },
     { to: '/articles', title: '所有文章' },
@@ -167,67 +174,54 @@
     }
   );
 
-  const { data: logo } = await useFetch<any>('/api/option/logoHandler');
+  async function searchArticles() {
+    const target = searchInput.value.toLowerCase().trim();
+    // if the input value equals empty then reset searchReturn and quit function.
+    if (target === '') return (searchReturn.value = '');
 
-  const { data: post } = await useFetch<any>('/api/article/findManyArticles', {
-    lazy: true,
-    immediate: true,
-    method: 'GET',
-    query: {
-      id: true,
-      title: true,
-      createdAt: true,
-      sort: true,
-      content: true,
-    },
-  });
+    const data = await $fetch<any>('/api/article/findManyArticles', {
+      method: 'GET',
+      query: {
+        where: {
+          content: target,
+        },
+        select: {
+          id: true,
+          title: true,
+          createdAt: true,
+          sort: true,
+          content: true,
+        },
+      },
+    });
 
-  const articles = computed(() => {
-    const val = post.value;
-    if (val.state === 200) return post.value.data;
+    if (data.state === 200) return (searchReturn.value = data.data);
     else return null;
-  });
-
-  interface list {
-    title: string;
-    createdAt: string;
-    content?: string | any;
-    id: string;
   }
 
-  const searchRes = computed(() => {
-    let res: Array<list> = [];
-    const target = searchInput.value.toLowerCase();
-
-    if (target.length > 2)
-      articles.value.forEach((element: list) => {
-        const data: list = {
-          title: element.title,
-          createdAt: element.createdAt,
-          id: element.id,
-        };
-        if (element.title.toLowerCase().match(target)) res.push(data);
-        else if (element.content.toLowerCase().match(target)) res.push(data);
-      });
-
-    return res;
-  });
-
+  /**
+   *  when open/close the search container process.
+   */
   function switchSearch() {
     showSearch.value = !showSearch.value;
     searchInput.value = '';
+    searchReturn.value = '';
     emit('update:showSearch', showSearch.value);
   }
-  const windowWidth: Ref<number> = ref(0);
-  const windowScroll: Ref<number> = ref(0);
 
-  const show: Ref<Boolean> = ref(false);
+  function dosome(el: string) {
+    const data = el.replace(/<[^<>]*>/g, '').replace(/&nbsp;/gi, '');
 
-  // const resize = computed(() => {
-  //   show.value = true;
-  //   if (windowWidth.value >= 768) return true;
-  //   else return false;
-  // });
+    const start = data
+      .toLocaleLowerCase()
+      .indexOf(searchInput.value.toLocaleLowerCase());
+
+    if (start === -1) return;
+
+    const res = data.slice(start, start + 10) + '...';
+
+    return res;
+  }
 
   onBeforeMount(() => {
     if (import.meta.client) {
