@@ -32,17 +32,19 @@ async function findMany(event) {
         publish: true,
       },
       select: {
-        id: select?.id ? true : false,
+        id: true,
         title: select?.title ? true : false,
         createdAt: select?.createdAt ? true : false,
         sort: select?.sort ? true : false,
         content: select?.content ? true : false,
         publish: select?.publish ? true : false,
+        customUrl: true,
       },
     };
 
     if (query?.postNum) options['take'] = Number(query.postNum);
-    if (where?.content) options['where']['content'] =  { contains: where.content } ;
+    if (where?.content)
+      options['where']['content'] = { contains: where.content };
 
     const data = await prismaClient.post.findMany(options);
 

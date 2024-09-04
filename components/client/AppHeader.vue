@@ -125,21 +125,24 @@
 
       <!-- search resault -->
       <div class="px-2 md:px-5 max-md:px-4">
-        <div
-          class="last:border-b-0 border-b py-3 last:pb-5"
+        <template
           v-for="(target, index) in searchReturn"
           :key="index">
-          <NuxtLink :to="'/article/' + target.id">
-            <div>
-              <span class="bg-tag rounded-lg px-1 mb-2 text-xs">
-                {{ $sortDate(target.createdAt) }}
-              </span>
-              <p class="px-1 font-bold mt-1">{{ target.title }}</p>
-              <!-- <p>{{ dosome(target.content) }}</p> -->
-              <div v-text="dosome(target.content)"></div>
-            </div>
-          </NuxtLink>
-        </div>
+          <div
+            class="last:border-b-0 border-b py-3 last:pb-5"
+            v-if="dosome(target.content)">
+            <NuxtLink :to="'/article/' + target.id">
+              <div>
+                <span class="bg-tag rounded-lg px-1 mb-2 text-xs">
+                  {{ $sortDate(target.createdAt) }}
+                </span>
+                <p class="px-1 font-bold mt-1">{{ target.title }}</p>
+                <!-- <p>{{ dosome(target.content) }}</p> -->
+                <div v-text="dosome(target.content)"></div>
+              </div>
+            </NuxtLink>
+          </div>
+        </template>
       </div>
     </div>
   </div>
@@ -216,7 +219,7 @@
       .toLocaleLowerCase()
       .indexOf(searchInput.value.toLocaleLowerCase());
 
-    if (start === -1) return;
+    if (start === -1) return null;
 
     const res = data.slice(start, start + 10) + '...';
 

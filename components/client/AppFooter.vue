@@ -1,13 +1,18 @@
 <template>
-  <footer class="w-full mb-10 md:mt-20 mt-10 md:pt-10 pt-5 px-10 border-t-2 border-main-blue">
+  <footer
+    class="w-full mb-10 md:mt-20 mt-10 md:pt-10 pt-5 px-10 border-t-2 border-main-blue">
     <div class="max-w-3xl mt-5 mx-auto">
-      <div class="text-sm md:flex md:items-center justify-center max-md:text-center">
+      <div
+        class="text-sm md:flex md:items-center justify-center max-md:text-center">
         <div class="max-w-40 max-md:mx-auto max-md:mb-3">
-          <nuxt-img class="w-full select-none " src="/華生飲水.svg" />
+          <nuxt-img
+            class="w-full select-none"
+            src="/華生飲水.svg" />
         </div>
         <div>
           <ul>
-            <li class="mb-1 last:mb-0"
+            <li
+              class="mb-1 last:mb-0 break-all"
               v-for="(value, key) in content"
               :key="key">
               {{ key }} : {{ value }}
