@@ -6,7 +6,7 @@
       <!-- img -->
       <div
         id="banner"
-        class="md:w-full overflow-y-hidden max-md:rounded-t-md md:rounded-md">
+        class="md:w-full md:max-h-[400px] xl:max-h-[600px] overflow-y-hidden max-md:rounded-t-md md:rounded-md">
         <CommonBannerHandler
           class="md:object-cover h-full"
           :postId="article.id">

@@ -3,18 +3,18 @@
     <div class="max-w-7xl mx-auto mt-20 text-center">
       <!-- title -->
       <div class="text-3xl font-bold">Tags</div>
-      <div class="mt-10 text-xl">
-        目前標籤有 {{ Object.keys(tagsList).length }} 個
+      <div class="mt-5 md:mt-10 text-xl">
+        目前標籤有 {{ tagsList ? Object.keys(tagsList).length : 0 }} 個
       </div>
     </div>
 
     <!-- tags -->
-    <div class="max-w-4xl mx-auto mt-10 text-center">
+    <div class="max-w-4xl mx-auto mt-10 text-center" v-if="tagsList">
       <NuxtLink
         :to="`/tag/${val}`"
-        :class="index"
+        :class="css"
         class="underline underline-offset-6 inline-block px-4 pb-8 break-all"
-        v-for="(index, val) in tagsList"
+        v-for="(css, val) in tagsList"
         :key="val">
         <p>{{ val }}</p>
       </NuxtLink>
@@ -25,7 +25,7 @@
 <script setup lang="ts">
   const postsUrl: string = '/api/article/postTags';
 
-  const { data: tags, error, refresh } = await useFetch<any>(postsUrl);
+  const { data: tags } = await useFetch<any>(postsUrl);
 
   const tagsList = computed(() => {
     interface arrayAsString {
@@ -39,6 +39,7 @@
     const datas = tags.value;
     const aryCount: arrayAsNumber = {};
 
+
     datas.forEach((element: any) => {
       if (element.sort === '') return;
 
@@ -51,76 +52,47 @@
       });
     });
 
-    console.log(aryCount);
+    const topFiveTags = Object.keys(aryCount)
+      .sort((a, b) => {
+        return aryCount[b] - aryCount[a];
+      })
+      .splice(0, 5);
 
-    // lays for 5
-    // 80 - 100
-    // 60 - 80
-    // 40 - 60
-    // 20 - 40
-    // 0  - 20
-    const aryDistribute: arrayAsString = {};
-    const totalUseTags = Object.values(aryCount).reduce((a, b) => a + b);
-    Object.keys(aryCount).forEach((key: any) => {
-      const usageTimes = aryCount[key];
-      const percent = Math.floor((usageTimes / totalUseTags) * 100);
-      // console.log(key, percent, usageTimes, totalUseTags);
-      if (percent > 80 && percent <= 100) aryDistribute[key] = 'A';
-      if (percent > 60 && percent <= 80) aryDistribute[key] = 'B';
-      if (percent > 40 && percent <= 60) aryDistribute[key] = 'C';
-      if (percent > 20 && percent <= 40) aryDistribute[key] = 'D';
-      if (percent > 0 && percent <= 20) aryDistribute[key] = 'E';
-    });
-
-    const aryDistributeValues = Object.values(aryDistribute);
-
-    const unduplicatedDistribute = aryDistributeValues.filter((val, index) => {
-      return aryDistributeValues.indexOf(val) === index;
-    });
 
     const distributeTextStyle: arrayAsString = {};
 
-    if (unduplicatedDistribute.length === 2) {
-      distributeTextStyle[unduplicatedDistribute[0]] =
+    
+    if (topFiveTags.length === 2) {
+      distributeTextStyle[topFiveTags[0]] =
         'text-4xl font-bold text-orange-500';
-      distributeTextStyle[unduplicatedDistribute[1]] = 'text-md';
+      distributeTextStyle[topFiveTags[1]] = 'text-md';
     }
 
-    if (unduplicatedDistribute.length === 3) {
-      distributeTextStyle[unduplicatedDistribute[0]] =
+    if (topFiveTags.length === 3) {
+      distributeTextStyle[topFiveTags[0]] =
         'text-4xl font-bold text-orange-500';
-      distributeTextStyle[unduplicatedDistribute[1]] = 'text-xl font-medium';
-      distributeTextStyle[unduplicatedDistribute[2]] = 'text-md';
+      distributeTextStyle[topFiveTags[1]] = 'text-xl font-medium';
+      distributeTextStyle[topFiveTags[2]] = 'text-md';
     }
 
-    if (unduplicatedDistribute.length === 4) {
-      distributeTextStyle[unduplicatedDistribute[0]] =
+    if (topFiveTags.length === 4) {
+      distributeTextStyle[topFiveTags[0]] =
         'text-4xl font-bold text-orange-500';
-      distributeTextStyle[unduplicatedDistribute[1]] = 'text-2xl font-medium';
-      distributeTextStyle[unduplicatedDistribute[2]] = 'text-xl';
-      distributeTextStyle[unduplicatedDistribute[3]] = 'text-md';
+      distributeTextStyle[topFiveTags[1]] = 'text-2xl font-medium';
+      distributeTextStyle[topFiveTags[2]] = 'text-xl';
+      distributeTextStyle[topFiveTags[3]] = 'text-md';
     }
 
-    if (unduplicatedDistribute.length === 5) {
-      distributeTextStyle[unduplicatedDistribute[0]] =
+    if (topFiveTags.length >= 5) {
+      distributeTextStyle[topFiveTags[0]] =
         'text-4xl font-bold text-orange-500';
-      distributeTextStyle[unduplicatedDistribute[1]] = 'text-3xl font-semibold';
-      distributeTextStyle[unduplicatedDistribute[2]] = 'text-2xl font-medium';
-      distributeTextStyle[unduplicatedDistribute[3]] = 'text-xl';
-      distributeTextStyle[unduplicatedDistribute[4]] = 'text-md';
+      distributeTextStyle[topFiveTags[1]] = 'text-3xl font-semibold text-blue-500';
+      distributeTextStyle[topFiveTags[2]] = 'text-2xl font-medium text-green-500';
+      distributeTextStyle[topFiveTags[3]] = 'text-xl';
+      distributeTextStyle[topFiveTags[4]] = 'text-md';
     }
 
-    const objKeyWithTextStyle = Object.keys(aryDistribute).map(function (key) {
-      return { [key]: distributeTextStyle[aryDistribute[key]] };
-    });
 
-    const res: arrayAsString = {};
-
-    for (let i = 0; i < objKeyWithTextStyle.length; i++) {
-      const element = objKeyWithTextStyle[i];
-      res[Object.keys(element)[0]] = element[Object.keys(element)[0]];
-    }
-
-    return res;
+    return distributeTextStyle;
   });
 </script>

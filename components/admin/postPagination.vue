@@ -53,21 +53,25 @@
   ]);
   const emits = defineEmits(['update:currentPage']);
   const pre = computed(() => {
-    let res:number = 0;
+    let res: number = 0;
     if (dots.value.length != 0) res = Math.min(...dots.value);
 
     return res <= 1 ? false : true;
   });
 
+  const maxPage = computed(() =>
+    props.max.state === 200 ? props.max.data : 0
+  );
+
   // 總計幾頁
-  const totalPages = computed(() => Math.ceil(props.max / props.showPerPage));
+  const totalPages = computed(() => Math.ceil(maxPage.value / props.showPerPage));
 
   function pageReduce() {
     emits('update:currentPage', props.currentPage - 1);
   }
 
   function increase() {
-    if (props.currentPage + 1 < props.max)
+    if (props.currentPage + 1 < maxPage.value)
       emits('update:currentPage', props.currentPage + 1);
   }
 
@@ -92,7 +96,7 @@
   const next = computed(() => {
     const currentPage = props.currentPage;
     const range = props.range ? props.range : rangeDefault;
-    const max = props.max;
+    const max = maxPage.value;
 
     let res = false;
     if (totalPages.value > 5 && totalPages.value - currentPage > 2)
