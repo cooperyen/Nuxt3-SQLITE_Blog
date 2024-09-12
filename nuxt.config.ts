@@ -24,6 +24,10 @@ export default defineNuxtConfig({
     disallow: ['/admin'],
   },
 
+  image: {
+    provider: 'none',
+  },
+
   modules: [
     '@nuxtjs/google-fonts',
     '@nuxt/image',
