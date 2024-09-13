@@ -52,7 +52,7 @@
   });
 
   const aboutDate = computed(() => {
-    if (aboutFetch.state === 200) return aboutFetch.data;
+    if (aboutFetch?.state === 200) return aboutFetch.data;
     else return null;
   });
 

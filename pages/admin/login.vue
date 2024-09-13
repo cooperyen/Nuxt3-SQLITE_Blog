@@ -120,7 +120,7 @@
 
     // console.log(res);
 
-    if (!res.state) {
+    if (!res?.state) {
       loginProcess.value = false;
       wrongRemind.value = true;
       loadingSwitch(false);

@@ -5,7 +5,7 @@ export default defineSitemapEventHandler(async () => {
   const posts = await response.json();
   // console.log(`${domin}/api/article/findManyArticles`);
 
-  if (posts.state === 200)
+  if (posts?.state === 200)
     return posts.data.map((el: any) => {
       return `/article/${el.customUrl ? el.customUrl : el.id}`;
     });

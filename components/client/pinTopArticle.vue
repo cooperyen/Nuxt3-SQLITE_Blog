@@ -47,7 +47,7 @@
 
   const article = computed(() => {
     const val = data.value;
-    if (val.state === 200) return data.value.data;
+    if (val?.state === 200) return data.value.data;
     else return null;
   });
 

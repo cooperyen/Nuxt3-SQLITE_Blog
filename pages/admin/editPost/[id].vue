@@ -130,7 +130,7 @@
   const article = computed(() => {
     const val = data.value;
     let res;
-    if (val.state === 200) res = val.data;
+    if (val?.state === 200) res = val.data;
     else {
       alert(val.msg);
       res = null;
@@ -222,7 +222,6 @@
       warning.value = true;
       loadingSwitch(false);
     } else {
-
       const posts: object | any = await $fetch(apiURL, {
         method: 'PUT',
         body: {
@@ -236,7 +235,7 @@
         },
       });
 
-      if (posts.state === 200) {
+      if (posts?.state === 200) {
         setTimeout(() => {
           router.replace('/admin');
         }, 1000);

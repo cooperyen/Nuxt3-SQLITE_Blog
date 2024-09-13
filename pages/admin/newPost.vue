@@ -64,7 +64,7 @@
           ...items.value,
         },
       });
-      if (posts.state === 200)
+      if (posts?.state === 200)
         setTimeout(() => {
           router.replace(`/admin/editpost/${posts.id}`);
         }, 2000);

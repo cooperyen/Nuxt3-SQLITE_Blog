@@ -198,7 +198,7 @@
       },
     });
 
-    if (data.state === 200) return (searchReturn.value = data.data);
+    if (data?.state === 200) return (searchReturn.value = data.data);
     else return null;
   }
 

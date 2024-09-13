@@ -60,11 +60,13 @@
   });
 
   const maxPage = computed(() =>
-    props.max.state === 200 ? props.max.data : 0
+    props.max?.state === 200 ? props.max.data : 0
   );
 
   // 總計幾頁
-  const totalPages = computed(() => Math.ceil(maxPage.value / props.showPerPage));
+  const totalPages = computed(() =>
+    Math.ceil(maxPage.value / props.showPerPage)
+  );
 
   function pageReduce() {
     emits('update:currentPage', props.currentPage - 1);

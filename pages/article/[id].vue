@@ -45,9 +45,8 @@
     method: 'GET',
   });
 
-
   onBeforeMount(() => {
-    if (article.value.state != 200) back();
+    if (article.value?.state != 200) back();
   });
 
   async function back() {
