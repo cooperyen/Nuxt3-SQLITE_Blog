@@ -1,5 +1,5 @@
 export default defineSitemapEventHandler(async () => {
-  const domin = 'http://localhost:3000';
+  const domin = 'https://blog.hwaseng.com.tw';
 
   const response = await fetch(`${domin}/api/article/findManyArticles`);
   const posts = await response.json();

@@ -96,6 +96,9 @@ export default defineNuxtConfig({
   compatibilityDate: '2024-08-16',
 
   sitemap: {
+    exclude: [
+      '/admin/**', // Exclude all paths starting with /admin
+    ],
     sources: ['/api/__sitemap__/urls'],
     cacheMaxAgeSeconds: 1 * 60 * 60, // 1 hours.
   },
@@ -117,7 +120,7 @@ export default defineNuxtConfig({
     compatibility: false, // Will add `async` and `defer` to the script tag to not block requests for old browsers that do not support `async`
     nonce: '2726c7f26c', // Will add `nonce` to the script tag
     enabled: true, // defaults to true. Plugin can be disabled by setting this to false for Ex: enabled: !!GDPR_Cookie (optional)
-    debug: true, // Whether or not display console logs debugs (optional)
+    debug: false, // Whether or not display console logs debugs (optional)
     loadScript: true, // Whether or not to load the GTM Script (Helpful if you are including GTM manually, but need the dataLayer functionality in your components) (optional)
     enableRouterSync: true, // Pass the router instance of your app to automatically sync with router (optional)
     ignoredViews: ['admin'], // Don't trigger events for specified router names (optional)
