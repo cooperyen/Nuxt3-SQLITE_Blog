@@ -29,7 +29,7 @@ export default defineEventHandler(async (event) => {
   return {
     uploaded: 1,
     fileName: file.newFilename,
-    url: `/postimg/${query.id}/${file.newFilename}.${fix}`,
+    url: `/postImg/${query.id}/${file.newFilename}.${fix}`,
   };
 });
 
