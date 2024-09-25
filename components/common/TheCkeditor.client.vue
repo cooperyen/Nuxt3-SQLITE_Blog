@@ -8,7 +8,12 @@
 
 <script setup lang="ts">
   import { CkeditorPlugin, Ckeditor } from '@ckeditor/ckeditor5-vue';
-  import { Table, TableToolbar, TableCaption,TableColumnResize } from '@ckeditor/ckeditor5-table';
+  import {
+    Table,
+    TableToolbar,
+    TableCaption,
+    TableColumnResize,
+  } from '@ckeditor/ckeditor5-table';
   import { ClassicEditor } from '@ckeditor/ckeditor5-editor-classic';
   import { Alignment } from '@ckeditor/ckeditor5-alignment';
   import {
@@ -41,7 +46,7 @@
   import { ListProperties } from '@ckeditor/ckeditor5-list';
 
   const ckeditor: any = defineComponent(CkeditorPlugin);
-  const props = defineProps(['data']);
+  const props = defineProps(['data', 'pageTitle']);
   const route = useRoute();
   const editorData: Ref<string> = props.data
     ? ref(props.data)
@@ -52,7 +57,9 @@
   const editorConfig = {
     placeholder: 'type the content here',
     simpleUpload: {
-      uploadUrl: `/api/article/uploadArticleContentImg?id=${route.params.id}`,
+      uploadUrl: `/api/article/uploadArticleContentImg?id=${
+        props.pageTitle ? 'page/' + props.pageTitle : route.params.id
+      }`,
     },
     plugins: [
       Table,

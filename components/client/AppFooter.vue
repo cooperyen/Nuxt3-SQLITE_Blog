@@ -6,7 +6,9 @@
         class="text-sm md:flex md:items-center justify-center max-md:text-center">
         <div class="max-w-40 max-md:mx-auto max-md:mb-3">
           <nuxt-img
+            format="webp"
             class="w-full select-none"
+            alt="華生飲水LOGO"
             src="/華生飲水.svg" />
         </div>
         <div>

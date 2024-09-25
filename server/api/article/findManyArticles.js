@@ -38,6 +38,7 @@ async function findMany(event) {
         sort: select?.sort ? true : false,
         content: select?.content ? true : false,
         publish: select?.publish ? true : false,
+        subtitle: select?.subtitle ? true : false,
         customUrl: true,
       },
     };

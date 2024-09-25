@@ -40,12 +40,6 @@
     method: 'GET',
     query: {
       postNum: nums,
-      id: true,
-      title: true,
-      createdAt: true,
-      sort: true,
-      content: true,
-      publish: true,
       select: {
         id: true,
         title: true,
@@ -53,6 +47,7 @@
         sort: true,
         content: true,
         publish: true,
+        subtitle: true,
       },
     },
   });

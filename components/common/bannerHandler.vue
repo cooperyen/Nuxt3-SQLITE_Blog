@@ -1,8 +1,10 @@
 <template>
   <nuxt-img
+    format="webp"
     class="w-full"
     fit="inside"
     :src="imss"
+    :alt="alt"
     loading="lazy" />
 </template>
 
@@ -10,11 +12,22 @@
   const props = defineProps<{
     postId: string;
     tempImg?: string;
+    alt?: string;
   }>();
+
+  const hasError = ref(false);
+
+  // Watch for the error attribute
+  function handleError(event: any) {
+    hasError.value = true;
+  }
 
   const emit = defineEmits(['update:banner']);
   const bannerImg: Ref<string> = ref('');
   const defaultBannerImg: string = '/postImg/default_banner.jpg';
+  const alt = computed(() => {
+    return props.alt ? props.alt : 'banner';
+  });
   const imss = computed(() => {
     let res: string = '';
     res = bannerImg.value || defaultBannerImg;
@@ -37,10 +50,13 @@
   }
 
   async function findBanner(id: string) {
-    const res = await $fetch<string>('/api/article/findSingleArticleBannerPath', {
-      method: 'POST',
-      body: { id },
-    });
+    const res = await $fetch<string>(
+      '/api/article/findSingleArticleBannerPath',
+      {
+        method: 'POST',
+        body: { id },
+      }
+    );
     return res;
   }
 </script>

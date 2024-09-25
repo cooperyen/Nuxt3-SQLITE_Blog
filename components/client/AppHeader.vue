@@ -20,7 +20,8 @@
             <div class="md:mr-5 mr-2">
               <img
                 class="max-h-9 md:max-h-12 w-full"
-                :src="'/' + logo?.fileName" />
+                :src="'/' + logo?.fileName"
+                alt="logo" />
             </div>
 
             <div class="text-white">
@@ -95,11 +96,11 @@
     class="z-30 backdrop-blur-sm bg-gray-400/70 fixed w-full h-full lef-0 top-0">
     <!-- content -->
     <div
-      class="bg-white w-[calc(100%_-_40px)] md:h-2/3 md:max-w-3xl h-5/6 fixed left-1/2 -translate-x-1/2 md:top-32 top-10 rounded-lg overflow-y-auto">
+      class="bg-white w-[calc(100%_-_40px)] min-h-40 max-h-96 md:max-w-3xl fixed left-1/2 -translate-x-1/2 top-8 rounded-lg overflow-y-auto">
       <!-- search area -->
-      <div class="flex sticky top-0 bg-white">
+      <div class="flex sticky top-0 bg-white border-b">
         <!-- content -->
-        <div class="flex my-5 ml-5 w-full rounded-lg py-1.5 bg-light-gray">
+        <div class="flex my-4 ml-4 w-full rounded-lg py-1.5 bg-light-gray">
           <div class="pl-3 pr-1.5">
             <font-awesome-icon :icon="['fas', 'magnifying-glass']" />
           </div>
@@ -111,7 +112,7 @@
               @input="searchArticles"
               @compositionend="searchArticles"
               autocomplete="off"
-              placeholder="Search" />
+              :placeholder="SearchText" />
           </div>
         </div>
         <!-- close -->
@@ -131,14 +132,21 @@
           <div
             class="last:border-b-0 border-b py-3 last:pb-5"
             v-if="dosome(target.content)">
-            <NuxtLink :to="'/article/' + target.id">
-              <div>
+            <NuxtLink
+              :to="'/article/' + target.id"
+              class="flex items-center px-2">
+              <div class="flex-grow">
                 <span class="bg-tag rounded-lg px-1 mb-2 text-xs">
                   {{ $sortDate(target.createdAt) }}
                 </span>
-                <p class="px-1 font-bold mt-1">{{ target.title }}</p>
+                <p class="px-1 font-bold mt-1 text-base">{{ target.title }}</p>
                 <!-- <p>{{ dosome(target.content) }}</p> -->
-                <div v-text="dosome(target.content)"></div>
+                <p
+                  class="px-1 mt-1 text-xs"
+                  v-text="dosome(target.content)"></p>
+              </div>
+              <div class="flex-grow-0 pr-3">
+                <font-awesome-icon :icon="['fas', 'caret-right']" />
               </div>
             </NuxtLink>
           </div>
@@ -159,6 +167,7 @@
   const moblieShowMenu: Ref<boolean> = ref(false);
   const windowWidth: Ref<number> = ref(0);
   const windowScroll: Ref<number> = ref(0);
+  const SearchText = '搜尋文章、內容關鍵字';
 
   const mobileMeunLinks = [
     { to: '/', title: '首頁' },

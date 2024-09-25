@@ -2,8 +2,8 @@
   <div>
     <AdminUILoading></AdminUILoading>
     <div class="bg-gray-200 h-screen w-full">
-      <div class="flex items-center h-full mx-auto max-w-96">
-        <div class="w-full bg-white rounded-md px-5 pt-3 pb-6">
+      <div class="flex md:h-full md:items-center mx-auto max-w-96 max-md:px-2">
+        <div class="w-full bg-white rounded-md px-5 pt-3 pb-6 max-md:mt-10">
           <!-- title -->
           <div class="text-center text-xl">華生BLOG</div>
           <!-- content -->

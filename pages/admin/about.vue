@@ -15,10 +15,6 @@
                 class="mr-1 ms-3 text-sm font-medium text-gray-900 content-center">
                 <p>Publish</p>
               </div>
-              <UISwitchBTN
-                class="border-r-2 mr-2 pr-2"
-                :status="aboutDate?.publish"
-                @update:status="publish = $event"></UISwitchBTN>
               <UISubmitBTN
                 class="content-center py-1"
                 @click="update">
@@ -31,6 +27,7 @@
           <div class="mb-5 pb-5">
             <CommonTheCkeditor
               :data="aboutDate?.content"
+              pageTitle="aboutPage"
               @update:editorData="editorData"></CommonTheCkeditor>
           </div>
         </template>
@@ -56,7 +53,6 @@
     else return null;
   });
 
-  const publish: Ref<boolean> = ref(aboutDate.value?.publish);
   const content: Ref<string> = ref('<div></div>');
 
   async function update() {
