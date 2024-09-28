@@ -7,14 +7,7 @@
         <template v-if="aboutDate">
           <!-- option content -->
           <div class="flex mt-4 border-b pb-3 w-full max-sm:flex-wrap">
-            <div class="w-full content-center">
-              <p></p>
-            </div>
-            <div class="justify-end w-full flex max-sm:mt-4">
-              <div
-                class="mr-1 ms-3 text-sm font-medium text-gray-900 content-center">
-                <p>Publish</p>
-              </div>
+            <div class="justify-end w-full flex ">
               <UISubmitBTN
                 class="content-center py-1"
                 @click="update">

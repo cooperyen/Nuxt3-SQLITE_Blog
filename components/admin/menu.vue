@@ -1,9 +1,9 @@
 <template>
   <header class="lg:max-w-48 w-full lg:fixed">
     <div
-      class="lg:relative fixed z-50 max-lg:h-16 w-full lg:h-screen shadow-[4px_0px_20px_0px_rgba(0,0,0,0.1)]">
-      <div class="h-full flex flex-col">
-        <div class="w-full h-full">
+      class="h-svh lg:relative fixed z-50 max-lg:h-16 w-full lg:h-screen shadow-[4px_0px_20px_0px_rgba(0,0,0,0.1)]">
+      <div class="h-full">
+        <div class="w-full h-full md:flex md:flex-col">
           <div
             class="lg:mb-10 max-lg:flex max-lg:items-center justify-between max-lg:p-3 max-lg:h-full relative z-10 bg-white">
             <div class="max-lg:ml-3">
@@ -31,27 +31,30 @@
             leave-active-class="transition duration-300">
             <div
               v-show="showItems"
-              class="bg-white max-lg:border-t-2 max-lg:border-t-gray-100 max-lg:shadow-[0px_4px_8px_0px_rgba(0,0,0,0.1)] z-0 relative">
-              <ul class="p-0">
-                <NuxtLink
-                  @click="clickShow = !clickShow"
-                  class="text-md"
-                  v-for="(content, index) in menu"
-                  :key="index"
-                  :to="`/${content.path}`">
-                  <li
-                    :class="{
-                      'bg-gray-200': route.path === `/${content.path}`,
-                    }"
-                    class="px-5 py-5">
-                    <font-awesome-icon
-                      class="mr-2"
-                      :icon="['fas', content.icon]" />
-                    {{ content.title }}
-                  </li>
-                </NuxtLink>
-              </ul>
-              <div class="text-center mb-5 w-full flex-end">
+              class="md:flex-grow md:flex md:flex-col bg-white max-lg:border-t-2 max-lg:border-t-gray-100 max-lg:shadow-[0px_4px_8px_0px_rgba(0,0,0,0.3)] z-0 relative">
+              <div class="md:flex-grow">
+                <ul class="px-0 max-md:py-3">
+                  <NuxtLink
+                    @click="clickShow = !clickShow"
+                    class="text-md"
+                    v-for="(content, index) in menu"
+                    :key="index"
+                    :to="`/${content.path}`">
+                    <li
+                      :class="{
+                        'bg-gray-200': route.path === `/${content.path}`,
+                      }"
+                      class="px-5 py-5">
+                      <font-awesome-icon
+                        class="mr-2"
+                        :icon="['fas', content.icon]" />
+                      {{ content.title }}
+                    </li>
+                  </NuxtLink>
+                </ul>
+              </div>
+
+              <div class="md:flex-grow-0 text-center w-full py-5 max-md:border-gray-200 max-md:border-t ">
                 <button
                   class="text-gray-900 lg:text-gray-400 hover:text-gray-900">
                   登出
@@ -62,6 +65,7 @@
         </div>
       </div>
     </div>
+    <!-- invisialbe -->
     <div class="max-lg:h-16"></div>
   </header>
 </template>
@@ -99,7 +103,7 @@
       icon: 'gear',
     },
     {
-      title: '關於',
+      title: '關於華生',
       path: 'admin/about',
       icon: 'gear',
     },

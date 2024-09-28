@@ -3,10 +3,10 @@
     <AdminMenu class="bg-white"></AdminMenu>
     <!-- overflow-y-hidden h-screen -->
     <div
-      class="absolute first-line:max-lg:mr-auto right-0 w-full lg:w-[calc(100%-12rem)]">
+      class="absolute first-line:max-lg:mr-auto right-0 w-full lg:w-[calc(100%-12rem)] overflow-x-hidden">
       <!--  overflow-y-scroll h-full -->
-      <div class="lg:ml-2  lg:px-10 px-3">
-        <div class="mt-12">
+      <div class="lg:ml-2 lg:px-10 px-3">
+        <div class="max-md:mt-5 mt-12">
           <nuxt-page />
         </div>
       </div>

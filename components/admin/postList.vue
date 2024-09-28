@@ -1,59 +1,61 @@
 <template>
   <AdminUIMainContainer v-if="currentPage">
-    <div class="flex">
+    <div class="overflow-x-scroll">
+      <div class="flex min-w-[1000px]">
+        <div
+          class="px-5 border-b border-gray-300 py-5 text-gray-500"
+          :class="trSize(title)"
+          v-for="(title, indxe) in titles"
+          :key="indxe">
+          <strong>{{ title.en }}</strong>
+        </div>
+      </div>
       <div
-        class="px-5 border-b border-gray-300 py-5 text-gray-500"
-        :class="trSize(title)"
-        v-for="(title, indxe) in titles"
-        :key="indxe">
-        <strong>{{ title.en }}</strong>
-      </div>
-    </div>
-    <div
-      class="flex border-b last:border-none border-gray-300 py-2"
-      v-for="post in article"
-      :key="post.id">
-      <!-- banner -->
-      <div class="w-1/5 px-5 py-3">
-        <CommonBannerHandler
-          class=""
-          :postId="post.id"></CommonBannerHandler>
-      </div>
-      <div class="flex items-center px-5 xl:w-1/4 w-1/5">
-        <!-- <p class="text-sm"></p> -->
-        <NuxtLink
-          class="text-sm text-mian_color"
-          target="_blank"
-          :to="'/article/' + (post.customUrl ? post.customUrl : post.id)"
-          >{{ post.id }}</NuxtLink
-        >
-      </div>
-      <!-- title -->
-      <div class="xl:w-1/2 w-1/3 px-5 flex items-center">
-        <NuxtLink
-          class="text-mian_color"
-          :to="'/admin/editpost/' + post.id"
-          >{{ post.title }}</NuxtLink
-        >
-      </div>
-      <!-- time -->
-      <div class="xl:w-1/4 w-1/5 px-5 flex items-center">
-        <p>{{ $sortDate(post.createdAt) }}</p>
-      </div>
-      <!-- publish -->
-      <div class="xl:w-1/4 w-1/5 px-5 flex items-center">
-        <UISwitchBTN
-          :status="post.publish"
-          :disabled="true">
-        </UISwitchBTN>
-      </div>
-      <!-- time -->
-      <div class="w-1/5 px-5 flex items-center">
-        <p
-          class="cursor-pointer select-none"
-          @click="openDeleteMenu(post)">
-          刪除
-        </p>
+        class="flex border-b last:border-none border-gray-300 py-2 min-w-[1000px]"
+        v-for="post in article"
+        :key="post.id">
+        <!-- banner -->
+        <div class="max-md:w-32 w-1/5 px-5 py-3">
+          <CommonBannerHandler
+            class=""
+            :postId="post.id"></CommonBannerHandler>
+        </div>
+        <div class="flex items-center px-5 xl:w-1/4 w-1/5">
+          <!-- <p class="text-sm"></p> -->
+          <NuxtLink
+            class="text-sm text-mian_color"
+            target="_blank"
+            :to="'/article/' + (post.customUrl ? post.customUrl : post.id)"
+            >{{ post.id }}</NuxtLink
+          >
+        </div>
+        <!-- title -->
+        <div class="xl:w-1/2 w-1/3 px-5 flex items-center">
+          <NuxtLink
+            class="text-mian_color"
+            :to="'/admin/editpost/' + post.id"
+            >{{ post.title }}</NuxtLink
+          >
+        </div>
+        <!-- time -->
+        <div class="xl:w-1/4 w-1/5 px-5 flex items-center">
+          <p>{{ $sortDate(post.createdAt) }}</p>
+        </div>
+        <!-- publish -->
+        <div class="xl:w-1/4 w-1/5 px-5 flex items-center">
+          <UISwitchBTN
+            :status="post.publish"
+            :disabled="true">
+          </UISwitchBTN>
+        </div>
+        <!-- time -->
+        <div class="w-1/5 px-5 flex items-center">
+          <p
+            class="cursor-pointer select-none"
+            @click="openDeleteMenu(post)">
+            刪除
+          </p>
+        </div>
       </div>
     </div>
 
@@ -201,7 +203,7 @@
     let res;
     switch (el.en.toLowerCase()) {
       case 'banner':
-        res = 'w-1/5';
+        res = 'w-1/5 max-md:w-32';
         break;
       case 'title':
         res = 'xl:w-1/2 w-1/3';

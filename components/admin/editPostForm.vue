@@ -4,11 +4,10 @@
     <!-- input items -->
     <div
       class="w-full mb-5"
-      v-for="(content, titles, index) in items"
+      v-for="titles in items"
       :key="titles">
       <!-- item -->
-      <div
-        v-if="titles != 'sort' && props.postId != ''">
+      <div v-if="titles != 'sort' && props.postId != ''">
         <p>{{ titles }}</p>
       </div>
       <!-- input -->
@@ -27,13 +26,14 @@
           <div class="mb-1">
             <p>{{ titles }}</p>
           </div>
-          <div class="border-2 w-full rounded-md py-1 px-1 flex items-center">
-            <ul class="flex px-1 m-0 text-center">
+          <div
+            class="border-2 w-full rounded-md py-1 px-2 flex items-center flex-wrap break-keep">
+            <ul class="flex m-0 text-center flex-wrap">
               <template
                 v-for="list in items[titles]"
                 :key="list">
                 <li
-                  class="list-none text-center rounded-md py-2 px-3 mr-3 bg-mian_color text-white flex"
+                  class="list-none text-center rounded-md py-2 px-3 mr-3 bg-mian_color text-white flex my-1"
                   v-if="list">
                   {{ list }}
                   <div
@@ -45,7 +45,7 @@
               </template>
             </ul>
             <input
-              class="min-w-3 border-2 rounded-md py-2 px-2"
+              class="min-w-3 border-2 rounded-md py-2 px-2 my-1"
               placeholder="新增"
               ref="sorts"
               @keyup.enter="addSort" />
@@ -66,19 +66,19 @@
           ref="file"
           style="visibility: hidden"
           @change="banner"
-          accept="image/*" />
+          accept=".jpg,.png,.svg" />
 
         <label
           class="rounded-md border-2 p-1 cursor-pointer"
           for="banner"
           >Select file</label
         >
-        <p class="mt-3 italic">Size: 1600 x 1000 px</p>
+        <p class="mt-3 italic">封面照 - Size: 1600 x 1000 px</p>
       </div>
       <div>
         <!-- v-if="props.postId" -->
         <CommonBannerHandler
-          class="max-w-xs"
+          class="max-w-48"
           :postId="props.postId"
           :tempImg="imageUrl"></CommonBannerHandler>
       </div>
