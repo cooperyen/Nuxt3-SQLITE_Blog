@@ -170,7 +170,6 @@
   }
 
   function openDeleteMenu(post: Article) {
-    console.log(post);
     deleteData.open = true;
     deleteData.title = post.title;
     deleteData.id = post.id;

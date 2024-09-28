@@ -31,6 +31,6 @@ async function getLogoPath() {
 
 
   } catch (err) {
-    console.log(err, 456);
+    console.log(err);
   }
 }

@@ -77,10 +77,10 @@
   const show: Ref<boolean> = ref(false);
   const clickShow: Ref<boolean> = ref(false);
 
-  const clickShows = computed(() => {
-    clickShow.value = width.value <= 1024 ? true : false;
-    return clickShow;
-  });
+  // const permissionCheck = useFetch()
+
+
+
   const showItems = computed(() => {
     if (width.value > 1024) {
       show.value = true;

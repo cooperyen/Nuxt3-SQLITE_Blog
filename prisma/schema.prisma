@@ -21,6 +21,7 @@ model User {
   loginTime      DateTime
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
+  permissions    String? 
 }
 
 model Post {

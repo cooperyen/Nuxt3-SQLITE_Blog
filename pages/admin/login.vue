@@ -118,7 +118,6 @@
       },
     });
 
-    // console.log(res);
 
     if (!res?.state) {
       loginProcess.value = false;
@@ -126,11 +125,7 @@
       loadingSwitch(false);
     } else {
       $locally.setItem('auth', JSON.stringify({ id: res.id }));
-      // router.push('/admin');
       navigateTo('/admin');
-      // setTimeout(() => {
-
-      // }, 2000);
     }
   }
 

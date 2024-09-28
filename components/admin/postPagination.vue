@@ -104,7 +104,6 @@
     if (totalPages.value > 5 && totalPages.value - currentPage > 2)
       res = max - currentPage > range + 1 ? true : false;
 
-    console.log(totalPages.value, currentPage);
     return res;
   });
 

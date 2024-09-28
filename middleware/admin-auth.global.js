@@ -1,5 +1,9 @@
 export default defineNuxtRouteMiddleware(async (to, from) => {
+  if (to.path.startsWith('/admin')) {
+    window.dataLayer = [];
+  }
   if (!import.meta.client) return;
+
   if (!to.path.startsWith('/admin') || to.path.endsWith('/admin/login')) return;
 
   // localstorage value.
