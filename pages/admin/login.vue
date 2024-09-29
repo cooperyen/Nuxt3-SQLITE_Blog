@@ -79,7 +79,7 @@
   import { useLoadingState } from '@/stores/globalStates';
   const { loadingSwitch } = useLoadingState();
 
-  const { $symbolRegExp, $locally } = useNuxtApp(); // make sure this is at the top or as close as possible to the top
+  const { $accountRegExp, $locally } = useNuxtApp(); // make sure this is at the top or as close as possible to the top
   const router = useRouter();
   const account: Ref<string> = ref('');
   const remind: Ref<boolean> = ref(false);
@@ -118,7 +118,6 @@
       },
     });
 
-
     if (!res?.state) {
       loginProcess.value = false;
       wrongRemind.value = true;
@@ -153,7 +152,7 @@
   }
 
   function checkSymbol() {
-    if (account.value.match($symbolRegExp) === null) return true;
+    if (account.value.match($accountRegExp) === null) return true;
     else {
       remind.value = true;
       return false;
