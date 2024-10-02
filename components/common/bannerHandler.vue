@@ -1,11 +1,14 @@
 <template>
   <nuxt-img
     format="webp"
-    class="w-full"
+    class="w-full h-full"
     fit="inside"
     :src="imss"
     :alt="alt"
-    loading="lazy" />
+    width="1600"
+    height="800"
+    :loading="loading"
+    preload />
 </template>
 
 <script setup lang="ts">
@@ -13,6 +16,7 @@
     postId: string;
     tempImg?: string;
     alt?: string;
+    loading?: any ;
   }>();
 
   const hasError = ref(false);
@@ -33,6 +37,10 @@
     res = bannerImg.value || defaultBannerImg;
     if (props.tempImg) res = props.tempImg;
     return res;
+  });
+
+  const loading = computed(() => {
+    return props.loading ? props.loading : undefined;
   });
 
   watch(

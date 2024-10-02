@@ -10,7 +10,7 @@ export default defineNuxtConfig({
     },
   },
   ssr: true,
-  devtools: { enabled: true },
+  devtools: { enabled: false },
 
   typescript: {
     typeCheck: true,

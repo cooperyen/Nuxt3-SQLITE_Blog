@@ -1,6 +1,5 @@
 <template>
   <article
-    class=""
     v-if="article">
     <div class="border border-gray-150 max-md:mb-10 rounded-md md:relative">
       <NuxtLink
@@ -9,12 +8,12 @@
         <!-- img -->
         <div
           id="banner"
-          class="md:w-full md:max-h-[400px] xl:max-h-[600px] overflow-y-hidden max-md:rounded-t-md md:rounded-md">
-          <CommonBannerHandler
-            class="md:object-cover md:aspect-video h-full"
+          class="max-md:aspect-video  md:max-h-[400px] xl:max-h-[600px] overflow-y-hidden max-md:rounded-t-md md:rounded-md">
+          <bannerHandler
+            class="object-cover rounded-t-md"
             :postId="article.id"
             :alt="article.title">
-          </CommonBannerHandler>
+          </bannerHandler>
         </div>
         <!-- text -->
 
@@ -23,21 +22,21 @@
           <!-- title -->
           <div class="max-md:mt-2">
             <h2
-              class="font-bold text-2xl md:text-xl lg:text-2xl md:text-gray-200 md:group-hover:text-black">
+              class="font-bold text-2xl lg:text-2xl max-md:text-lg md:text-gray-200 md:group-hover:text-black">
               {{ article.title }}
             </h2>
             <h3
-              class="lg:text-lg text-md text-gray-600 md:text-gray-200 md:group-hover:text-black">
+              class="text-md max-md:text-sm mt-1 text-gray-600 md:text-gray-200 md:group-hover:text-black">
               {{ article.subtitle }}
             </h3>
           </div>
           <!-- Sort and time -->
           <div
-            class="text-xs md:text-sm lg:text-base mt-5 md:mt-2 lg:mt-3 text-gray-500">
-            <PostSortTimeHandler
+            class="text-xs md:mt-5 text-gray-500">
+            <postSortTimeHandler
               :color="'md:text-gray-300 md:group-hover:text-black'"
               :tags="article.sort"
-              :time="article.createdAt"></PostSortTimeHandler>
+              :time="article.createdAt"></postSortTimeHandler>
           </div>
         </div>
       </NuxtLink>
@@ -47,6 +46,16 @@
 
 <script lang="ts" setup>
   const { data } = await useFetch<any>('/api/article/pinTopArticle');
+
+  const bannerHandler = defineAsyncComponent(
+    () => import('~/components/common/bannerHandler.vue')
+  );
+
+  const postSortTimeHandler = defineAsyncComponent(
+    () => import('~/components/postSortTimeHandler.vue')
+  );
+
+
 
   const article = computed(() => {
     const val = data.value;

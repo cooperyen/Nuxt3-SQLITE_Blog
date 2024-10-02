@@ -11,27 +11,28 @@
         <!-- img -->
         <div
           id="banner"
-          class="lg:max-h-[200px] overflow-y-hidden rounded-t-md">
-          <CommonBannerHandler
-            class="md:object-cover md:aspect-video rounded-t-md"
+          class="aspect-video overflow-y-hidden rounded-t-md">
+          <bannerHandler
+            class="object-cover rounded-t-md"
             :postId="article.id"
+   
             :alt="article.title">
-          </CommonBannerHandler>
+          </bannerHandler>
         </div>
 
         <div class="px-3 py-2">
           <!-- title -->
           <div class="mt-2">
-            <h2 class="font-bold text-2xl">
+            <h2 class="font-bold text-2xl max-md:text-lg">
               {{ article.title }}
             </h2>
-            <h3 class="text-md text-gray-600">{{ article.subtitle }}</h3>
+            <h3 class="text-md max-md:text-sm mt-1 text-gray-600">{{ article.subtitle }}</h3>
           </div>
           <!-- Sort and time -->
-          <div class="text-xs mt-5 text-gray-500">
-            <PostSortTimeHandler
+          <div class="text-xs md:mt-5 text-gray-500">
+            <postSortTimeHandler
               :tags="article.sort"
-              :time="article.createdAt"></PostSortTimeHandler>
+              :time="article.createdAt"></postSortTimeHandler>
           </div>
         </div>
       </NuxtLink>
@@ -40,5 +41,15 @@
 </template>
 
 <script setup lang="ts">
+  import { defineAsyncComponent } from 'vue';
+
+  const bannerHandler = defineAsyncComponent(
+    () => import('~/components/common/bannerHandler.vue')
+  );
+
+  const postSortTimeHandler = defineAsyncComponent(
+    () => import('~/components/postSortTimeHandler.vue')
+  );
+
   const props = defineProps(['data']);
 </script>

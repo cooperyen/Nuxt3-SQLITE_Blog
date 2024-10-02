@@ -18,10 +18,13 @@
             to="/">
             <!-- logo img -->
             <div class="md:mr-5 mr-2">
-              <img
+              <nuxt-img
                 class="max-h-9 md:max-h-12 w-full"
                 :src="'/' + logo?.fileName"
-                alt="logo" />
+                alt="logo" 
+                width="50"
+                height="50"
+                />
             </div>
 
             <div class="text-white">
@@ -157,6 +160,7 @@
 </template>
 
 <script setup lang="ts">
+
   const { $sortDate } = useNuxtApp();
   const { data: logo } = await useFetch<any>('/api/option/logoHandler');
   const router = useRoute();
@@ -168,6 +172,9 @@
   const windowWidth: Ref<number> = ref(0);
   const windowScroll: Ref<number> = ref(0);
   const SearchText = '搜尋文章、內容關鍵字';
+
+
+  
 
   const mobileMeunLinks = [
     { to: '/', title: '首頁' },

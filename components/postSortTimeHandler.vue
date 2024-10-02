@@ -1,7 +1,7 @@
 <template>
   <!-- time -->
   <div
-    class="mt-3 flex items-center"
+    class="md:mt-3 mt-1 flex items-center"
     :class="textColor">
     <div><font-awesome-icon :icon="['fas', 'calendar-days']" /></div>
     <span class="pl-1.5">{{ $sortDate(props.time) }}</span>

@@ -1,10 +1,10 @@
 <template>
   <div class="w-full max-xl:px-5 max-w-7xl mt-10 md:mt-5 mx-auto">
-    <ClientPinTopArticle></ClientPinTopArticle>
     <main>
+      <ClientPinTopArticle></ClientPinTopArticle>
       <div
         class="mt-5 md:mt-10 bg-white md:grid md:gap-x-5 md:gap-y-8 md:grid-cols-3">
-        <clientIndexPosts :data="articles"></clientIndexPosts>
+        <indexPosts :data="articles"></indexPosts>
       </div>
     </main>
 
@@ -34,7 +34,16 @@
     title: `華生水資源 Blog | 環保、減碳、減塑`,
   });
 
-  const nums: Ref<number> = ref(4);
+  import { useWindowSize } from '@vueuse/core';
+
+  const { width, height } = useWindowSize();
+
+  const indexPosts = defineAsyncComponent(
+    () => import('~/components/client/indexPosts.vue')
+  );
+
+  const nums: Ref<number> = ref(2);
+
 
   const { data } = await useFetch<any>('/api/article/findManyArticles', {
     method: 'GET',
@@ -77,7 +86,8 @@
       // if intersectionRatio === 0, means out of visible area
       if (entries[0].intersectionRatio <= 0) return;
 
-      nums.value += 6;
+      if (width.value <= 767) nums.value += 2;
+      else nums.value += 6;
 
       if (nums.value > articleLength.value) intersectionObserver.disconnect();
     });
