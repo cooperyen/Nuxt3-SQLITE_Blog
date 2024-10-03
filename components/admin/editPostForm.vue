@@ -4,8 +4,8 @@
     <!-- input items -->
     <div
       class="w-full mb-5"
-      v-for="titles in items"
-      :key="titles">
+      v-for="(key, titles, index) in items"
+      :key="index">
       <!-- item -->
       <div v-if="titles != 'sort' && props.postId != ''">
         <p>{{ titles }}</p>

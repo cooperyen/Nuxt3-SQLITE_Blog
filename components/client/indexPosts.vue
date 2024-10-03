@@ -15,7 +15,6 @@
           <bannerHandler
             class="object-cover rounded-t-md"
             :postId="article.id"
-   
             :alt="article.title">
           </bannerHandler>
         </div>
@@ -26,7 +25,9 @@
             <h2 class="font-bold text-2xl max-md:text-lg">
               {{ article.title }}
             </h2>
-            <h3 class="text-md max-md:text-sm mt-1 text-gray-600">{{ article.subtitle }}</h3>
+            <h3 class="text-md max-md:text-sm mt-1 text-gray-600">
+              {{ article.subtitle }}
+            </h3>
           </div>
           <!-- Sort and time -->
           <div class="text-xs md:mt-5 text-gray-500">

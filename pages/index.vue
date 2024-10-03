@@ -44,7 +44,6 @@
 
   const nums: Ref<number> = ref(2);
 
-
   const { data } = await useFetch<any>('/api/article/findManyArticles', {
     method: 'GET',
     query: {
