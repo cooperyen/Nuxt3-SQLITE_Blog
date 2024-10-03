@@ -11,7 +11,7 @@
             format="webp"
             class="w-full select-none"
             alt="華生飲水LOGO"
-            src="/華生飲水.svg" />
+            :src="'/' + logoName" />
         </div>
         <div>
           <ul>
@@ -43,6 +43,7 @@
 <script setup lang="ts">
   const date = new Date();
   const year = date.getFullYear();
+  const logoName = '華生飲水.svg';
   const content = {
     Email: 'services@hwaseng.com.tw',
     公司地址: '台北市內湖區行忠路66巷2號',

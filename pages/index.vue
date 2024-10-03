@@ -1,11 +1,13 @@
 <template>
   <div class="w-full max-xl:px-5 max-w-7xl mt-10 md:mt-5 mx-auto">
     <main>
-      <ClientPinTopArticle></ClientPinTopArticle>
-      <div
+      <section><ClientPinTopArticle></ClientPinTopArticle></section>
+      <section
         class="mt-5 md:mt-10 bg-white md:grid md:gap-x-5 md:gap-y-8 md:grid-cols-3">
-        <indexPosts :data="articles"></indexPosts>
-      </div>
+        <indexPosts
+          :data="articles"
+          v-if="articles"></indexPosts>
+      </section>
     </main>
 
     <!-- loading -->
@@ -42,7 +44,11 @@
     () => import('~/components/client/indexPosts.vue')
   );
 
-  const nums: Ref<number> = ref(2);
+  const pinTopArticle = defineAsyncComponent(
+    () => import('~/components/client/pinTopArticle.vue')
+  );
+
+  const nums: Ref<number> = ref(3);
 
   const { data } = await useFetch<any>('/api/article/findManyArticles', {
     method: 'GET',
@@ -59,6 +65,7 @@
       },
     },
   });
+
   const articles = computed(() => {
     const val = data.value;
     if (val?.state === 200) return data.value.data;
@@ -80,7 +87,7 @@
     else return false;
   });
 
-  onMounted(() => {
+  function loadingArticleProcess() {
     const intersectionObserver = new IntersectionObserver((entries) => {
       // if intersectionRatio === 0, means out of visible area
       if (entries[0].intersectionRatio <= 0) return;
@@ -91,10 +98,12 @@
       if (nums.value > articleLength.value) intersectionObserver.disconnect();
     });
 
-    // console.log(document.querySelector('.dataLoader'));
-
     // dataLoader listener
     const dataLoader = document.querySelector('.dataLoader') as HTMLElement;
     intersectionObserver.observe(dataLoader);
+  }
+
+  onMounted(() => {
+    loadingArticleProcess();
   });
 </script>

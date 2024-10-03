@@ -21,10 +21,9 @@
               <nuxt-img
                 class="max-h-9 md:max-h-12 w-full"
                 :src="'/' + logo?.fileName"
-                alt="logo" 
+                alt="logo"
                 width="50"
-                height="50"
-                />
+                height="50" />
             </div>
 
             <div class="text-white">
@@ -90,91 +89,90 @@
 
     <!-- unvisible block -->
     <div class="h-20 max-md:hidden"></div>
-  </header>
 
-  <!-- search content -->
-  <div
-    v-show="showSearch"
-    id="search_result"
-    class="z-30 backdrop-blur-sm bg-gray-400/70 fixed w-full h-full lef-0 top-0">
-    <!-- content -->
+    <!-- search content -->
     <div
-      class="bg-white w-[calc(100%_-_40px)] min-h-40 max-h-96 md:max-w-3xl fixed left-1/2 -translate-x-1/2 top-8 rounded-lg overflow-y-auto">
-      <!-- search area -->
-      <div class="flex sticky top-0 bg-white border-b">
-        <!-- content -->
-        <div class="flex my-4 ml-4 w-full rounded-lg py-1.5 bg-light-gray">
-          <div class="pl-3 pr-1.5">
-            <font-awesome-icon :icon="['fas', 'magnifying-glass']" />
+      v-show="showSearch"
+      id="search_result"
+      class="z-30 backdrop-blur-sm bg-gray-400/70 fixed w-full h-full lef-0 top-0">
+      <!-- content -->
+      <div
+        class="bg-white w-[calc(100%_-_40px)] min-h-40 max-h-96 md:max-w-3xl fixed left-1/2 -translate-x-1/2 top-8 rounded-lg overflow-y-auto">
+        <!-- search area -->
+        <div class="flex sticky top-0 bg-white border-b">
+          <!-- content -->
+          <div class="flex my-4 ml-4 w-full rounded-lg py-1.5 bg-light-gray">
+            <div class="pl-3 pr-1.5">
+              <font-awesome-icon :icon="['fas', 'magnifying-glass']" />
+            </div>
+            <div class="w-full">
+              <input
+                class="text-inherit md:text-sm w-full placeholder:text-slate-600 bg-light-gray focus:outline-none"
+                type="text"
+                v-model="searchInput"
+                @input="searchArticles"
+                @compositionend="searchArticles"
+                autocomplete="off"
+                :placeholder="SearchText" />
+            </div>
           </div>
-          <div class="w-full">
-            <input
-              class="text-inherit md:text-sm w-full placeholder:text-slate-600 bg-light-gray focus:outline-none"
-              type="text"
-              v-model="searchInput"
-              @input="searchArticles"
-              @compositionend="searchArticles"
-              autocomplete="off"
-              :placeholder="SearchText" />
+          <!-- close -->
+          <div class="mx-3 flex items-center">
+            <font-awesome-icon
+              @click="switchSearch"
+              class="text-2xl w-full cursor-pointer"
+              :icon="['fas', 'circle-xmark']" />
           </div>
         </div>
-        <!-- close -->
-        <div class="mx-3 flex items-center">
-          <font-awesome-icon
-            @click="switchSearch"
-            class="text-2xl w-full cursor-pointer"
-            :icon="['fas', 'circle-xmark']" />
-        </div>
-      </div>
 
-      <!-- search resault -->
-      <div class="px-2 md:px-5 max-md:px-4">
-        <template
-          v-for="(target, index) in searchReturn"
-          :key="index">
-          <div
-            class="last:border-b-0 border-b py-3 last:pb-5"
-            v-if="dosome(target.content)">
-            <NuxtLink
-              :to="'/article/' + target.id"
-              class="flex items-center px-2">
-              <div class="flex-grow">
-                <span class="bg-tag rounded-lg px-1 mb-2 text-xs">
-                  {{ $sortDate(target.createdAt) }}
-                </span>
-                <p class="px-1 font-bold mt-1 text-base">{{ target.title }}</p>
-                <!-- <p>{{ dosome(target.content) }}</p> -->
-                <p
-                  class="px-1 mt-1 text-xs"
-                  v-text="dosome(target.content)"></p>
-              </div>
-              <div class="flex-grow-0 pr-3">
-                <font-awesome-icon :icon="['fas', 'caret-right']" />
-              </div>
-            </NuxtLink>
-          </div>
-        </template>
+        <!-- search resault -->
+        <div
+          class="px-2 md:px-5 max-md:px-4"
+          v-show="searchReturn">
+          <template
+            v-for="(target, index) in searchReturn"
+            :key="index">
+            <div
+              class="last:border-b-0 border-b py-3 last:pb-5"
+              v-if="dosome(target.content)">
+              <NuxtLink
+                :to="'/article/' + target.id"
+                class="flex items-center px-2">
+                <div class="flex-grow">
+                  <span class="bg-tag rounded-lg px-1 mb-2 text-xs">
+                    {{ $sortDate(target.createdAt) }}
+                  </span>
+                  <p class="px-1 font-bold mt-1 text-base">
+                    {{ target.title }}
+                  </p>
+                  <p
+                    class="px-1 mt-1 text-xs"
+                    v-text="dosome(target.content)"></p>
+                </div>
+                <div class="flex-grow-0 pr-3">
+                  <font-awesome-icon :icon="['fas', 'caret-right']" />
+                </div>
+              </NuxtLink>
+            </div>
+          </template>
+        </div>
       </div>
     </div>
-  </div>
+  </header>
 </template>
 
 <script setup lang="ts">
-
   const { $sortDate } = useNuxtApp();
   const { data: logo } = await useFetch<any>('/api/option/logoHandler');
   const router = useRoute();
+  const emit = defineEmits(['update:showSearch']);
   const searchInput: Ref<string> = ref('');
   const searchReturn: Ref<any> = ref('');
   const showSearch: Ref<boolean> = ref(false);
-  const emit = defineEmits(['update:showSearch']);
   const moblieShowMenu: Ref<boolean> = ref(false);
   const windowWidth: Ref<number> = ref(0);
   const windowScroll: Ref<number> = ref(0);
   const SearchText = '搜尋文章、內容關鍵字';
-
-
-  
 
   const mobileMeunLinks = [
     { to: '/', title: '首頁' },
