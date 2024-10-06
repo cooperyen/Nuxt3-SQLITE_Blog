@@ -75,9 +75,16 @@ bun run preview
 Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
 
 
+## Development
+### database SQLITE
 
+```bash
+# instail npx
+npm install -g npx
 
-    npm install -g npx
-    npx prisma db push
-    npx prisma generate     
-    npx prisma studio
+# push the initial schema to the database
+npx prisma db push
+
+# visual editor for the data in database 
+npx prisma studio
+```
