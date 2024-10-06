@@ -3,7 +3,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "npx nuxi build --preset=iis_node && node copy-db.js",
+    "build": "nuxt build && node copy-db.js",
+    "server": "npx nuxi build --preset=iis_node && node copy-db.js",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",

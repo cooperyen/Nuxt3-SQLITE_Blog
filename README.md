@@ -1,12 +1,19 @@
 # Create by Nuxt 3 
 
+* server default use IIS7.
+* IIS >= 7
+* nodejs >= v20.15.1
+
 ## Setup
 
 Make sure to install the dependencies:
 
 ```bash
-# npm
+# instail package
 npm install
+
+# instail npx
+npm install -g npx
 ```
 
 ## Development Server
@@ -14,7 +21,6 @@ npm install
 Start the development server on `http://localhost:3000`:
 
 ```bash
-# npm
 npm run dev
 ```
 
@@ -23,25 +29,22 @@ npm run dev
 Build the application for production:
 
 ```bash
-# npm
+# normal build
 npm run build
+
+# use in IIS
+npm run server
 ```
 
 Locally preview production build:
 
 ```bash
-# npm
 npm run preview
 ```
 
-
-## Development
-### database SQLITE
+## Database SQLITE
 
 ```bash
-# instail npx
-npm install -g npx
-
 # if do update the model, uses the push of the initial schema to the database
 npx prisma db push
 
