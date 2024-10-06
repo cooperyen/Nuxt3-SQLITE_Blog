@@ -1,11 +1,13 @@
 <template>
   <div class="w-full max-xl:px-5 max-w-7xl mt-10 md:mt-5 mx-auto">
     <main>
-      <ClientPinTopArticle></ClientPinTopArticle>
-      <div
+      <section><ClientPinTopArticle></ClientPinTopArticle></section>
+      <section
         class="mt-5 md:mt-10 bg-white md:grid md:gap-x-5 md:gap-y-8 md:grid-cols-3">
-        <indexPosts :data="articles"></indexPosts>
-      </div>
+        <indexPosts
+          :data="articles"
+          v-if="articles"></indexPosts>
+      </section>
     </main>
 
     <!-- loading -->
@@ -61,6 +63,7 @@
       },
     },
   });
+
   const articles = computed(() => {
     const val = data.value;
     if (val?.state === 200) return data.value.data;

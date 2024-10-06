@@ -16,7 +16,7 @@
     postId: string;
     tempImg?: string;
     alt?: string;
-    loading?: any ;
+    loading?: any;
   }>();
 
   const hasError = ref(false);
@@ -33,7 +33,7 @@
     return props.alt ? props.alt : 'banner';
   });
   const imss = computed(() => {
-    let res: string = '';
+    let res: any = '';
     res = bannerImg.value || defaultBannerImg;
     if (props.tempImg) res = props.tempImg;
     return res;

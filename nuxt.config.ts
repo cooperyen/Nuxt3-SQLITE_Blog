@@ -2,13 +2,7 @@ import ckeditor5 from '@ckeditor/vite-plugin-ckeditor5';
 import { fileURLToPath } from 'url';
 import { defineNuxtConfig } from 'nuxt/config';
 
-// https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  nitro: {
-    firebase: {
-      gen: 2,
-    },
-  },
   ssr: true,
   devtools: { enabled: false },
 
@@ -17,7 +11,6 @@ export default defineNuxtConfig({
   },
 
   app: {
-    // layoutTransition: { name: 'layout', mode: 'out-in' },
     pageTransition: { name: 'page', mode: 'out-in' },
   },
 
@@ -44,7 +37,7 @@ export default defineNuxtConfig({
   ],
 
   alias: {
-    images: fileURLToPath(new URL('./', import.meta.url)),
+    images: fileURLToPath(new URL('./', import.meta.url)), // directly to public path.
   },
 
   googleFonts: {
