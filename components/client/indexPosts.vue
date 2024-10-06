@@ -49,7 +49,7 @@
     () => import('~/components/common/bannerHandler.vue')
   );
   const postSortTimeHandler = defineAsyncComponent(
-    () => import('~/components/postSortTimeHandler.vue')
+    () => import('~/components/client/postSortTimeHandler.vue')
   );
 
   const props = defineProps(['data']);

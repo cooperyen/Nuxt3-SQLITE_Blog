@@ -1,6 +1,5 @@
 <template>
-  <article
-    v-if="article">
+  <article v-if="article">
     <div class="border border-gray-150 max-md:mb-10 rounded-md md:relative">
       <NuxtLink
         :to="`/article/${articleUrl}`"
@@ -8,7 +7,7 @@
         <!-- img -->
         <div
           id="banner"
-          class="max-md:aspect-video  md:max-h-[400px] xl:max-h-[600px] overflow-y-hidden max-md:rounded-t-md md:rounded-md">
+          class="max-md:aspect-video md:max-h-[400px] xl:max-h-[600px] overflow-y-hidden max-md:rounded-t-md md:rounded-md">
           <bannerHandler
             class="object-cover rounded-t-md"
             :postId="article.id"
@@ -31,8 +30,7 @@
             </h3>
           </div>
           <!-- Sort and time -->
-          <div
-            class="text-xs md:mt-5 text-gray-500">
+          <div class="text-xs md:mt-5 text-gray-500">
             <postSortTimeHandler
               :color="'md:text-gray-300 md:group-hover:text-black'"
               :tags="article.sort"
@@ -52,10 +50,8 @@
   );
 
   const postSortTimeHandler = defineAsyncComponent(
-    () => import('~/components/postSortTimeHandler.vue')
+    () => import('~/components/client/postSortTimeHandler.vue')
   );
-
-
 
   const article = computed(() => {
     const val = data.value;
