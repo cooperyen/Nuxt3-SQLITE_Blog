@@ -42,12 +42,10 @@
 </template>
 
 <script setup lang="ts">
-  import { defineAsyncComponent } from 'vue';
-
+  // dynamic component.
   const bannerHandler = defineAsyncComponent(
     () => import('~/components/common/bannerHandler.vue')
   );
-
   const postSortTimeHandler = defineAsyncComponent(
     () => import('~/components/postSortTimeHandler.vue')
   );

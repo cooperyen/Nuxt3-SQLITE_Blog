@@ -36,18 +36,20 @@
 
   import { useWindowSize } from '@vueuse/core';
 
+  // window viewpoint.
   const { width, height } = useWindowSize();
 
+  // dynamic component.
   const indexPosts = defineAsyncComponent(
     () => import('~/components/client/indexPosts.vue')
   );
 
-  const nums: Ref<number> = ref(2);
+  const articleNums: Ref<number> = ref(3);
 
   const { data } = await useFetch<any>('/api/article/findManyArticles', {
     method: 'GET',
     query: {
-      postNum: nums,
+      postNum: articleNums,
       select: {
         id: true,
         title: true,
@@ -76,25 +78,28 @@
   });
 
   const isLoadings = computed(() => {
-    if (data.value) return nums.value > articleLength.value;
+    if (data.value) return articleNums.value > articleLength.value;
     else return false;
   });
 
   onMounted(() => {
+    dynamicLoadingArticles();
+  });
+
+  function dynamicLoadingArticles() {
     const intersectionObserver = new IntersectionObserver((entries) => {
       // if intersectionRatio === 0, means out of visible area
       if (entries[0].intersectionRatio <= 0) return;
 
-      if (width.value <= 767) nums.value += 2;
-      else nums.value += 6;
+      if (width.value <= 767) articleNums.value += 2;
+      else articleNums.value += 6;
 
-      if (nums.value > articleLength.value) intersectionObserver.disconnect();
+      if (articleNums.value > articleLength.value)
+        intersectionObserver.disconnect();
     });
-
-    // console.log(document.querySelector('.dataLoader'));
 
     // dataLoader listener
     const dataLoader = document.querySelector('.dataLoader') as HTMLElement;
     intersectionObserver.observe(dataLoader);
-  });
+  }
 </script>
