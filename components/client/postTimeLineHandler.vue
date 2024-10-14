@@ -62,12 +62,16 @@
     const res: any = {};
 
     props.data?.forEach((el: any) => {
-      const date = new Date($sortDate(el.createdAt));
-      const year = date.getFullYear();
+      const fullDate = new Date($sortDate(el.createdAt));
+      const getCurMonth = fullDate.getMonth() + 1;
+      const month = getCurMonth < 10 ? `0${getCurMonth}` : getCurMonth;
+      const date =
+        fullDate.getDate() < 10 ? `0${fullDate.getDate()}` : fullDate.getDate();
+      const year = fullDate.getFullYear();
 
       const singlePost = {
         id: el.id,
-        createdAt: `${date.getMonth() + 1}/${date.getDate()}`,
+        createdAt: `${month}/${date}`,
         customUrl: el.customUrl,
         title: el.title,
       };
