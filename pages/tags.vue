@@ -9,7 +9,9 @@
     </div>
 
     <!-- tags -->
-    <div class="max-w-4xl mx-auto mt-10 text-center" v-if="tagsList">
+    <div
+      class="max-w-4xl mx-auto mt-10 text-center"
+      v-if="tagsList">
       <NuxtLink
         :to="`/tag/${val}`"
         :class="css"
@@ -23,9 +25,7 @@
 </template>
 
 <script setup lang="ts">
-  const postsUrl: string = '/api/article/postTags';
-
-  const { data: tags } = await useFetch<any>(postsUrl);
+  const { data: tags, error } = await useFetch<any>('/api/article/postTags');
 
   const tagsList = computed(() => {
     interface arrayAsString {
@@ -40,17 +40,18 @@
     const aryCount: arrayAsNumber = {};
 
 
-    datas.forEach((element: any) => {
-      if (element.sort === '') return;
+    if (!error.value)
+      datas.forEach((element: any) => {
+        if (element.sort === '') return;
 
-      const eachTags = element.sort.split(',');
-      eachTags.forEach((vl: string) => {
-        if (vl != '') {
-          if (aryCount[vl]) aryCount[vl] += 1;
-          else aryCount[vl] = 1;
-        }
+        const eachTags = element?.sort.split(',');
+        eachTags.forEach((vl: string) => {
+          if (vl != '') {
+            if (aryCount[vl]) aryCount[vl] += 1;
+            else aryCount[vl] = 1;
+          }
+        });
       });
-    });
 
     const topFiveTags = Object.keys(aryCount)
       .sort((a, b) => {
@@ -58,10 +59,8 @@
       })
       .splice(0, 5);
 
-
     const distributeTextStyle: arrayAsString = {};
 
-    
     if (topFiveTags.length === 2) {
       distributeTextStyle[topFiveTags[0]] =
         'text-4xl font-bold text-orange-500';
@@ -86,12 +85,13 @@
     if (topFiveTags.length >= 5) {
       distributeTextStyle[topFiveTags[0]] =
         'text-4xl font-bold text-orange-500';
-      distributeTextStyle[topFiveTags[1]] = 'text-3xl font-semibold text-blue-500';
-      distributeTextStyle[topFiveTags[2]] = 'text-2xl font-medium text-green-500';
+      distributeTextStyle[topFiveTags[1]] =
+        'text-3xl font-semibold text-blue-500';
+      distributeTextStyle[topFiveTags[2]] =
+        'text-2xl font-medium text-green-500';
       distributeTextStyle[topFiveTags[3]] = 'text-xl';
       distributeTextStyle[topFiveTags[4]] = 'text-md';
     }
-
 
     return distributeTextStyle;
   });

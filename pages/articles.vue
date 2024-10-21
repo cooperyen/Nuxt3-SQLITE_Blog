@@ -29,4 +29,6 @@
     if (val?.state === 200) return data.value.data;
     else return null;
   });
+
+  console.log(articles.value);
 </script>

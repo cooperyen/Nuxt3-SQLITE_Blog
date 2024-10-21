@@ -10,18 +10,13 @@ export default defineEventHandler(async (event) => {
       },
     });
 
-    if (pinTopArticle)
-      return {
-        state: 200,
-        data: pinTopArticle,
-      };
-
-    if (!pinTopArticle)
-      return {
-        state: 400,
-        msg: 'No pinned articles found',
-      };
+    if (pinTopArticle) return pinTopArticle;
+    else
+      throw createError({
+        statusCode: 400,
+        statusMessage: 'Invalid data',
+      });
   } catch (error) {
-    console.log('error', error);
+    throw error;
   }
 });

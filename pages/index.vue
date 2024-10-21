@@ -39,13 +39,14 @@
   import { useWindowSize } from '@vueuse/core';
 
   // window viewpoint.
-  const { width, height } = useWindowSize();
+  const { width } = useWindowSize();
 
   // dynamic component.
   const indexPosts = defineAsyncComponent(
     () => import('~/components/client/indexPosts.vue')
   );
 
+  // default articles.
   const articleNums: Ref<number> = ref(3);
 
   const { data } = await useFetch<any>('/api/article/findManyArticles', {
@@ -65,17 +66,18 @@
   });
 
   const articles = computed(() => {
-    const val = data.value;
-    if (val?.state === 200) return data.value.data;
+    if (data.value) return data.value;
     else return null;
   });
+
+
 
   const { data: articleLengthAPI } = await useFetch<any>(
     '/api/article/totalArticleLength'
   );
 
   const articleLength = computed(() => {
-    if (articleLengthAPI.value.state === 200)
+    if (articleLengthAPI.value.statusCode === 200)
       return articleLengthAPI.value.data;
     else return 0;
   });

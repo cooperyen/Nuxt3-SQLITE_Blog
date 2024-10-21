@@ -2,25 +2,14 @@ import { PrismaClient } from '@prisma/client';
 
 const prismaClient = new PrismaClient();
 
-export default defineEventHandler(async (event) => {
-  try {
-    switch (event.method) {
-      case 'GET':
-        return await findMany(event);
-      default:
-        // Method Not Allowed
-        return { state: 400, msg: 'Method Not Allowed' };
-    }
-  } catch (error) {
-    console.log('error', error);
-  }
-});
+const fail = { statusCode: 400, msg: "can't find data." };
 
 async function findMany(event) {
   try {
     const query = getQuery(event);
-    const select = query.select ? JSON.parse(query.select) : null;
-    const where = query.where ? JSON.parse(query.where) : null;
+    const selects = JSON.parse(query.select);
+    const where = query.where ? query.where : false;
+    const sort = selects.sort ? selects.sort : false;
 
     const options = {
       orderBy: [
@@ -33,12 +22,12 @@ async function findMany(event) {
       },
       select: {
         id: true,
-        title: select?.title ? true : false,
-        createdAt: select?.createdAt ? true : false,
-        sort: select?.sort ? true : false,
-        content: select?.content ? true : false,
-        publish: select?.publish ? true : false,
-        subtitle: select?.subtitle ? true : false,
+        title: true,
+        createdAt: true,
+        sort: sort,
+        content: true,
+        publish: true,
+        subtitle: true,
         customUrl: true,
       },
     };
@@ -49,9 +38,17 @@ async function findMany(event) {
 
     const data = await prismaClient.post.findMany(options);
 
-    if (data) return { state: 200, data };
-    else return { state: 400, msg: "can't find data." };
+    if (data) return data;
+    else
+      throw createError({
+        statusCode: 400,
+        statusMessage: 'Invalid data',
+      });
   } catch (error) {
-    console.log('error', error);
+    throw error;
   }
 }
+
+export default defineEventHandler(async (event) => {
+  return await findMany(event);
+});

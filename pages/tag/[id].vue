@@ -14,11 +14,12 @@
     query: { id: route.params.id },
   });
 
-  if (!data.value) back();
-
-  async function back() {
-    await navigateTo('/tag');
-  }
+  onBeforeMount(() => {
+    if (error.value) {
+      alert(error.value.statusMessage);
+      clearError({ redirect: '/tags' });
+    }
+  });
 
   useHead({
     title: route.params.id && '標籤',

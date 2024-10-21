@@ -6,6 +6,8 @@ export default defineEventHandler(async (event) => {
   const query = getQuery(event);
 
   const ip = await getIP();
+
+  if(!query.id) return false;
   const user = await prismaClient.user.findUnique({
     where: {
       id: query.id,
