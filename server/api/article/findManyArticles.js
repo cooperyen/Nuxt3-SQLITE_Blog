@@ -2,8 +2,6 @@ import { PrismaClient } from '@prisma/client';
 
 const prismaClient = new PrismaClient();
 
-const fail = { statusCode: 400, msg: "can't find data." };
-
 async function findMany(event) {
   try {
     const query = getQuery(event);
