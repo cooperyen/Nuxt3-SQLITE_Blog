@@ -122,21 +122,19 @@
   const showLoadinmg: Ref<boolean> = ref(false);
 
   const apiURL: string = '/api/admin/articleHandler';
-  const { data, error } = await useFetch<any>(apiURL, {
+  const { data, error } = await useFetch<any>('/api/admin/article', {
     query: { id: postId },
-    method: 'GET',
   });
 
   const article = computed(() => {
     const val = data.value;
-    let res;
-    if (val?.state === 200) res = val.data;
-    else {
-      alert(val.msg);
-      res = null;
-    }
 
-    return res;
+    if (val) return val;
+    else {
+      alert(error.value?.statusMessage);
+      clearError({ redirect: '/admin' });
+      return null;
+    }
   });
 
   const content: Ref<string> = ref('<div></div>');
@@ -150,7 +148,7 @@
     customUrl.value = el;
   }
 
-  async function dsaads() {
+  async function fetchBanner() {
     const res = await $fetch<string>(
       '/api/article/findSingleArticleBannerPath',
       {
@@ -222,25 +220,22 @@
       warning.value = true;
       loadingSwitch(false);
     } else {
-      const posts: object | any = await $fetch(apiURL, {
-        method: 'PUT',
-        body: {
-          ...items.value,
-          customUrl: customUrl.value,
-          content: content.value,
-          id: postId,
-          publish: publish.value,
-          pinTop: pinTop.value,
-          description: description.value,
-        },
-      });
-
-      if (posts?.state === 200) {
-        setTimeout(() => {
-          router.replace('/admin');
-        }, 1000);
-      } else {
-        alert(posts.msg);
+      try {
+        const posts: object | any = await $fetch('/api/admin/article', {
+          method: 'PUT',
+          body: {
+            ...items.value,
+            customUrl: customUrl.value,
+            content: content.value,
+            id: postId,
+            publish: publish.value,
+            pinTop: pinTop.value,
+            description: description.value,
+          },
+        });
+        if (posts) router.replace('/admin');
+      } catch (error: any) {
+        alert(error.statusMessage);
         loadingSwitch(false);
       }
     }
@@ -253,8 +248,7 @@
   }
 
   onBeforeMount(() => {
-    dsaads();
-    if (!article.value) router.replace('/admin');
+    fetchBanner();
   });
 
   onBeforeUnmount(() => {

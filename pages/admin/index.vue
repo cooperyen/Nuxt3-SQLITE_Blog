@@ -32,7 +32,12 @@
   const currentPage: Ref<Number> = ref(1);
   const showPerPage: Ref<Number> = ref(5);
 
-  const { data: articleLength, refresh } = await useFetch<any>(
+  const { data: articleLengthAPI, refresh } = await useFetch<any>(
     '/api/article/totalArticleLength'
   );
+
+  const articleLength = computed(() => {
+    if (articleLengthAPI.value) return articleLengthAPI.value;
+    else return 0;
+  });
 </script>

@@ -55,22 +55,29 @@
       loadingSwitch(false);
     } else {
       // repeat execution is prohibited.
-      if (!postProcess.value) return;
-      postProcess.value = false;
-      const url: string = '/api/admin/articleHandler';
-      const posts: object | any = await $fetch(url, {
-        method: 'POST',
-        body: {
-          ...items.value,
-        },
-      });
-      if (posts?.state === 200)
-        setTimeout(() => {
-          router.replace(`/admin/editpost/${posts.id}`);
-        }, 2000);
-      else {
-        alert('save fail');
-        loadingSwitch(false);
+      try {
+        if (!postProcess.value) return;
+        postProcess.value = false;
+        const posts: object | any = await $fetch('/api/admin/article', {
+          method: 'POST',
+          body: {
+            ...items.value,
+          },
+        });
+        if (posts)
+          setTimeout(() => {
+            router.replace(`/admin/editpost/${posts}`);
+          }, 2000);
+        else {
+          loadingSwitch(false);
+          throw createError({
+            statusCode: 400,
+            statusMessage:
+              'update unsuccesses. please try again or check it later',
+          });
+        }
+      } catch (error) {
+        alert(error);
       }
     }
   }

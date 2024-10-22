@@ -17,7 +17,7 @@ export default defineEventHandler(async (event) => {
         res = await createArticle(event);
         break;
       case 'DELETE':
-        res = await deleteArticle(event);
+        // res = await deleteArticle(event);
         break;
       default:
         // Method Not Allowed

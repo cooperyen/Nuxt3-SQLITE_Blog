@@ -70,15 +70,12 @@
     else return null;
   });
 
-
-
   const { data: articleLengthAPI } = await useFetch<any>(
     '/api/article/totalArticleLength'
   );
 
   const articleLength = computed(() => {
-    if (articleLengthAPI.value.statusCode === 200)
-      return articleLengthAPI.value.data;
+    if (articleLengthAPI.value) return articleLengthAPI.value;
     else return 0;
   });
 
