@@ -61,7 +61,6 @@
     article.value?.data?.description ? article.value.data.description : false
   );
 
-  console.log(articleTitle.value);
   const seo: seo = {
     title: articleTitle.value || '華生水資源',
     ogTitle: articleTitle.value || '華生水資源',

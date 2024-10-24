@@ -7,7 +7,14 @@ async function findMany(event) {
     const query = getQuery(event);
     const selects = JSON.parse(query.select);
     const where = query.where ? query.where : false;
+    const id = selects.id ? selects.id : false;
+    const title = selects.title ? selects.title : false;
+    const createdAt = selects.createdAt ? selects.createdAt : false;
     const sort = selects.sort ? selects.sort : false;
+    const content = selects.content ? selects.content : false;
+    const publish = selects.publish ? selects.publish : false;
+    const subtitle = selects.subtitle ? selects.subtitle : false;
+    const customUrl = selects.customUrl ? selects.customUrl : false;
 
     const options = {
       orderBy: [
@@ -19,14 +26,14 @@ async function findMany(event) {
         publish: true,
       },
       select: {
-        id: true,
-        title: true,
-        createdAt: true,
-        sort: sort,
-        content: true,
-        publish: true,
-        subtitle: true,
-        customUrl: true,
+        id,
+        title,
+        createdAt,
+        sort,
+        content,
+        publish,
+        subtitle,
+        customUrl,
       },
     };
 
