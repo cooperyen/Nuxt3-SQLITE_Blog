@@ -1,8 +1,10 @@
 <template>
   <UILayDefaultContainer>
-    <div class="max-w-7xl mx-auto mt-20 text-center">
+    <div class="max-w-7xl mx-auto mt-10 text-center">
       <!-- title -->
-      <div class="text-3xl font-bold">Tags</div>
+      <div>
+        <h2 class="text-3xl font-bold">Tags</h2>
+      </div>
       <div class="mt-5 md:mt-10 text-xl">
         目前標籤有 {{ tagsList ? Object.keys(tagsList).length : 0 }} 個
       </div>
@@ -38,7 +40,6 @@
 
     const datas = tags.value;
     const aryCount: arrayAsNumber = {};
-
 
     if (!error.value)
       datas.forEach((element: any) => {

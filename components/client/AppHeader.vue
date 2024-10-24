@@ -19,7 +19,7 @@
             <!-- logo img -->
             <div class="md:mr-5 mr-2">
               <nuxt-img
-                class="max-h-9 md:max-h-12 w-full"
+                class="max-w-12 md:max-h-12"
                 :src="'/' + logo?.fileName"
                 alt="logo"
                 width="50"
@@ -107,7 +107,7 @@
             </div>
             <div class="w-full">
               <input
-                class="text-inherit md:text-sm w-full placeholder:text-slate-600 bg-light-gray focus:outline-none"
+                class="text-inherit md:text-sm w-full min-w-full placeholder:text-slate-600 bg-light-gray focus:outline-none"
                 type="text"
                 v-model="searchInput"
                 @input="searchArticles"
@@ -117,7 +117,7 @@
             </div>
           </div>
           <!-- close -->
-          <div class="mx-3 flex items-center">
+          <div class="max-w-6 flex-auto mx-3 flex items-center">
             <font-awesome-icon
               @click="switchSearch"
               class="text-2xl w-full cursor-pointer"
