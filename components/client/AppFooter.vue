@@ -1,6 +1,6 @@
 <template>
   <footer
-    class="w-full mb-10 md:mt-20 mt-10 md:pt-10 pt-5 px-10 border-t-2 border-main-blue">
+    class="w-full pb-10 md:mt-20 mt-10 md:pt-10 pt-5 px-10 border-t-2 border-main-blue">
     <div class="max-w-3xl mt-5 mx-auto">
       <div
         class="text-sm md:flex md:items-center justify-center max-md:text-center">

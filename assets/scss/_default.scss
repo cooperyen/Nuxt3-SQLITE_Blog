@@ -17,11 +17,10 @@
 :deep() {
   img {
     -webkit-user-drag: none;
-    width: 100%;
+    // width: 100%;
   }
 }
 
 * {
   color: $default_text;
-  // background-color: red;
 }

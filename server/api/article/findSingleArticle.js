@@ -2,25 +2,6 @@ import { PrismaClient } from '@prisma/client';
 
 const prismaClient = new PrismaClient();
 
-export default defineEventHandler(async (event) => {
-  try {
-    let res = null;
-
-    switch (event.method) {
-      case 'GET':
-        res = await findArticle(event);
-        break;
-      default:
-        // Method Not Allowed
-        return { state: 400, msg: 'Method Not Allowed' };
-    }
-
-    return res;
-  } catch (error) {
-    console.log('error', error);
-  }
-});
-
 async function findArticle(event) {
   try {
     const query = getQuery(event);
@@ -31,9 +12,17 @@ async function findArticle(event) {
       },
     });
 
-    if (data) return { state: 200, data:data[0] };
-    else return { state: 400, msg: "can't find data." };
+    if (data && data.length > 0) return { statusCode: 200, data: data[0] };
+    else
+      throw createError({
+        statusCode: 400,
+        statusMessage: 'Invalid article',
+      });
   } catch (error) {
-    console.log('error', error);
+    throw error;
   }
 }
+
+export default defineEventHandler(async (event) => {
+  return await findArticle(event);
+});

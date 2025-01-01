@@ -1,11 +1,11 @@
 <template>
   <header class="relative top-0 select-none">
     <div
-      class="md:fixed top-0 py-3 w-full md:max-h-20 h-full md:min-h-20 bg-main-blue border-b z-20 relative">
+      class="md:fixed top-0 py-3 w-full md:max-h-20 h-full md:min-h-20 bg-background z-20 relative border-b">
       <div
         class="max-w-screen-2xl flex mx-auto justify-between items-center h-full">
         <!-- bar menu for mobile -->
-        <div class="ml-5 text-white text-xl md:hidden">
+        <div class="ml-5 text-main-blue text-xl md:hidden">
           <font-awesome-icon
             class="cursor-pointer"
             @click="moblieShowMenu = !moblieShowMenu"
@@ -19,16 +19,16 @@
             <!-- logo img -->
             <div class="md:mr-5 mr-2">
               <nuxt-img
-                class="max-h-9 md:max-h-12 w-full"
+                class="max-w-12 md:max-h-12"
                 :src="'/' + logo?.fileName"
                 alt="logo"
                 width="50"
                 height="50" />
             </div>
 
-            <div class="text-white">
-              <h2 class="max-md:text-xs">華生水資源</h2>
-              <span class="text-sm md:text-xl">BLOG</span>
+            <div class="text-main-blue">
+              <h2 class="max-md:text-xs font-bold">華生水資源</h2>
+              <span class="text-sm md:text-xl font-bold">BLOG</span>
             </div>
           </NuxtLink>
           <!-- search function desket-->
@@ -36,7 +36,7 @@
           <!-- desket -->
           <div
             @click="switchSearch"
-            class="max-h-10 cursor-pointer border ml-6 rounded-full w-48 flex pt-1.5 pb-1.5 bg-white max-xl:mr-5 max-md:hidden">
+            class="max-h-10 cursor-pointer border border-main-blue ml-6 rounded-full w-48 flex pt-1.5 pb-1.5 bg-background max-xl:mr-5 max-md:hidden">
             <!-- icon -->
             <div class="pl-3 pr-1.5">
               <font-awesome-icon :icon="['fas', 'magnifying-glass']" />
@@ -44,7 +44,7 @@
             <!-- search click -->
             <div class="pr-3">
               <input
-                class="w-full cursor-pointer text-sm placeholder:text-slate-600 bg-white focus:outline-none"
+                class="w-full cursor-pointer text-sm placeholder:text-slate-600 bg-background focus:outline-none"
                 type="text"
                 autocomplete="off"
                 readonly
@@ -56,7 +56,7 @@
         <!-- search function mobile-->
 
         <!-- mobile menu  -->
-        <div class="cursor-pointer pl-3 pr-1.5 text-white mr-5 md:hidden">
+        <div class="cursor-pointer pl-3 pr-1.5 text-main-blue mr-5 md:hidden">
           <font-awesome-icon
             @click="switchSearch"
             :icon="['fas', 'magnifying-glass']" />
@@ -64,7 +64,7 @@
 
         <!-- info for desket -->
         <div class="flex max-md:hidden">
-          <div class="mr-5 text-white">
+          <div class="mr-5 text-main-blue font-medium">
             <NuxtLink :to="'/about'"> 關於華生 </NuxtLink>
           </div>
           <!-- info content -->
@@ -97,7 +97,7 @@
       class="z-30 backdrop-blur-sm bg-gray-400/70 fixed w-full h-full lef-0 top-0">
       <!-- content -->
       <div
-        class="bg-white w-[calc(100%_-_40px)] min-h-40 max-h-96 md:max-w-3xl fixed left-1/2 -translate-x-1/2 top-8 rounded-lg overflow-y-auto">
+        class="w-[calc(100%_-_40px)] min-h-40 max-h-96 md:max-w-3xl fixed left-1/2 -translate-x-1/2 top-8 rounded-lg overflow-y-auto">
         <!-- search area -->
         <div class="flex sticky top-0 bg-white border-b">
           <!-- content -->
@@ -107,7 +107,7 @@
             </div>
             <div class="w-full">
               <input
-                class="text-inherit md:text-sm w-full placeholder:text-slate-600 bg-light-gray focus:outline-none"
+                class="text-inherit md:text-sm w-full min-w-full placeholder:text-slate-600 bg-light-gray focus:outline-none"
                 type="text"
                 v-model="searchInput"
                 @input="searchArticles"
@@ -117,7 +117,7 @@
             </div>
           </div>
           <!-- close -->
-          <div class="mx-3 flex items-center">
+          <div class="max-w-6 flex-auto mx-3 flex items-center">
             <font-awesome-icon
               @click="switchSearch"
               class="text-2xl w-full cursor-pointer"
@@ -126,9 +126,7 @@
         </div>
 
         <!-- search resault -->
-        <div
-          class="px-2 md:px-5 max-md:px-4"
-          v-show="searchReturn">
+        <div class="px-2 md:px-5 max-md:px-4 bg-background">
           <template
             v-for="(target, index) in searchReturn"
             :key="index">
@@ -142,7 +140,7 @@
                   <span class="bg-tag rounded-lg px-1 mb-2 text-xs">
                     {{ $sortDate(target.createdAt) }}
                   </span>
-                  <p class="px-1 font-bold mt-1 text-base">
+                  <p class="px-1 font-bold mt-1 text-base text-main-blue/85">
                     {{ target.title }}
                   </p>
                   <p
@@ -162,96 +160,107 @@
 </template>
 
 <script setup lang="ts">
-  const { $sortDate } = useNuxtApp();
-  const { data: logo } = await useFetch<any>('/api/option/logoHandler');
-  const router = useRoute();
-  const emit = defineEmits(['update:showSearch']);
-  const searchInput: Ref<string> = ref('');
-  const searchReturn: Ref<any> = ref('');
-  const showSearch: Ref<boolean> = ref(false);
-  const moblieShowMenu: Ref<boolean> = ref(false);
-  const windowWidth: Ref<number> = ref(0);
-  const windowScroll: Ref<number> = ref(0);
-  const SearchText = '搜尋文章、內容關鍵字';
+const { $sortDate } = useNuxtApp();
+const { data: logo } = await useFetch<any>("/api/option/logoHandler");
+const router = useRoute();
+const emit = defineEmits(["update:showSearch"]);
+const searchInput: Ref<string> = ref("");
+const defaultSearchTarget = "ESG";
+const searchReturn: Ref<any> = ref("");
+const showSearch: Ref<boolean> = ref(false);
+const moblieShowMenu: Ref<boolean> = ref(false);
+const windowWidth: Ref<number> = ref(0);
+const windowScroll: Ref<number> = ref(0);
+const SearchText = "搜尋文章、內容關鍵字";
 
-  const mobileMeunLinks = [
-    { to: '/', title: '首頁' },
-    { to: '/about', title: '關於華生' },
-    { to: '/tags', title: '所有標籤' },
-    { to: '/articles', title: '所有文章' },
-  ];
+const mobileMeunLinks = [
+  { to: "/", title: "首頁" },
+  { to: "/about", title: "關於華生" },
+  { to: "/tags", title: "所有標籤" },
+  { to: "/articles", title: "所有文章" },
+];
 
-  watch(
-    () => router.path,
-    () => {
-      moblieShowMenu.value = false;
-      showSearch.value = false;
-      searchInput.value = '';
-      emit('update:showSearch', showSearch.value);
-    }
-  );
+watch(
+  () => router.path,
+  () => {
+    moblieShowMenu.value = false;
+    showSearch.value = false;
 
-  async function searchArticles() {
-    const target = searchInput.value.toLowerCase().trim();
-    // if the input value equals empty then reset searchReturn and quit function.
-    if (target === '') return (searchReturn.value = '');
+    emit("update:showSearch", showSearch.value);
+  }
+);
 
-    const data = await $fetch<any>('/api/article/findManyArticles', {
-      method: 'GET',
-      query: {
-        where: {
-          content: target,
-        },
-        select: {
-          id: true,
-          title: true,
-          createdAt: true,
-          sort: true,
-          content: true,
-        },
+const currentSearchTarget = computed(() => {
+  const target = searchInput.value.toLowerCase().trim();
+
+  return target === "" ? defaultSearchTarget : target;
+});
+
+async function searchArticles() {
+  // if the input value equals empty then reset searchReturn and quit function.
+  // if (target === "") return (searchReturn.value = "");
+
+  const data = await $fetch<any>("/api/article/findManyArticles", {
+    method: "GET",
+    query: {
+      where: {
+        content: currentSearchTarget.value,
       },
-    });
-
-    if (data?.state === 200) return (searchReturn.value = data.data);
-    else return null;
-  }
-
-  /**
-   *  when open/close the search container process.
-   */
-  function switchSearch() {
-    showSearch.value = !showSearch.value;
-    searchInput.value = '';
-    searchReturn.value = '';
-    emit('update:showSearch', showSearch.value);
-  }
-
-  function dosome(el: string) {
-    const data = el.replace(/<[^<>]*>/g, '').replace(/&nbsp;/gi, '');
-
-    const start = data
-      .toLocaleLowerCase()
-      .indexOf(searchInput.value.toLocaleLowerCase());
-
-    if (start === -1) return null;
-
-    const res = data.slice(start, start + 10) + '...';
-
-    return res;
-  }
-
-  onBeforeMount(() => {
-    if (import.meta.client) {
-      windowWidth.value = window.innerWidth;
-    }
-
-    window.addEventListener('resize', function () {
-      windowWidth.value = window.innerWidth;
-      moblieShowMenu.value = false;
-    });
-
-    window.addEventListener('scroll', function () {
-      windowScroll.value = window.scrollY;
-    });
+      select: {
+        id: true,
+        title: true,
+        createdAt: true,
+        sort: true,
+        content: true,
+      },
+    },
   });
+
+  if (data) return (searchReturn.value = data);
+  else return null;
+}
+
+/**
+ *  when open/close the search container process.
+ */
+function switchSearch() {
+  showSearch.value = !showSearch.value;
+  searchInput.value = "";
+  searchArticles();
+  // searchReturn.value = "";
+  emit("update:showSearch", showSearch.value);
+}
+
+function dosome(el: string) {
+  const data = el.replace(/<[^<>]*>/g, "").replace(/&nbsp;/gi, "");
+
+  const start = data
+    .toLocaleLowerCase()
+    .indexOf(currentSearchTarget.value.toLocaleLowerCase());
+
+  if (start === -1) return null;
+
+  const res = data.slice(start, start + 10) + "...";
+
+  return res;
+}
+
+onBeforeMount(() => {
+  if (import.meta.client) {
+    windowWidth.value = window.innerWidth;
+  }
+
+  window.addEventListener("resize", function () {
+    windowWidth.value = window.innerWidth;
+    moblieShowMenu.value = false;
+  });
+
+  window.addEventListener("scroll", function () {
+    windowScroll.value = window.scrollY;
+  });
+});
+
+// onMounted(async () => {
+//   await searchArticles();
+// });
 </script>
