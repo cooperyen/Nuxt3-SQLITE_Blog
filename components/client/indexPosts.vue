@@ -9,7 +9,7 @@
         <!-- img -->
         <div
           id="banner"
-          class="border border-gray-150 aspect-video overflow-y-hidden rounded-2xl">
+          class="border border-gray-150 aspect-[5/3.4] overflow-y-hidden rounded-2xl">
           <bannerHandler
             class="object-cover rounded-t-2xl"
             :postId="article.id"
@@ -17,7 +17,7 @@
           </bannerHandler>
         </div>
 
-        <div class="py-2">
+        <div class="py-2 px-1">
           <!-- title -->
           <div class="mt-2">
             <NuxtLink
@@ -25,8 +25,9 @@
                 article.customUrl ? article.customUrl : article.id
               }`"
               class="text-[#263d56]">
-              <div class="min-h-16 flex md:hover:underline underline-offset-4">
-                <h2 class="font-bold text-lg mr-2">
+              <div
+                class="md:min-h-14 max-md:mb-3 flex md:hover:underline underline-offset-4 mb-2">
+                <h2 class="font-bold text-xl mr-2">
                   {{ article.title }}
                 </h2>
                 <font-awesome-icon
@@ -34,12 +35,13 @@
                   :icon="['fas', 'arrow-up']" />
               </div>
             </NuxtLink>
-            <h3 class="text-sm mt-1 text-gray-500 truncate">
+            <h3
+              class="text-sm mt-1 text-gray-500 md:min-h-10 md:max-h-10 o-text-ellipsis">
               {{ article.subtitle }}
             </h3>
           </div>
           <!-- Sort and time -->
-          <div class="text-xs md:mt-5">
+          <div class="text-xs mt-2">
             <postSortTimeHandler
               :tags="article.sort"
               :time="article.createdAt"></postSortTimeHandler>
@@ -63,3 +65,13 @@
 
   const articleData = computed(() => (props.data ? props.data : false));
 </script>
+
+<style lang="scss">
+  .o-text-ellipsis {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+</style>

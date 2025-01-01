@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full max-xl:px-5 max-w-7xl mt-10 md:mt-5 mx-auto">
+  <div class="w-full max-2xl:px-5 max-md:px-3 max-w-7xl mt-10 md:mt-5 mx-auto">
     <main>
       <section>
         <ClientPinTopArticle />
@@ -8,7 +8,8 @@
         <div class="tracking-wider text-lg">
           <strong>近期更新文章</strong>
         </div>
-        <div class="mt-5 bg-white md:grid md:gap-x-5 md:gap-y-8 md:grid-cols-3">
+        <div
+          class="mt-10 bg-white md:grid md:gap-x-5 xl:gap-x-10 md:gap-y-16 md:grid-cols-3">
           <indexPosts
             :data="articles"
             v-if="articles">

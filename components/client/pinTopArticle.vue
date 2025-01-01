@@ -1,15 +1,15 @@
 <template>
   <article v-if="article">
-    <div class="border border-gray-150 max-md:mb-10 rounded-2xl md:relative">
+    <div class="max-md:mb-10 md:relative">
       <NuxtLink
         :to="`/article/${articleUrl}`"
         class="text-[#263d56] group">
         <!-- img -->
         <div
           id="banner"
-          class="max-md:aspect-video md:max-h-[400px] xl:max-h-[600px] overflow-y-hidden max-md:rounded-t-2xl md:rounded-2xl">
+          class="aspect-[5/2.4] overflow-y-hidden">
           <bannerHandler
-            class="object-cover rounded-t-md"
+            class="object-cover rounded-2xl"
             :postId="article.id"
             :alt="article.title">
           </bannerHandler>
@@ -17,24 +17,26 @@
         <!-- text -->
 
         <div
-          class="px-3 py-2 md:py-3 md:px-5 md:absolute md:bottom-0 md:group-hover:bg-white/[.9] md:bg-black/[.6] md:w-full md:min-h-32 md:rounded-b-2xl">
-          <!-- title -->
-          <div class="max-md:mt-2">
-            <h2
-              class="font-bold text-2xl lg:text-2xl max-md:text-lg md:text-gray-200 md:group-hover:text-black">
-              {{ article.title }}
-            </h2>
-            <h3
-              class="text-md max-md:text-sm mt-1 text-gray-600 md:text-gray-200 md:group-hover:text-black">
-              {{ article.subtitle }}
-            </h3>
-          </div>
-          <!-- Sort and time -->
-          <div class="text-xs md:mt-5 text-gray-500">
-            <postSortTimeHandler
-              :color="'md:text-gray-300 md:group-hover:text-black'"
-              :tags="article.sort"
-              :time="article.createdAt"></postSortTimeHandler>
+          class="md:px-28 py-2 md:py-3 md:absolute md:bottom-8 md:w-full md:min-h-32">
+          <div
+            class="md:rounded-xl md:p-5 md:backdrop-blur md:bg-gray-500/50 md:border md:border-gray-100/40 md:text-shadow">
+            <!-- title -->
+            <div class="max-md:mt-2">
+              <h2 class="font-bold md:text-2xl md:text-gray-200">
+                {{ article.title }}
+              </h2>
+              <h3
+                class="text-md max-md:text-sm mt-1 text-gray-600 md:text-gray-200">
+                {{ article.subtitle }}
+              </h3>
+            </div>
+            <!-- Sort and time -->
+            <div class="text-xs md:mt-5 text-gray-500">
+              <postSortTimeHandler
+                :color="'md:text-gray-300'"
+                :tags="article.sort"
+                :time="article.createdAt"></postSortTimeHandler>
+            </div>
           </div>
         </div>
       </NuxtLink>
@@ -66,3 +68,9 @@
     else return null;
   });
 </script>
+
+<style lang="scss">
+  .text-shadow {
+    text-shadow: 0 0px 4px rgba(0, 0, 0, 0.4);
+  }
+</style>
