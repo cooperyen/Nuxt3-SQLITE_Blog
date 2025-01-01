@@ -2,7 +2,7 @@
   <div class="w-full max-2xl:px-5 max-md:px-3 max-w-7xl mt-10 md:mt-12 mx-auto">
     <main>
       <section>
-        <clientPinTopArticle />
+        <PinTopArticle />
       </section>
       <section class="mt-5 md:mt-16">
         <div class="tracking-wider md:text-lg">
@@ -52,6 +52,11 @@ const { width } = useWindowSize();
 // dynamic component.
 const indexPosts = defineAsyncComponent(
   () => import("~/components/client/indexPosts.vue")
+);
+
+// dynamic component.
+const PinTopArticle = defineAsyncComponent(
+  () => import("~/components/client/pinTopArticle.vue")
 );
 
 // default articles.
