@@ -3,17 +3,19 @@
   <div
     class="md:mt-3 mt-1 flex items-center"
     :class="textColor">
-    <font-awesome-icon :icon="['fas', 'calendar']" />
-
-    <span class="pl-1.5">{{ $shortTime(props.time) }}</span>
+    <div><font-awesome-icon :icon="['fas', 'calendar-days']" /></div>
+    <span class="pl-1.5">{{ $sortDate(props.time) }}</span>
   </div>
   <!-- sort -->
   <div
     v-show="tags.length > 0"
-    class="mt-2 items-center flex"
+    class="mt-1 items-center flex"
     :class="textColor">
+    <div>
+      <font-awesome-icon :icon="['fas', 'box']" />
+    </div>
     <ul
-      class="flex m-0 items-center"
+      class="flex pl-1.5 m-0 items-center"
       v-if="tags.length != 0">
       <li
         class="list-none"
@@ -27,25 +29,21 @@
             {{ tag }}
           </NuxtLink>
         </div>
-        <!-- <span v-else>
-          {{ index === 0 ? "" : tags.length > 1 ? "、" : "" }}
-          {{ tag }}
-        </span> -->
-        <template v-else>
-          <tag :dark="props.dark">{{ tag }}</tag>
-        </template>
+        <span v-else>
+          {{ index === 0 ? '' : tags.length > 1 ? '、' : '' }}{{ tag }}</span
+        >
       </li>
     </ul>
   </div>
 </template>
 
 <script setup lang="ts">
-const { $shortTime } = useNuxtApp();
-const props = defineProps(["tags", "time", "linkOpen", "color", "dark"]);
-const tags = computed(() => {
-  return props.tags.split(",").filter((el: string) => el);
-});
-const textColor = computed(() => (props.color ? props.color : "text-gray-600"));
-
-const tag = defineAsyncComponent(() => import("~/components/common/tag.vue"));
+  const { $sortDate } = useNuxtApp();
+  const props = defineProps(['tags', 'time', 'linkOpen', 'color']);
+  const tags = computed(() => {
+    return props.tags.split(',').filter((el: string) => el);
+  });
+  const textColor = computed(() =>
+    props.color ? props.color : 'text-gray-600'
+  );
 </script>

@@ -1,4 +1,5 @@
 <template>
+<<<<<<< HEAD
   <div class="w-full max-2xl:px-5 max-md:px-3 max-w-7xl mt-10 md:mt-12 mx-auto">
     <main>
       <section>
@@ -10,6 +11,19 @@
         </div>
         <div
           class="md:mt-10 mt-3 md:grid md:gap-x-5 xl:gap-x-10 md:gap-y-16 md:grid-cols-3">
+=======
+  <div class="w-full max-2xl:px-5 max-md:px-3 max-w-7xl mt-10 md:mt-5 mx-auto">
+    <main>
+      <section>
+        <ClientPinTopArticle />
+      </section>
+      <section class="mt-5 md:mt-16">
+        <div class="tracking-wider text-lg">
+          <strong>近期更新文章</strong>
+        </div>
+        <div
+          class="mt-10 bg-white md:grid md:gap-x-5 xl:gap-x-10 md:gap-y-16 md:grid-cols-3">
+>>>>>>> a5fca3cc2b47cf8c126c0f1e0310ebdd64d2020b
           <indexPosts
             :data="articles"
             v-if="articles">
@@ -40,6 +54,7 @@
 </template>
 
 <script setup lang="ts">
+<<<<<<< HEAD
 useHead({
   title: `華生水資源 Blog | 環保、減碳、減塑`,
 });
@@ -69,6 +84,38 @@ const { data } = await useFetch<any>("/api/article/findManyArticles", {
       content: true,
       publish: true,
       subtitle: true,
+=======
+  useHead({
+    title: `華生水資源 Blog | 環保、減碳、減塑`,
+  });
+
+  import { useWindowSize } from '@vueuse/core';
+
+  // window viewpoint.
+  const { width } = useWindowSize();
+
+  // dynamic component.
+  const indexPosts = defineAsyncComponent(
+    () => import('~/components/client/indexPosts.vue')
+  );
+
+  // default articles.
+  const articleNums: Ref<number> = ref(3);
+
+  const { data } = await useFetch<any>('/api/article/findManyArticles', {
+    method: 'GET',
+    query: {
+      postNum: articleNums,
+      select: {
+        id: true,
+        title: true,
+        createdAt: true,
+        sort: true,
+        content: true,
+        publish: true,
+        subtitle: true,
+      },
+>>>>>>> a5fca3cc2b47cf8c126c0f1e0310ebdd64d2020b
     },
   },
 });
@@ -108,8 +155,50 @@ function dynamicLoadingArticles() {
       intersectionObserver.disconnect();
   });
 
+<<<<<<< HEAD
   // dataLoader listener
   const dataLoader = document.querySelector(".dataLoader") as HTMLElement;
   intersectionObserver.observe(dataLoader);
 }
+=======
+  const articles = computed(() => {
+    if (data.value) return data.value;
+    else return null;
+  });
+
+  const { data: articleLengthAPI } = await useFetch<any>(
+    '/api/article/totalArticleLength'
+  );
+
+  const articleLength = computed(() => {
+    if (articleLengthAPI.value) return articleLengthAPI.value;
+    else return 0;
+  });
+
+  const isLoadings = computed(() => {
+    if (data.value) return articleNums.value > articleLength.value;
+    else return false;
+  });
+
+  onMounted(() => {
+    dynamicLoadingArticles();
+  });
+
+  function dynamicLoadingArticles() {
+    const intersectionObserver = new IntersectionObserver((entries) => {
+      // if intersectionRatio === 0, means out of visible area
+      if (entries[0].intersectionRatio <= 0) return;
+
+      if (width.value <= 767) articleNums.value += 2;
+      else articleNums.value += 6;
+
+      if (articleNums.value > articleLength.value)
+        intersectionObserver.disconnect();
+    });
+
+    // dataLoader listener
+    const dataLoader = document.querySelector('.dataLoader') as HTMLElement;
+    intersectionObserver.observe(dataLoader);
+  }
+>>>>>>> a5fca3cc2b47cf8c126c0f1e0310ebdd64d2020b
 </script>
