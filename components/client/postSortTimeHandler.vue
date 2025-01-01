@@ -11,11 +11,8 @@
     v-show="tags.length > 0"
     class="mt-1 items-center flex"
     :class="textColor">
-    <div>
-      <font-awesome-icon :icon="['fas', 'box']" />
-    </div>
     <ul
-      class="flex pl-1.5 m-0 items-center"
+      class="flex mt-1 items-center"
       v-if="tags.length != 0">
       <li
         class="list-none"
