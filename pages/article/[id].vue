@@ -1,7 +1,7 @@
 <template>
   <UILayDefaultContainer>
     <article
-      v-if="article.data"
+      v-if="article?.data"
       class="pt-10">
       <UILayoutAlignCenter class="justify-center">
         <div
@@ -32,41 +32,44 @@
 
   interface seo {
     title: string;
-    description?: string;
-    ogDescription?: string;
+    description: string;
+    ogDescription: string;
     ogTitle: string;
     ogUrl: string;
     twitterTitle: string;
-    twitterDescription?: string;
+    twitterDescription: string;
   }
 
   const { data: article, error } = await useFetch<any>(postsUrl, {
     query: { id: route.params.id },
-    method: 'GET',
   });
 
   onBeforeMount(() => {
-    if (article.value?.state != 200) back();
+    if (error.value) {
+      alert('Something wrong.');
+      clearError({ redirect: '/' });
+    }
   });
 
-  async function back() {
-    await navigateTo('/');
-  }
-
   // SEO
+  const description =
+    '華生將是您戮力於ESG企業的最佳夥伴！60餘年歷史，飲水專家，歡迎前來華生水水工廠體驗館。擁有最先進高科技淨水設備，主要販售飲水機、瓶裝水、桶裝水，每日檢驗讓您安心喝好水';
+  const articleTitle = computed(() =>
+    article.value?.data?.title ? article.value.data.title : false
+  );
+  const articleDescription = computed(() =>
+    article.value?.data?.description ? article.value.data.description : false
+  );
 
   const seo: seo = {
-    title: article.value.data.title,
-    ogTitle: article.value.data.title,
+    title: articleTitle.value || '華生水資源',
+    ogTitle: articleTitle.value || '華生水資源',
+    twitterTitle: articleTitle.value || '華生水資源',
     ogUrl: `https://blog.hwaseng.com.tw/article/${route.params.id}`,
-    twitterTitle: article.value.data.title,
+    description: articleDescription.value || description,
+    ogDescription: articleDescription.value || description,
+    twitterDescription: articleDescription.value || description,
   };
-
-  if (article.value.data.description) {
-    seo['description'] = article.value.data.description;
-    seo['ogDescription'] = article.value.data.description;
-    seo['twitterDescription'] = article.value.data.description;
-  }
 
   useSeoMeta(seo);
 

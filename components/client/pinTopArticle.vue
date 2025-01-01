@@ -54,12 +54,15 @@
   );
 
   const article = computed(() => {
-    const val = data.value;
-    if (val?.state === 200) return data.value.data;
+    if (data.value) return data.value;
     else return null;
   });
 
-  const articleUrl = computed(() =>
-    article.value.customUrl ? article.value.customUrl : article.value.id
-  );
+  const articleUrl = computed(() => {
+    if (article.value)
+      return article.value.customUrl
+        ? article.value.customUrl
+        : article.value.id;
+    else return null;
+  });
 </script>

@@ -156,16 +156,16 @@
 
   async function fetchArticles() {
     try {
-      const data = await $fetch<any>(articleAPI, {
-        method: 'GET',
+      const data = await $fetch<any>('/api/admin/article', {
         query: {
           postNum: props.showPerPage,
           skip: (props.currentPage - 1) * props.showPerPage,
         },
       });
-      article.value = data.data;
-    } catch (error) {
-      console.error('Failed to fetch article:', error);
+
+      if (data) article.value = data;
+    } catch (error: any) {
+      alert(error.statusMessage);
     }
   }
 
@@ -184,14 +184,18 @@
   }
 
   async function processingDelete() {
-    const posts: object | any = await $fetch(articleAPI, {
-      method: 'DELETE',
-      query: {
-        id: deleteData.id,
-      },
-    });
+    try {
+      const posts: object | any = await $fetch('/api/admin/article', {
+        method: 'DELETE',
+        query: {
+          id: deleteData.id,
+        },
+      });
 
-    if (posts) resetDeleteValue();
+      if (posts) resetDeleteValue();
+    } catch (error: any) {
+      alert(error.statusMessage);
+    }
   }
 
   interface trSize {

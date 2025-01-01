@@ -3,17 +3,7 @@ import { PrismaClient } from '@prisma/client';
 const prismaClient = new PrismaClient();
 
 export default defineEventHandler(async (event) => {
-  try {
-    switch (event.method) {
-      case 'GET':
-        return await atricleCount();
-      default:
-        // Method Not Allowed
-        return { state: 400, msg: 'Method Not Allowed' };
-    }
-  } catch (error) {
-    console.log('error', error);
-  }
+  return await atricleCount();
 });
 
 async function atricleCount() {
@@ -24,9 +14,13 @@ async function atricleCount() {
       },
     });
 
-    if (data) return { state: 200, data };
-    else return { state: 400, msg: "can't find datas." };
+    if (data) return data;
+    else
+      throw createError({
+        statusCode: 400,
+        statusMessage: 'Invalid data',
+      });
   } catch (error) {
-    console.log('error', error);
+    throw error;
   }
 }
