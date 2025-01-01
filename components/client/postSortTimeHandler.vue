@@ -29,21 +29,21 @@
             {{ tag }}
           </NuxtLink>
         </div>
-        <span v-else>
-          {{ index === 0 ? '' : tags.length > 1 ? '、' : '' }}{{ tag }}</span
-        >
+        <template v-else>
+          <tag :dark="props.dark">{{ tag }}</tag>
+        </template>
       </li>
     </ul>
   </div>
 </template>
 
 <script setup lang="ts">
-  const { $sortDate } = useNuxtApp();
-  const props = defineProps(['tags', 'time', 'linkOpen', 'color']);
-  const tags = computed(() => {
-    return props.tags.split(',').filter((el: string) => el);
-  });
-  const textColor = computed(() =>
-    props.color ? props.color : 'text-gray-600'
-  );
+const { $sortDate } = useNuxtApp();
+const props = defineProps(["tags", "time", "linkOpen", "color", "dark"]);
+const tags = computed(() => {
+  return props.tags.split(",").filter((el: string) => el);
+});
+const textColor = computed(() => (props.color ? props.color : "text-gray-600"));
+
+const tag = defineAsyncComponent(() => import("~/components/common/tag.vue"));
 </script>
