@@ -1,13 +1,13 @@
 <template>
   <article v-if="article">
-    <div class="border border-gray-150 max-md:mb-10 rounded-md md:relative">
+    <div class="border border-gray-150 max-md:mb-10 rounded-2xl md:relative">
       <NuxtLink
         :to="`/article/${articleUrl}`"
         class="text-[#263d56] group">
         <!-- img -->
         <div
           id="banner"
-          class="max-md:aspect-video md:max-h-[400px] xl:max-h-[600px] overflow-y-hidden max-md:rounded-t-md md:rounded-md">
+          class="max-md:aspect-video md:max-h-[400px] xl:max-h-[600px] overflow-y-hidden max-md:rounded-t-2xl md:rounded-2xl">
           <bannerHandler
             class="object-cover rounded-t-md"
             :postId="article.id"
@@ -17,7 +17,7 @@
         <!-- text -->
 
         <div
-          class="px-3 py-2 md:py-3 md:px-5 md:absolute md:bottom-0 md:group-hover:bg-white/[.9] md:bg-black/[.6] md:w-full md:min-h-32 md:rounded-b-md">
+          class="px-3 py-2 md:py-3 md:px-5 md:absolute md:bottom-0 md:group-hover:bg-white/[.9] md:bg-black/[.6] md:w-full md:min-h-32 md:rounded-b-2xl">
           <!-- title -->
           <div class="max-md:mt-2">
             <h2

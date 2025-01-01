@@ -44,6 +44,6 @@
     return props.tags.split(',').filter((el: string) => el);
   });
   const textColor = computed(() =>
-    props.color ? props.color : 'text-gray-500'
+    props.color ? props.color : 'text-gray-600'
   );
 </script>
