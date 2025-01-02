@@ -4,7 +4,7 @@
       <!-- img -->
       <div
         id="banner"
-        class="aspect-[5/2.4] overflow-y-hidden">
+        class="md:aspect-[5/2.4] aspect-[5/3.4] overflow-y-hidden">
         <bannerHandler
           class="object-cover rounded-2xl"
           :postId="article.id"

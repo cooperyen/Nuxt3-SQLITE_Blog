@@ -1,6 +1,8 @@
-const defaultTheme = require("tailwindcss/defaultTheme");
 
 /** @type {import('tailwindcss').Config} */
+const defaultTheme = require("tailwindcss/defaultTheme");
+const colors = require('tailwindcss/colors')
+
 module.exports = {
   content: [
     "./components/**/*.{js,vue,ts}",
@@ -35,6 +37,7 @@ module.exports = {
         "top-to-bottom": "top-to-bottom 0.4s ease-in forwards",
       },
       colors: {
+        ...colors,
         background: "rgb(253,253,253)",
         "main-blue": "#263d56",
         "main-gray": "#ededed",
