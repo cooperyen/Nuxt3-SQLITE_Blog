@@ -1,11 +1,11 @@
 <template>
-  <div class="text-white">
+  <div class="text-main-blue">
     <div class="flex gap-5">
       <div>
         <NuxtLink to="/articles">
           <font-awesome-icon
             class="mr-1"
-            :icon="['fas', 'book-open']" />
+            :icon="['fas', 'file']" />
           {{ post?.articleLength }}
         </NuxtLink>
       </div>
@@ -22,11 +22,11 @@
 </template>
 
 <script setup lang="ts">
-  const postsUrl: string = '/api/option/headerOptionStatistics';
-  const emit = defineEmits(['update:showSearch']);
+const postsUrl: string = "/api/option/headerOptionStatistics";
+const emit = defineEmits(["update:showSearch"]);
 
-  const { data: post } = await useFetch<any>(postsUrl, {
-    lazy: true,
-    immediate: true,
-  });
+const { data: post } = await useFetch<any>(postsUrl, {
+  lazy: true,
+  immediate: true,
+});
 </script>

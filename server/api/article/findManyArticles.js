@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from "@prisma/client";
 
 const prismaClient = new PrismaClient();
 
@@ -19,7 +19,7 @@ async function findMany(event) {
     const options = {
       orderBy: [
         {
-          createdAt: 'desc',
+          createdAt: "desc",
         },
       ],
       where: {
@@ -37,9 +37,9 @@ async function findMany(event) {
       },
     };
 
-    if (query?.postNum) options['take'] = Number(query.postNum);
+    if (query?.postNum) options["take"] = Number(query.postNum);
     if (where?.content)
-      options['where']['content'] = { contains: where.content };
+      options["where"]["content"] = { contains: where.content };
 
     const data = await prismaClient.post.findMany(options);
 
@@ -47,7 +47,7 @@ async function findMany(event) {
     else
       throw createError({
         statusCode: 400,
-        statusMessage: 'Invalid data',
+        statusMessage: "Invalid data",
       });
   } catch (error) {
     throw error;

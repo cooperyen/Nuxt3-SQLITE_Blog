@@ -1,47 +1,46 @@
-const defaultTheme = require('tailwindcss/defaultTheme');
+import { fontFamily as _fontFamily } from "tailwindcss/defaultTheme";
 
 /** @type {import('tailwindcss').Config} */
-module.exports = {
-  content: [
-    './components/**/*.{js,vue,ts}',
-    './layouts/**/*.vue',
-    './pages/**/*.vue',
-    './plugins/**/*.{js,ts}',
-    './app.vue',
-    './error.vue',
-  ],
-  theme: {
-    extend: {
-      fontFamily: {
-        sans: ['"Noto Sans TC"', ...defaultTheme.fontFamily.sans],
+export const content = [
+  "./components/**/*.{js,vue,ts}",
+  "./layouts/**/*.vue",
+  "./pages/**/*.vue",
+  "./plugins/**/*.{js,ts}",
+  "./app.vue",
+  "./error.vue",
+];
+export const theme = {
+  extend: {
+    fontFamily: {
+      sans: ['"Noto Sans TC"', ..._fontFamily.sans],
+    },
+    keyframes: {
+      "bounce-stand": {
+        "0%": { top: "-50px" },
+        "100%": { top: "0px" },
       },
-      keyframes: {
-        'bounce-stand': {
-          '0%': { top: '-50px' },
-          '100%': { top: '0px' },
-        },
-        'bounce-stand-back': {
-          '0%': { top: '50px' },
-          '100%': { top: '0px' },
-        },
-        'top-to-bottom': {
-          '0%': { transform: '-500px' },
-          '100%': { translateY: '0px' },
-        },
+      "bounce-stand-back": {
+        "0%": { top: "50px" },
+        "100%": { top: "0px" },
       },
-      animation: {
-        'bounce-stand': 'bounce-stand 0.4s ease-in forwards',
-        'bounce-stand-back': 'bounce-stand-back 0.4s ease-in forwards',
-        'top-to-bottom': 'top-to-bottom 0.4s ease-in forwards',
-      },
-      colors: {
-        'main-blue': '#263d56',
-        'main-gray': '#ededed',
-        'light-gray': 'rgb(235,235,235)',
-        tag: 'rgb(228 238 243)',
-        mian_color: '#0891b2',
+      "top-to-bottom": {
+        "0%": { transform: "-500px" },
+        "100%": { translateY: "0px" },
       },
     },
+    animation: {
+      "bounce-stand": "bounce-stand 0.4s ease-in forwards",
+      "bounce-stand-back": "bounce-stand-back 0.4s ease-in forwards",
+      "top-to-bottom": "top-to-bottom 0.4s ease-in forwards",
+    },
+    colors: {
+      background: "rgb(253,253,253)",
+      "main-blue": "#263d56",
+      "main-gray": "#ededed",
+      "light-gray": "rgb(235,235,235)",
+      tag: "rgb(228 238 243)",
+      mian_color: "#0891b2",
+    },
   },
-  plugins: [],
 };
+export const plugins = [];

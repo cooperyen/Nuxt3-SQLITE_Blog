@@ -55,44 +55,44 @@
 </template>
 
 <script setup lang="ts">
-  const props = defineProps(['data', 'target', 'tag']);
-  const { $sortDate } = useNuxtApp();
+const props = defineProps(["data", "target", "tag"]);
+const { $sortDate } = useNuxtApp();
 
-  const sortData = computed(() => {
-    const res: any = {};
+const sortData = computed(() => {
+  const res: any = {};
 
-    props.data?.forEach((el: any) => {
-      const fullDate = new Date($sortDate(el.createdAt));
-      const getCurMonth = fullDate.getMonth() + 1;
-      const month = getCurMonth < 10 ? `0${getCurMonth}` : getCurMonth;
-      const date =
-        fullDate.getDate() < 10 ? `0${fullDate.getDate()}` : fullDate.getDate();
-      const year = fullDate.getFullYear();
+  props.data?.forEach((el: any) => {
+    const fullDate = new Date($sortDate(el.createdAt));
+    const getCurMonth = fullDate.getMonth() + 1;
+    const month = getCurMonth < 10 ? `0${getCurMonth}` : getCurMonth;
+    const date =
+      fullDate.getDate() < 10 ? `0${fullDate.getDate()}` : fullDate.getDate();
+    const year = fullDate.getFullYear();
 
-      const singlePost = {
-        id: el.id,
-        createdAt: `${month}/${date}`,
-        customUrl: el.customUrl,
-        title: el.title,
-      };
-      if (!res[year]) {
-        res[year] = {};
-        res[year]['post'] = [singlePost];
-      } else {
-        res[year]['post'].push(singlePost);
-      }
-    });
-    return res;
+    const singlePost = {
+      id: el.id,
+      createdAt: `${month}/${date}`,
+      customUrl: el.customUrl,
+      title: el.title,
+    };
+    if (!res[year]) {
+      res[year] = {};
+      res[year]["post"] = [singlePost];
+    } else {
+      res[year]["post"].push(singlePost);
+    }
   });
+  return res;
+});
 
-  const sortYears = computed(() => {
-    const res = Object.keys(sortData.value).sort((a, b) => {
-      return Number(b) - Number(a);
-    });
-    return res;
+const sortYears = computed(() => {
+  const res = Object.keys(sortData.value).sort((a, b) => {
+    return Number(b) - Number(a);
   });
+  return res;
+});
 
-  function getlinks(val: any) {
-    return val.customUrl != '' && val.customUrl ? val.customUrl : val.id;
-  }
+function getlinks(val: any) {
+  return val.customUrl != "" && val.customUrl ? val.customUrl : val.id;
+}
 </script>

@@ -1,18 +1,19 @@
 {
   "compilerOptions": {
-    "target": "ES2022",  
-    // "module": "commonjs", 
+    "module": "es2022",
+    "target": "es2022",
     "moduleResolution": "node",
-    "strict": true,  
-    "esModuleInterop": true,  
-    "skipLibCheck": true,         
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "verbatimModuleSyntax": true,
+    "verbatimModuleSyntax": true
   },
   "verbatimModuleSyntax": true,
-      
-  "extends": "./.nuxt/tsconfig.json", // 讀得到 ref 
-  "include": [ // 納入 .vue 文件
+
+  "extends": "./.nuxt/tsconfig.json", // 讀得到 ref
+  "include": [
+    // 納入 .vue 文件
     "src/**/*.ts",
     "src/**/*.d.ts",
     "src/**/*.tsx",
@@ -21,9 +22,9 @@
     ".nuxt/nuxt.d.ts", // 讀得到 ref
     "**/*" // 讀得到 ref
   ],
-  "exclude": [ // 指定排除的文件
+  "exclude": [
+    // 指定排除的文件
     "node_modules",
     "server/tsconfig.json" // This is what fixed it
   ]
-  
 }

@@ -8,14 +8,14 @@
           id="title"
           class="">
           <!-- title -->
-          <h1 class="text-4xl font-bold">{{ article.data.title }}</h1>
+          <h1 class="text-4xl mb-5 font-bold text-main-blue">{{ article.data.title }}</h1>
           <!-- subtitle -->
-          <h2 class="text-2xl mt-3">{{ article.data.subtitle }}</h2>
-          <PostSortTimeHandler
+          <h2 class="text-xl">{{ article.data.subtitle }}</h2>
+          <postSortTimeHandler
             :tags="article.data.sort"
             :time="article.data.createdAt"
             :linkOpen="true">
-          </PostSortTimeHandler>
+          </postSortTimeHandler>
         </div>
         <UISeparatorLine class="mt-5" />
         <div
@@ -29,6 +29,10 @@
 <script setup lang="ts">
   const postsUrl: string = '/api/article/findSingleArticle';
   const route = useRoute();
+
+  const postSortTimeHandler = defineAsyncComponent(
+    () => import('~/components/client/postSortTimeHandler.vue')
+  );
 
   interface seo {
     title: string;
