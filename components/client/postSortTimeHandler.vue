@@ -27,7 +27,7 @@
           </NuxtLink>
         </div>
         <template v-else>
-          <tag :dark="props.dark">{{ tag }}</tag>
+          <tagHandler :dark="props.dark">{{ tag }}</tagHandler>
         </template>
       </li>
     </ul>
@@ -35,6 +35,8 @@
 </template>
 
 <script setup lang="ts">
+const tagHandler = defineAsyncComponent(() => import("~/components/common/tag.vue"));
+
 const { $sortDate } = useNuxtApp();
 const props = defineProps(["tags", "time", "linkOpen", "color", "dark"]);
 const tags = computed(() => {
@@ -42,5 +44,5 @@ const tags = computed(() => {
 });
 const textColor = computed(() => (props.color ? props.color : "text-gray-600"));
 
-const tag = defineAsyncComponent(() => import("~/components/common/tag.vue"));
+
 </script>
