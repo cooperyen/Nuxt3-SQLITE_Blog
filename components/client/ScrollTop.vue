@@ -8,9 +8,8 @@
 </template>
 
 <script setup lang="ts">
-  import { useWindowSize } from '@vueuse/core';
-  const { width, height } = useWindowSize();
-  const showScroll = ref(false);
+
+  const showScroll:Ref<Boolean> = ref(false);
 
   onMounted(() => {
     if (import.meta.client) window.addEventListener('scroll', windowH);

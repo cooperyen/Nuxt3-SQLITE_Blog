@@ -1,6 +1,8 @@
 /** @type {import('tailwindcss').Config} */
-const defaultTheme = require('tailwindcss/defaultTheme');
-const colors = require('tailwindcss/colors');
+// const defaultTheme = require('tailwindcss/defaultTheme');
+// const colors = require('tailwindcss/colors');
+import theme from 'tailwindcss/defaultTheme';
+import colors from 'tailwindcss/colors'
 
 module.exports = {
   content: [
@@ -14,7 +16,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['"Noto Sans TC"', ...defaultTheme.fontFamily.sans],
+        sans: ['"Noto Sans TC"', ...theme.fontFamily.sans],
       },
       keyframes: {
         'bounce-stand': {
