@@ -49,7 +49,6 @@
     'currentPage',
     'range',
     'showPerPage',
-    'max',
   ]);
   const emits = defineEmits(['update:currentPage']);
   const pre = computed(() => {
@@ -60,7 +59,7 @@
   });
 
   const maxPage = computed(() =>
-    props.max?.state === 200 ? props.max.data : 0
+    props.max ? props.max : 0
   );
 
   // 總計幾頁
@@ -117,6 +116,8 @@
       { length: totalPages.value },
       (v, k) => k + 1
     );
+
+    console.log(totalPages.value);
 
     let res: Array<number> = [];
 
